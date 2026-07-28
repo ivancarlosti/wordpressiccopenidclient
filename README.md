@@ -2,6 +2,10 @@
 
 A WordPress plugin that provides SSO (Single Sign-On) authentication against an OpenID Connect OAuth2 Identity Provider using Authorization Code Flow.
 
+<!-- buttons -->
+
+<!-- endbuttons -->
+
 ## Features
 
 - **Auto Login (SSO)** — Automatically redirect users to the Identity Provider for authentication
@@ -147,3 +151,5 @@ Based on [OpenID Connect Generic](https://github.com/oidc-wp/openid-connect-gene
 ## License
 
 GPL-2.0+ — See [LICENSE](http://www.gnu.org/licenses/gpl-2.0.txt) for details.
+
+<!-- footer -->
