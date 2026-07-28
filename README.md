@@ -3,7 +3,16 @@
 A WordPress plugin that provides SSO (Single Sign-On) authentication against an OpenID Connect OAuth2 Identity Provider using Authorization Code Flow.
 
 <!-- buttons -->
-
+[![Stars](https://img.shields.io/github/stars/ivancarlosti/wordpressiccopenidclient?label=⭐%20Stars&color=gold&style=flat)](https://github.com/ivancarlosti/wordpressiccopenidclient/stargazers)
+[![Watchers](https://img.shields.io/github/watchers/ivancarlosti/wordpressiccopenidclient?label=Watchers&style=flat&color=red)](https://github.com/sponsors/ivancarlosti)
+[![Forks](https://img.shields.io/github/forks/ivancarlosti/wordpressiccopenidclient?label=Forks&style=flat&color=ff69b4)](https://github.com/sponsors/ivancarlosti)
+[![Downloads](https://img.shields.io/github/downloads/ivancarlosti/wordpressiccopenidclient/total?label=Downloads&color=success)](https://github.com/ivancarlosti/wordpressiccopenidclient/releases)
+[![GitHub commit activity](https://img.shields.io/github/commit-activity/m/ivancarlosti/wordpressiccopenidclient?label=Activity)](https://github.com/ivancarlosti/wordpressiccopenidclient/pulse)
+[![GitHub Issues](https://img.shields.io/github/issues/ivancarlosti/wordpressiccopenidclient?label=Issues&color=orange)](https://github.com/ivancarlosti/wordpressiccopenidclient/issues)  
+[![License](https://img.shields.io/github/license/ivancarlosti/wordpressiccopenidclient?label=License)](LICENSE)
+[![GitHub last commit](https://img.shields.io/github/last-commit/ivancarlosti/wordpressiccopenidclient?label=Last%20Commit)](https://github.com/ivancarlosti/wordpressiccopenidclient/commits)
+[![Security](https://img.shields.io/badge/Security-View%20Here-purple)](https://github.com/ivancarlosti/wordpressiccopenidclient/security)
+[![Code of Conduct](https://img.shields.io/badge/Code%20of%20Conduct-2.1-4baaaa)](https://github.com/ivancarlosti/wordpressiccopenidclient?tab=coc-ov-file)
 <!-- endbuttons -->
 
 ## Features
@@ -153,3 +162,17 @@ Based on [OpenID Connect Generic](https://github.com/oidc-wp/openid-connect-gene
 GPL-2.0+ — See [LICENSE](http://www.gnu.org/licenses/gpl-2.0.txt) for details.
 
 <!-- footer -->
+---
+
+## 🧑‍💻 Consulting and technical support
+* For personal support and queries, please submit a new issue to have it addressed.
+* For commercial related questions, please [**contact me**][ivancarlos] for consulting costs.
+
+[cc]: https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-code-of-conduct-to-your-project
+[contributing]: https://docs.github.com/en/articles/setting-guidelines-for-repository-contributors
+[security]: https://docs.github.com/en/code-security/getting-started/adding-a-security-policy-to-your-repository
+[support]: https://docs.github.com/en/articles/adding-support-resources-to-your-project
+[it]: https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository#configuring-the-template-chooser
+[prt]: https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/creating-a-pull-request-template-for-your-repository
+[funding]: https://docs.github.com/en/articles/displaying-a-sponsor-button-in-your-repository
+[ivancarlos]: https://ivancarlos.me
