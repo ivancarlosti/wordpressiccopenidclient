@@ -1,0 +1,41 @@
+<?php return array(
+    'root' => array(
+        'name' => 'daggerhart/openid-connect-generic',
+        'pretty_version' => '3.11.3',
+        'version' => '3.11.3.0',
+        'reference' => '0ef442c0f61bda837bddacec37b96035176bee27',
+        'type' => 'wordpress-plugin',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'dev' => false,
+    ),
+    'versions' => array(
+        'composer/installers' => array(
+            'pretty_version' => 'v2.3.0',
+            'version' => '2.3.0.0',
+            'reference' => '12fb2dfe5e16183de69e784a7b84046c43d97e8e',
+            'type' => 'composer-plugin',
+            'install_path' => __DIR__ . '/./installers',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'daggerhart/openid-connect-generic' => array(
+            'pretty_version' => '3.11.3',
+            'version' => '3.11.3.0',
+            'reference' => '0ef442c0f61bda837bddacec37b96035176bee27',
+            'type' => 'wordpress-plugin',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'firebase/php-jwt' => array(
+            'pretty_version' => 'v6.11.1',
+            'version' => '6.11.1.0',
+            'reference' => 'd1e91ecf8c598d073d0995afa8cd5c75c6e19e66',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../firebase/php-jwt',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+    ),
+);

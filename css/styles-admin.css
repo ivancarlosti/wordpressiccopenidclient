@@ -1,0 +1,72 @@
+#logger-table .col-data {
+	width: 85%
+}
+
+#logger-table .col-data pre {
+	margin: 0;
+	white-space: pre;           /* CSS 2.0 */
+	white-space: pre-wrap;      /* CSS 2.1 */
+	white-space: pre-line;      /* CSS 3.0 */
+	white-space: -pre-wrap;     /* Opera 4-6 */
+	white-space: -o-pre-wrap;   /* Opera 7 */
+	white-space: -moz-pre-wrap; /* Mozilla */
+	white-space: -hp-pre-wrap;  /* HP Printers */
+	word-wrap: break-word;      /* IE 5+ */
+}
+
+#logger-table .col-details {
+	width: 200px;
+}
+
+#logger-table .col-details div {
+	padding: 4px 0;
+	border-bottom: 1px solid #bbb;
+}
+
+#logger-table .col-details div:last-child {
+	border-bottom: none;
+}
+
+#logger-table .col-details label {
+	font-weight: bold;
+}
+
+/* Discovery Document Import Form */
+.oidc-discovery-section {
+	margin: 20px 0;
+}
+
+.oidc-discovery-summary {
+	cursor: pointer;
+	font-size: 1.1em;
+	font-weight: 600;
+	padding: 10px;
+	background: #f0f0f1;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+}
+
+.oidc-discovery-summary:hover {
+	background: #e8e8e9;
+}
+
+.oidc-discovery-content {
+	margin: 15px 0 0 0;
+	padding: 15px;
+	border-left: 4px solid #72aee6;
+}
+
+.oidc-discovery-url-input {
+	width: 500px;
+	max-width: 100%;
+}
+
+.oidc-discovery-separator {
+	margin: 30px 0;
+}
+
+/* Warning text styling */
+.oidc-warning {
+	color: #d63638;
+	font-weight: bold;
+}
