@@ -34,7 +34,7 @@ Please submit issues to the Github repo: https://github.com/ivancarlosti/wordpre
 = What is the client's Redirect URI? =
 
 Most OAuth2 servers will require whitelisting a set of redirect URIs for security purposes. The Redirect URI provided
-by this client is like so:  https://example.com/wp-admin/admin-ajax.php?action=openid-connect-authorize
+by this client is like so:  https://example.com/wp-admin/admin-ajax.php?action=icc-openid-authorize
 
 Replace `example.com` with your domain name and path to WordPress.
 
@@ -47,7 +47,7 @@ an alternate redirect URI that does not include a query string.
 
 On the settings page for this plugin (Dashboard > Settings > ICC OpenID Client) there is a checkbox for
 **Alternate Redirect URI**. When checked, the plugin will use the Redirect URI
-`https://example.com/openid-connect-authorize`.
+`https://example.com/icc-openid-authorize`.
 
 == Upgrade Notice ==
 
@@ -109,8 +109,8 @@ SECURITY UPDATE: 3.11.x branch - Fixes authentication vulnerabilities including 
 * Chore: @daggerhart - Release workflow updates.
 * Improved error handling for malformed urls.
 * Fix: @JUVOJustin - Change request for userinfo to GET.
-* Feature: @JUVOJustin - New filter for settings values `openid-connect-generic-settings`.
-* Feature: @JUVOJustin - New filter for state values `openid-connect-generic-new-state-value`.
+* Feature: @JUVOJustin - New filter for settings values `icc-openid-client-settings`.
+* Feature: @JUVOJustin - New filter for state values `icc-openid-client-new-state-value`.
 
 = 3.10.0 =
 
@@ -150,7 +150,7 @@ SECURITY UPDATE: 3.11.x branch - Fixes authentication vulnerabilities including 
 
 * Fix: @timnolte - Fixed missing URL request validation before use & ensure proper current page URL is setup for Redirect Back.
 * Fix: @timnolte - Fixed Redirect URL Logic to Handle Sub-directory Installs.
-* Fix: @timnolte - Fixed issue with redirecting user back when the openid_connect_generic_auth_url shortcode is used.
+* Fix: @timnolte - Fixed issue with redirecting user back when the icc_openid_client_auth_url shortcode is used.
 
 = 3.8.4 =
 
