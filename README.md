@@ -153,14 +153,6 @@ Translations are managed through `.po` files in the `languages/` directory.
 
 Based on [OpenID Connect Generic](https://github.com/oidc-wp/openid-connect-generic) by [daggerhart](https://github.com/daggerhart).
 
-### Original Contributors
-- [daggerhart](https://github.com/daggerhart)
-- [tnolte](https://github.com/tnolte)
-
-## License
-
-GPL-2.0+ — See [LICENSE](http://www.gnu.org/licenses/gpl-2.0.txt) for details.
-
 <!-- footer -->
 ---
 
