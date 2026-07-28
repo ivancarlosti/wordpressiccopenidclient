@@ -1,9 +1,5 @@
 # ICC OpenID Client
 
-[![WordPress](https://img.shields.io/badge/WordPress-5.0+-blue.svg)](https://wordpress.org/)
-[![PHP](https://img.shields.io/badge/PHP-7.4+-purple.svg)](https://php.net/)
-[![License](https://img.shields.io/badge/License-GPL%20v2.0-green.svg)](http://www.gnu.org/licenses/gpl-2.0.txt)
-
 A WordPress plugin that provides SSO (Single Sign-On) authentication against an OpenID Connect OAuth2 Identity Provider using Authorization Code Flow.
 
 ## Features
