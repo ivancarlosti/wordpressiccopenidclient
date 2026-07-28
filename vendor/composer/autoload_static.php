@@ -137,14 +137,14 @@ class ComposerStaticInitdf50dab69727c9acc15d5a5590cd963a
         'Firebase\\JWT\\JWTExceptionWithPayloadInterface' => __DIR__ . '/..' . '/firebase/php-jwt/src/JWTExceptionWithPayloadInterface.php',
         'Firebase\\JWT\\Key' => __DIR__ . '/..' . '/firebase/php-jwt/src/Key.php',
         'Firebase\\JWT\\SignatureInvalidException' => __DIR__ . '/..' . '/firebase/php-jwt/src/SignatureInvalidException.php',
-        'OpenID_Connect_Generic' => __DIR__ . '/../..' . '/openid-connect-generic.php',
-        'OpenID_Connect_Generic_Client' => __DIR__ . '/../..' . '/includes/openid-connect-generic-client.php',
-        'OpenID_Connect_Generic_Client_Wrapper' => __DIR__ . '/../..' . '/includes/openid-connect-generic-client-wrapper.php',
-        'OpenID_Connect_Generic_JWT_Validator' => __DIR__ . '/../..' . '/includes/openid-connect-generic-jwt-validator.php',
-        'OpenID_Connect_Generic_Login_Form' => __DIR__ . '/../..' . '/includes/openid-connect-generic-login-form.php',
-        'OpenID_Connect_Generic_Option_Logger' => __DIR__ . '/../..' . '/includes/openid-connect-generic-option-logger.php',
-        'OpenID_Connect_Generic_Option_Settings' => __DIR__ . '/../..' . '/includes/openid-connect-generic-option-settings.php',
-        'OpenID_Connect_Generic_Settings_Page' => __DIR__ . '/../..' . '/includes/openid-connect-generic-settings-page.php',
+        'ICC_OpenID_Client' => __DIR__ . '/../..' . '/icc-openid-client.php',
+        'ICC_OpenID_Client_Client' => __DIR__ . '/../..' . '/includes/icc-openid-client-client.php',
+        'ICC_OpenID_Client_Client_Wrapper' => __DIR__ . '/../..' . '/includes/icc-openid-client-client-wrapper.php',
+        'ICC_OpenID_Client_JWT_Validator' => __DIR__ . '/../..' . '/includes/icc-openid-client-jwt-validator.php',
+        'ICC_OpenID_Client_Login_Form' => __DIR__ . '/../..' . '/includes/icc-openid-client-login-form.php',
+        'ICC_OpenID_Client_Option_Logger' => __DIR__ . '/../..' . '/includes/icc-openid-client-option-logger.php',
+        'ICC_OpenID_Client_Option_Settings' => __DIR__ . '/../..' . '/includes/icc-openid-client-option-settings.php',
+        'ICC_OpenID_Client_Settings_Page' => __DIR__ . '/../..' . '/includes/icc-openid-client-settings-page.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

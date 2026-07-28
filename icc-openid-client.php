@@ -5,7 +5,7 @@
  * This plugin provides the ability to authenticate users with Identity
  * Providers using the OpenID Connect OAuth2 API with Authorization Code Flow.
  *
- * @package   OpenID_Connect_Generic
+ * @package   ICC_OpenID_Client
  * @category  General
  * @author    Jonathan Daggerhart <jonathan@daggerhartlab.com>
  * @copyright 2015-2023 daggerhart
@@ -21,11 +21,11 @@
  * Requires PHP:      7.4
  * Author:            daggerhart
  * Author URI:        https://www.daggerhartlab.com
- * Text Domain:       daggerhart-openid-connect-generic
+ * Text Domain:       icc-openid-client
  * Domain Path:       /languages
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * GitHub Plugin URI: https://github.com/oidc-wp/openid-connect-generic
+ * GitHub Plugin URI: https://github.com/oidc-wp/icc-openid-client
  */
 
 /*
@@ -33,58 +33,58 @@ Notes
   Spec Doc - http://openid.net/specs/openid-connect-basic-1_0-32.html
 
   Filters
-  - openid-connect-generic-alter-request       - 3 args: request array, plugin settings, specific request op
-  - openid-connect-generic-settings-fields     - modify the fields provided on the settings page
-  - openid-connect-generic-settings            - modify settings values early in plugin bootstrap.
-  - openid-connect-generic-login-button-text   - modify the login button text
-  - openid-connect-generic-cookie-redirect-url - modify the redirect url stored as a cookie
-  - openid-connect-generic-user-login-test     - (bool) should the user be logged in based on their claim
-  - openid-connect-generic-user-creation-test  - (bool) should the user be created based on their claim
-  - openid-connect-generic-auth-url            - modify the authentication url
-  - openid-connect-generic-alter-user-claim    - modify the user_claim before a new user is created
-  - openid-connect-generic-alter-user-data     - modify user data before a new user is created
+  - icc-openid-client-alter-request       - 3 args: request array, plugin settings, specific request op
+  - icc-openid-client-settings-fields     - modify the fields provided on the settings page
+  - icc-openid-client-settings            - modify settings values early in plugin bootstrap.
+  - icc-openid-client-login-button-text   - modify the login button text
+  - icc-openid-client-cookie-redirect-url - modify the redirect url stored as a cookie
+  - icc-openid-client-user-login-test     - (bool) should the user be logged in based on their claim
+  - icc-openid-client-user-creation-test  - (bool) should the user be created based on their claim
+  - icc-openid-client-auth-url            - modify the authentication url
+  - icc-openid-client-alter-user-claim    - modify the user_claim before a new user is created
+  - icc-openid-client-alter-user-data     - modify user data before a new user is created
   - openid-connect-modify-token-response-before-validation - modify the token response before validation
   - openid-connect-modify-id-token-claim-before-validation - modify the token claim before validation
-  - openid-connect-generic-new-state-value     - modify the user's state value before it us saved.
+  - icc-openid-client-new-state-value     - modify the user's state value before it us saved.
 
   Actions
-  - openid-connect-generic-user-create                     - 2 args: fires when a new user is created by this plugin
-  - openid-connect-generic-user-update                     - 1 arg: user ID, fires when user is updated by this plugin
-  - openid-connect-generic-update-user-using-current-claim - 2 args: fires every time an existing user logs in and the claims are updated.
-  - openid-connect-generic-redirect-user-back              - 2 args: $redirect_url, $user. Allows interruption of redirect during login.
-  - openid-connect-generic-user-logged-in                  - 1 arg: $user, fires when user is logged in.
-  - openid-connect-generic-cron-daily                      - daily cron action
-  - openid-connect-generic-state-not-found                 - the given state does not exist in the database, regardless of its expiration.
-  - openid-connect-generic-state-expired                   - the given state exists, but expired before this login attempt.
+  - icc-openid-client-user-create                     - 2 args: fires when a new user is created by this plugin
+  - icc-openid-client-user-update                     - 1 arg: user ID, fires when user is updated by this plugin
+  - icc-openid-client-update-user-using-current-claim - 2 args: fires every time an existing user logs in and the claims are updated.
+  - icc-openid-client-redirect-user-back              - 2 args: $redirect_url, $user. Allows interruption of redirect during login.
+  - icc-openid-client-user-logged-in                  - 1 arg: $user, fires when user is logged in.
+  - icc-openid-client-cron-daily                      - daily cron action
+  - icc-openid-client-state-not-found                 - the given state does not exist in the database, regardless of its expiration.
+  - icc-openid-client-state-expired                   - the given state exists, but expired before this login attempt.
 
   Callable actions
 
-  User Meta (since v3.10.4 prefixed with the blog database prefix, for example wp_2_openid-connect-generic-subject-identity)
-  - [[BLOG_DB_PREFIX]]openid-connect-generic-subject-identity    - the identity of the user provided by the idp
-  - [[BLOG_DB_PREFIX]]openid-connect-generic-last-id-token-claim - the user's most recent id_token claim, decoded
-  - [[BLOG_DB_PREFIX]]openid-connect-generic-last-user-claim     - the user's most recent user_claim
-  - [[BLOG_DB_PREFIX]]openid-connect-generic-last-token-response - the user's most recent token response
+  User Meta (since v3.10.4 prefixed with the blog database prefix, for example wp_2_icc-openid-client-subject-identity)
+  - [[BLOG_DB_PREFIX]]icc-openid-client-subject-identity    - the identity of the user provided by the idp
+  - [[BLOG_DB_PREFIX]]icc-openid-client-last-id-token-claim - the user's most recent id_token claim, decoded
+  - [[BLOG_DB_PREFIX]]icc-openid-client-last-user-claim     - the user's most recent user_claim
+  - [[BLOG_DB_PREFIX]]icc-openid-client-last-token-response - the user's most recent token response
 
   Options
-  - openid_connect_generic_settings     - plugin settings
-  - openid-connect-generic-valid-states - locally stored generated states
+  - icc_openid_client_settings     - plugin settings
+  - icc-openid-client-valid-states - locally stored generated states
 */
 
 
 /**
- * OpenID_Connect_Generic class.
+ * ICC_OpenID_Client class.
  *
  * Defines plugin initialization functionality.
  *
- * @package OpenID_Connect_Generic
+ * @package ICC_OpenID_Client
  * @category  General
  */
-class OpenID_Connect_Generic {
+class ICC_OpenID_Client {
 
 	/**
 	 * Singleton instance of self
 	 *
-	 * @var OpenID_Connect_Generic
+	 * @var ICC_OpenID_Client
 	 */
 	protected static $_instance = null;
 
@@ -98,40 +98,40 @@ class OpenID_Connect_Generic {
 	/**
 	 * Plugin settings.
 	 *
-	 * @var OpenID_Connect_Generic_Option_Settings
+	 * @var ICC_OpenID_Client_Option_Settings
 	 */
 	private $settings;
 
 	/**
 	 * Plugin logs.
 	 *
-	 * @var OpenID_Connect_Generic_Option_Logger
+	 * @var ICC_OpenID_Client_Option_Logger
 	 */
 	private $logger;
 
 	/**
 	 * Openid Connect Generic client
 	 *
-	 * @var OpenID_Connect_Generic_Client
+	 * @var ICC_OpenID_Client_Client
 	 */
 	private $client;
 
 	/**
 	 * Client wrapper.
 	 *
-	 * @var OpenID_Connect_Generic_Client_Wrapper
+	 * @var ICC_OpenID_Client_Client_Wrapper
 	 */
 	public $client_wrapper;
 
 	/**
 	 * Setup the plugin
 	 *
-	 * @param OpenID_Connect_Generic_Option_Settings $settings The settings object.
-	 * @param OpenID_Connect_Generic_Option_Logger   $logger   The loggin object.
+	 * @param ICC_OpenID_Client_Option_Settings $settings The settings object.
+	 * @param ICC_OpenID_Client_Option_Logger   $logger   The loggin object.
 	 *
 	 * @return void
 	 */
-	public function __construct( OpenID_Connect_Generic_Option_Settings $settings, OpenID_Connect_Generic_Option_Logger $logger ) {
+	public function __construct( ICC_OpenID_Client_Option_Settings $settings, ICC_OpenID_Client_Option_Logger $logger ) {
 		$this->settings = $settings;
 		$this->logger = $logger;
 		self::$_instance = $this;
@@ -147,9 +147,9 @@ class OpenID_Connect_Generic {
 	public function init() {
 
 		// Allow altering the settings.
-		$this->settings = apply_filters( 'openid-connect-generic-settings', $this->settings );
+		$this->settings = apply_filters( 'icc-openid-client-settings', $this->settings );
 
-		$this->client = new OpenID_Connect_Generic_Client(
+		$this->client = new ICC_OpenID_Client_Client(
 			$this->settings->client_id,
 			$this->settings->client_secret,
 			$this->settings->scope,
@@ -166,23 +166,23 @@ class OpenID_Connect_Generic {
 			$this->logger
 		);
 
-		$this->client_wrapper = OpenID_Connect_Generic_Client_Wrapper::register( $this->client, $this->settings, $this->logger );
+		$this->client_wrapper = ICC_OpenID_Client_Client_Wrapper::register( $this->client, $this->settings, $this->logger );
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			return;
 		}
 
-		OpenID_Connect_Generic_Login_Form::register( $this->settings, $this->client_wrapper, $this->client );
+		ICC_OpenID_Client_Login_Form::register( $this->settings, $this->client_wrapper, $this->client );
 
 		// Add a shortcode to get the auth URL.
-		add_shortcode( 'openid_connect_generic_auth_url', array( $this->client_wrapper, 'get_authentication_url' ) );
+		add_shortcode( 'icc_openid_client_auth_url', array( $this->client_wrapper, 'get_authentication_url' ) );
 
 		// Add actions to our scheduled cron jobs.
-		add_action( 'openid-connect-generic-cron-daily', array( $this, 'cron_states_garbage_collection' ) );
+		add_action( 'icc-openid-client-cron-daily', array( $this, 'cron_states_garbage_collection' ) );
 
 		$this->upgrade();
 
 		if ( is_admin() ) {
-			OpenID_Connect_Generic_Settings_Page::register( $this->settings, $this->logger );
+			ICC_OpenID_Client_Settings_Page::register( $this->settings, $this->logger );
 			add_action( 'admin_notices', array( $this, 'admin_notice_jwks_required' ) );
 		}
 	}
@@ -190,15 +190,15 @@ class OpenID_Connect_Generic {
 	/**
 	 * Get the default redirect URI.
 	 *
-	 * @param OpenID_Connect_Generic_Option_Settings $settings The settings object.
+	 * @param ICC_OpenID_Client_Option_Settings $settings The settings object.
 	 *
 	 * @return string
 	 */
-	public function get_redirect_uri( OpenID_Connect_Generic_Option_Settings $settings ) {
-		$redirect_uri = admin_url( 'admin-ajax.php?action=openid-connect-authorize' );
+	public function get_redirect_uri( ICC_OpenID_Client_Option_Settings $settings ) {
+		$redirect_uri = admin_url( 'admin-ajax.php?action=icc-openid-authorize' );
 
 		if ( $settings->alternate_redirect_uri ) {
-			$redirect_uri = site_url( '/openid-connect-authorize' );
+			$redirect_uri = site_url( '/icc-openid-authorize' );
 		}
 
 		return $redirect_uri;
@@ -207,11 +207,11 @@ class OpenID_Connect_Generic {
 	/**
 	 * Get the default state time limit.
 	 *
-	 * @param OpenID_Connect_Generic_Option_Settings $settings The settings object.
+	 * @param ICC_OpenID_Client_Option_Settings $settings The settings object.
 	 *
 	 * @return int
 	 */
-	public function get_state_time_limit( OpenID_Connect_Generic_Option_Settings $settings ) {
+	public function get_state_time_limit( ICC_OpenID_Client_Option_Settings $settings ) {
 		$state_time_limit = 180;
 		// State time limit cannot be zero.
 		if ( $settings->state_time_limit ) {
@@ -234,7 +234,7 @@ class OpenID_Connect_Generic {
 				! defined( 'DOING_AJAX' ) ||
 				! boolval( constant( 'DOING_AJAX' ) ) ||
 				! isset( $_GET['action'] ) ||
-				'openid-connect-authorize' != $_GET['action'] ) {
+				'icc-openid-authorize' != $_GET['action'] ) {
 				auth_redirect();
 			}
 		}
@@ -249,7 +249,7 @@ class OpenID_Connect_Generic {
 	 */
 	public function enforce_privacy_feeds( $content ) {
 		if ( $this->settings->enforce_privacy && ! is_user_logged_in() ) {
-			$content = __( 'Private site', 'daggerhart-openid-connect-generic' );
+			$content = __( 'Private site', 'icc-openid-client' );
 		}
 		return $content;
 	}
@@ -275,28 +275,28 @@ class OpenID_Connect_Generic {
 			return;
 		}
 
-		$settings_url = admin_url( 'options-general.php?page=openid-connect-generic-settings' );
+		$settings_url = admin_url( 'options-general.php?page=icc-openid-client-settings' );
 		?>
 		<div class="notice notice-error">
 			<p>
-				<strong><?php esc_html_e( 'ICC OpenID Client - Security Configuration Required', 'daggerhart-openid-connect-generic' ); ?></strong>
+				<strong><?php esc_html_e( 'ICC OpenID Client - Security Configuration Required', 'icc-openid-client' ); ?></strong>
 			</p>
 			<p>
 				<?php
 				echo wp_kses_post(
 					sprintf(
 						/* translators: %s is a link to the settings page */
-						__( 'Your OpenID Connect authentication is using an insecure fallback method. You must configure the <strong>JWKS endpoint</strong> in <a href="%s">plugin settings</a> as soon as possible.', 'daggerhart-openid-connect-generic' ),
+						__( 'Your OpenID Connect authentication is using an insecure fallback method. You must configure the <strong>JWKS endpoint</strong> in <a href="%s">plugin settings</a> as soon as possible.', 'icc-openid-client' ),
 						esc_url( $settings_url )
 					)
 				);
 				?>
 			</p>
 			<p>
-				<?php esc_html_e( 'The current insecure fallback will be removed in version 3.12.0. After that update, authentication will fail until the JWKS endpoint is configured.', 'daggerhart-openid-connect-generic' ); ?>
+				<?php esc_html_e( 'The current insecure fallback will be removed in version 3.12.0. After that update, authentication will fail until the JWKS endpoint is configured.', 'icc-openid-client' ); ?>
 			</p>
 			<p>
-				<strong><?php esc_html_e( 'Common JWKS endpoints:', 'daggerhart-openid-connect-generic' ); ?></strong><br>
+				<strong><?php esc_html_e( 'Common JWKS endpoints:', 'icc-openid-client' ); ?></strong><br>
 				• Keycloak: <code>https://your-domain/realms/your-realm/protocol/openid-connect/certs</code><br>
 				• Auth0: <code>https://your-domain.auth0.com/.well-known/jwks.json</code><br>
 				• Okta: <code>https://your-domain.okta.com/oauth2/default/v1/keys</code><br>
@@ -313,7 +313,7 @@ class OpenID_Connect_Generic {
 	 * @return void
 	 */
 	public function upgrade() {
-		$last_version = get_option( 'openid-connect-generic-plugin-version', 0 );
+		$last_version = get_option( 'icc-openid-client-plugin-version', 0 );
 		$settings = $this->settings;
 
 		if ( version_compare( self::VERSION, $last_version, '>' ) ) {
@@ -331,7 +331,7 @@ class OpenID_Connect_Generic {
 			}
 
 			// Update the stored version number.
-			update_option( 'openid-connect-generic-plugin-version', self::VERSION );
+			update_option( 'icc-openid-client-plugin-version', self::VERSION );
 		}
 	}
 
@@ -343,7 +343,7 @@ class OpenID_Connect_Generic {
 	 */
 	public function cron_states_garbage_collection() {
 		global $wpdb;
-		$states = $wpdb->get_col( "SELECT `option_name` FROM {$wpdb->options} WHERE `option_name` LIKE '_transient_openid-connect-generic-state--%'" );
+		$states = $wpdb->get_col( "SELECT `option_name` FROM {$wpdb->options} WHERE `option_name` LIKE '_transient_icc-openid-client-state--%'" );
 
 		if ( ! empty( $states ) ) {
 			foreach ( $states as $state ) {
@@ -359,8 +359,8 @@ class OpenID_Connect_Generic {
 	 * @return void
 	 */
 	public static function setup_cron_jobs() {
-		if ( ! wp_next_scheduled( 'openid-connect-generic-cron-daily' ) ) {
-			wp_schedule_event( time(), 'daily', 'openid-connect-generic-cron-daily' );
+		if ( ! wp_next_scheduled( 'icc-openid-client-cron-daily' ) ) {
+			wp_schedule_event( time(), 'daily', 'icc-openid-client-cron-daily' );
 		}
 	}
 
@@ -379,7 +379,7 @@ class OpenID_Connect_Generic {
 	 * @return void
 	 */
 	public static function deactivation() {
-		wp_clear_scheduled_hook( 'openid-connect-generic-cron-daily' );
+		wp_clear_scheduled_hook( 'icc-openid-client-cron-daily' );
 	}
 
 	/**
@@ -390,7 +390,7 @@ class OpenID_Connect_Generic {
 	 * @return void
 	 */
 	public static function autoload( $class ) {
-		$prefix = 'OpenID_Connect_Generic_';
+		$prefix = 'ICC_OpenID_Client_';
 
 		if ( stripos( $class, $prefix ) !== 0 ) {
 			return;
@@ -420,7 +420,7 @@ class OpenID_Connect_Generic {
 	public static function bootstrap() {
 		require_once __DIR__ . '/vendor/autoload.php';
 
-		$settings = new OpenID_Connect_Generic_Option_Settings(
+		$settings = new ICC_OpenID_Client_Option_Settings(
 			// Default settings values.
 			array(
 				// OAuth client settings.
@@ -462,7 +462,7 @@ class OpenID_Connect_Generic {
 			)
 		);
 
-		$logger = new OpenID_Connect_Generic_Option_Logger( 'error', $settings->enable_logging, $settings->log_limit );
+		$logger = new ICC_OpenID_Client_Option_Logger( 'error', $settings->enable_logging, $settings->log_limit );
 
 		$plugin = new self( $settings, $logger );
 
@@ -478,7 +478,7 @@ class OpenID_Connect_Generic {
 	/**
 	 * Create (if needed) and return a singleton of self.
 	 *
-	 * @return OpenID_Connect_Generic
+	 * @return ICC_OpenID_Client
 	 */
 	public static function instance() {
 		if ( null === self::$_instance ) {
@@ -488,10 +488,10 @@ class OpenID_Connect_Generic {
 	}
 }
 
-OpenID_Connect_Generic::instance();
+ICC_OpenID_Client::instance();
 
-register_activation_hook( __FILE__, array( 'OpenID_Connect_Generic', 'activation' ) );
-register_deactivation_hook( __FILE__, array( 'OpenID_Connect_Generic', 'deactivation' ) );
+register_activation_hook( __FILE__, array( 'ICC_OpenID_Client', 'activation' ) );
+register_deactivation_hook( __FILE__, array( 'ICC_OpenID_Client', 'deactivation' ) );
 
 // Provide publicly accessible plugin helper functions.
 require_once 'includes/functions.php';

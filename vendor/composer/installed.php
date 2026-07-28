@@ -1,6 +1,6 @@
 <?php return array(
     'root' => array(
-        'name' => 'daggerhart/openid-connect-generic',
+        'name' => 'ivancarlosti/icc-openid-client',
         'pretty_version' => '3.11.3',
         'version' => '3.11.3.0',
         'reference' => '0ef442c0f61bda837bddacec37b96035176bee27',
@@ -19,7 +19,7 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-        'daggerhart/openid-connect-generic' => array(
+        'ivancarlosti/icc-openid-client' => array(
             'pretty_version' => '3.11.3',
             'version' => '3.11.3.0',
             'reference' => '0ef442c0f61bda837bddacec37b96035176bee27',

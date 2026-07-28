@@ -2,7 +2,7 @@
 /**
  * Plugin OIDC/oAuth client warpper class.
  *
- * @package   OpenID_Connect_Generic
+ * @package   ICC_OpenID_Client
  * @category  Authentication
  * @author    Jonathan Daggerhart <jonathan@daggerhart.com>
  * @copyright 2015-2020 daggerhart
@@ -10,14 +10,14 @@
  */
 
 /**
- * OpenID_Connect_Generic_Client_Wrapper class.
+ * ICC_OpenID_Client_Client_Wrapper class.
  *
  * Plugin OIDC/oAuth client wrapper class.
  *
- * @package  OpenID_Connect_Generic
+ * @package  ICC_OpenID_Client
  * @category Authentication
  */
-class OpenID_Connect_Generic_Client_Wrapper {
+class ICC_OpenID_Client_Client_Wrapper {
 
 	/**
 	 * The user redirect cookie key.
@@ -26,33 +26,33 @@ class OpenID_Connect_Generic_Client_Wrapper {
 	 *
 	 * @var string
 	 */
-	const COOKIE_REDIRECT_KEY = 'openid-connect-generic-redirect';
+	const COOKIE_REDIRECT_KEY = 'icc-openid-client-redirect';
 
 	/**
 	 * The token refresh info cookie key.
 	 *
 	 * @var string
 	 */
-	const COOKIE_TOKEN_REFRESH_KEY = 'openid-connect-generic-refresh';
+	const COOKIE_TOKEN_REFRESH_KEY = 'icc-openid-client-refresh';
 
 	/**
 	 * The client object instance.
 	 *
-	 * @var OpenID_Connect_Generic_Client
+	 * @var ICC_OpenID_Client_Client
 	 */
 	private $client;
 
 	/**
 	 * The settings object instance.
 	 *
-	 * @var OpenID_Connect_Generic_Option_Settings
+	 * @var ICC_OpenID_Client_Option_Settings
 	 */
 	private $settings;
 
 	/**
 	 * The logger object instance.
 	 *
-	 * @var OpenID_Connect_Generic_Option_Logger
+	 * @var ICC_OpenID_Client_Option_Logger
 	 */
 	private $logger;
 
@@ -68,11 +68,11 @@ class OpenID_Connect_Generic_Client_Wrapper {
 	/**
 	 * Inject necessary objects and services into the client.
 	 *
-	 * @param OpenID_Connect_Generic_Client          $client   A plugin client object instance.
-	 * @param OpenID_Connect_Generic_Option_Settings $settings A plugin settings object instance.
-	 * @param OpenID_Connect_Generic_Option_Logger   $logger   A plugin logger object instance.
+	 * @param ICC_OpenID_Client_Client          $client   A plugin client object instance.
+	 * @param ICC_OpenID_Client_Option_Settings $settings A plugin settings object instance.
+	 * @param ICC_OpenID_Client_Option_Logger   $logger   A plugin logger object instance.
 	 */
-	public function __construct( OpenID_Connect_Generic_Client $client, OpenID_Connect_Generic_Option_Settings $settings, OpenID_Connect_Generic_Option_Logger $logger ) {
+	public function __construct( ICC_OpenID_Client_Client $client, ICC_OpenID_Client_Option_Settings $settings, ICC_OpenID_Client_Option_Logger $logger ) {
 		$this->client = $client;
 		$this->settings = $settings;
 		$this->logger = $logger;
@@ -81,13 +81,13 @@ class OpenID_Connect_Generic_Client_Wrapper {
 	/**
 	 * Hook the client into WordPress.
 	 *
-	 * @param \OpenID_Connect_Generic_Client          $client   The plugin client instance.
-	 * @param \OpenID_Connect_Generic_Option_Settings $settings The plugin settings instance.
-	 * @param \OpenID_Connect_Generic_Option_Logger   $logger   The plugin logger instance.
+	 * @param \ICC_OpenID_Client_Client          $client   The plugin client instance.
+	 * @param \ICC_OpenID_Client_Option_Settings $settings The plugin settings instance.
+	 * @param \ICC_OpenID_Client_Option_Logger   $logger   The plugin logger instance.
 	 *
-	 * @return \OpenID_Connect_Generic_Client_Wrapper
+	 * @return \ICC_OpenID_Client_Client_Wrapper
 	 */
-	public static function register( OpenID_Connect_Generic_Client $client, OpenID_Connect_Generic_Option_Settings $settings, OpenID_Connect_Generic_Option_Logger $logger ) {
+	public static function register( ICC_OpenID_Client_Client $client, ICC_OpenID_Client_Option_Settings $settings, ICC_OpenID_Client_Option_Logger $logger ) {
 		$client_wrapper  = new self( $client, $settings, $logger );
 
 		// Integrated logout.
@@ -97,7 +97,7 @@ class OpenID_Connect_Generic_Client_Wrapper {
 		}
 
 		// Alter the requests according to settings.
-		add_filter( 'openid-connect-generic-alter-request', array( $client_wrapper, 'alter_request' ), 10, 2 );
+		add_filter( 'icc-openid-client-alter-request', array( $client_wrapper, 'alter_request' ), 10, 2 );
 
 		// Ensure tokens are refreshed before they expire.
 		if ( $settings->token_refresh_enable ) {
@@ -109,14 +109,14 @@ class OpenID_Connect_Generic_Client_Wrapper {
 			 * Use the ajax url to handle processing authorization without any html output
 			 * this callback will occur when then IDP returns with an authenticated value
 			 */
-			add_action( 'wp_ajax_openid-connect-authorize', array( $client_wrapper, 'authentication_request_callback' ) );
-			add_action( 'wp_ajax_nopriv_openid-connect-authorize', array( $client_wrapper, 'authentication_request_callback' ) );
+			add_action( 'wp_ajax_icc-openid-authorize', array( $client_wrapper, 'authentication_request_callback' ) );
+			add_action( 'wp_ajax_nopriv_icc-openid-authorize', array( $client_wrapper, 'authentication_request_callback' ) );
 		}
 
 		if ( $settings->alternate_redirect_uri ) {
 			// Provide an alternate route for authentication_request_callback.
-			add_rewrite_rule( '^openid-connect-authorize/?', 'index.php?openid-connect-authorize=1', 'top' );
-			add_rewrite_tag( '%openid-connect-authorize%', '1' );
+			add_rewrite_rule( '^icc-openid-authorize/?', 'index.php?icc-openid-authorize=1', 'top' );
+			add_rewrite_tag( '%icc-openid-authorize%', '1' );
 			add_action( 'parse_request', array( $client_wrapper, 'alternate_redirect_uri_parse_request' ) );
 		}
 
@@ -131,8 +131,8 @@ class OpenID_Connect_Generic_Client_Wrapper {
 	 * @return void
 	 */
 	public function alternate_redirect_uri_parse_request( $query ) {
-		if ( isset( $query->query_vars['openid-connect-authorize'] ) &&
-			 '1' === $query->query_vars['openid-connect-authorize'] ) {
+		if ( isset( $query->query_vars['icc-openid-authorize'] ) &&
+			 '1' === $query->query_vars['icc-openid-authorize'] ) {
 			$this->authentication_request_callback();
 			exit;
 		}
@@ -182,14 +182,14 @@ class OpenID_Connect_Generic_Client_Wrapper {
 
 		// This hook is being deprecated with the move away from cookies.
 		$redirect_url = apply_filters_deprecated(
-			'openid-connect-generic-cookie-redirect-url',
+			'icc-openid-client-cookie-redirect-url',
 			array( $redirect_url ),
 			'3.8.2',
-			'openid-connect-generic-client-redirect-to'
+			'icc-openid-client-client-redirect-to'
 		);
 
 		// This is the new hook to use with the transients version of redirection.
-		return apply_filters( 'openid-connect-generic-client-redirect-to', $redirect_url );
+		return apply_filters( 'icc-openid-client-client-redirect-to', $redirect_url );
 	}
 
 	/**
@@ -211,7 +211,7 @@ class OpenID_Connect_Generic_Client_Wrapper {
 				'acr_values' => $this->settings->acr_values,
 			),
 			$atts,
-			'openid_connect_generic_auth_url'
+			'icc_openid_client_auth_url'
 		);
 
 		// Validate the redirect to value to prevent a redirection attack.
@@ -240,7 +240,7 @@ class OpenID_Connect_Generic_Client_Wrapper {
 			rawurlencode( $atts['acr_values'] )
 		);
 
-		$url = apply_filters( 'openid-connect-generic-auth-url', $url );
+		$url = apply_filters( 'icc-openid-client-auth-url', $url );
 		$url = esc_url_raw( $url );
 		$this->logger->log( $url, 'make_authentication_url' );
 		return $url;
@@ -257,12 +257,12 @@ class OpenID_Connect_Generic_Client_Wrapper {
 		}
 
 		$user_id = wp_get_current_user()->ID;
-		$last_token_response = get_user_option( 'openid-connect-generic-last-token-response', $user_id );
+		$last_token_response = get_user_option( 'icc-openid-client-last-token-response', $user_id );
 
 		if ( false === $last_token_response ) {
 			$last_token_response = get_user_meta(
 				$user_id,
-				'openid-connect-generic-last-token-response',
+				'icc-openid-client-last-token-response',
 				true
 			);
 		}
@@ -311,7 +311,7 @@ class OpenID_Connect_Generic_Client_Wrapper {
 		// Capture the time so that access token expiration can be calculated later.
 		$token_response['time'] = time();
 
-		update_user_option( $user_id, 'openid-connect-generic-last-token-response', $token_response );
+		update_user_option( $user_id, 'icc-openid-client-last-token-response', $token_response );
 		$this->save_refresh_token( $manager, $token, $token_response );
 	}
 
@@ -381,7 +381,7 @@ class OpenID_Connect_Generic_Client_Wrapper {
 			$redirect_url = home_url();
 		}
 
-		$token_response = get_user_option( 'openid-connect-generic-last-token-response', $user->ID );
+		$token_response = get_user_option( 'icc-openid-client-last-token-response', $user->ID );
 		if ( ! $token_response ) {
 			// Happens if non-openid login was used.
 			return $redirect_url;
@@ -390,7 +390,7 @@ class OpenID_Connect_Generic_Client_Wrapper {
 			$redirect_url = site_url( $redirect_url );
 		}
 
-		$claim = get_user_option( 'openid-connect-generic-last-id-token-claim', $user->ID );
+		$claim = get_user_option( 'icc-openid-client-last-id-token-claim', $user->ID );
 
 		if ( isset( $claim['iss'] ) && 'https://accounts.google.com' == $claim['iss'] ) {
 			/*
@@ -462,7 +462,7 @@ class OpenID_Connect_Generic_Client_Wrapper {
 
 			$error_code = $authentication_request->get_error_code();
 			$is_retryable = in_array( $error_code, $retryable_idp_errors, true );
-			$already_retried = isset( $_GET['openid-connect-generic-retry'] );
+			$already_retried = isset( $_GET['icc-openid-client-retry'] );
 
 			if ( $is_retryable && ! $already_retried ) {
 				// Log the original error before retrying.
@@ -472,7 +472,7 @@ class OpenID_Connect_Generic_Client_Wrapper {
 				// Build a fresh authentication URL and append a retry flag
 				// to prevent infinite redirect loops (max 1 retry).
 				$auth_url = $this->get_authentication_url();
-				$auth_url = add_query_arg( 'openid-connect-generic-retry', '1', $auth_url );
+				$auth_url = add_query_arg( 'icc-openid-client-retry', '1', $auth_url );
 
 				wp_redirect( $auth_url );
 				exit;
@@ -581,7 +581,7 @@ class OpenID_Connect_Generic_Client_Wrapper {
 					$this->error_redirect( $user );
 				}
 			} else {
-				$this->error_redirect( new WP_Error( 'identity-not-map-existing-user', __( 'User identity is not linked to an existing WordPress user.', 'daggerhart-openid-connect-generic' ), $user_claim ) );
+				$this->error_redirect( new WP_Error( 'identity-not-map-existing-user', __( 'User identity is not linked to an existing WordPress user.', 'icc-openid-client' ), $user_claim ) );
 			}
 		}
 
@@ -601,14 +601,14 @@ class OpenID_Connect_Generic_Client_Wrapper {
 
 		// Allow plugins / themes to take action once a user is logged in.
 		$start_time = microtime( true );
-		do_action( 'openid-connect-generic-user-logged-in', $user );
+		do_action( 'icc-openid-client-user-logged-in', $user );
 		$end_time = microtime( true );
-		$this->logger->log( 'openid-connect-generic-user-logged-in', 'do_action', $end_time - $start_time );
+		$this->logger->log( 'icc-openid-client-user-logged-in', 'do_action', $end_time - $start_time );
 
 		// Default redirect to the homepage.
 		$redirect_url = home_url();
 		// Redirect user according to redirect set in state.
-		$state_object = get_transient( 'openid-connect-generic-state--' . $state );
+		$state_object = get_transient( 'icc-openid-client-state--' . $state );
 		// Get the redirect URL stored with the corresponding authentication request state.
 		if ( ! empty( $state_object ) && ! empty( $state_object[ $state ] ) && ! empty( $state_object[ $state ]['redirect_to'] ) ) {
 			$redirect_url = $state_object[ $state ]['redirect_to'];
@@ -624,7 +624,7 @@ class OpenID_Connect_Generic_Client_Wrapper {
 
 		// Only do redirect-user-back action hook when the plugin is configured for it.
 		if ( $this->settings->redirect_user_back ) {
-			do_action( 'openid-connect-generic-redirect-user-back', $redirect_url, $user );
+			do_action( 'icc-openid-client-redirect-user-back', $redirect_url, $user );
 		}
 
 		wp_redirect( $redirect_url );
@@ -642,7 +642,7 @@ class OpenID_Connect_Generic_Client_Wrapper {
 	public function validate_user( $user ) {
 		// Ensure the found user is a real WP_User.
 		if ( ! is_a( $user, 'WP_User' ) || ! $user->exists() ) {
-			return new WP_Error( 'invalid-user', __( 'Invalid user.', 'daggerhart-openid-connect-generic' ), $user );
+			return new WP_Error( 'invalid-user', __( 'Invalid user.', 'icc-openid-client' ), $user );
 		}
 
 		return true;
@@ -670,7 +670,7 @@ class OpenID_Connect_Generic_Client_Wrapper {
 		if ( is_wp_error( $email ) || empty( $email ) ) {
 			return new WP_Error(
 				'email-domain-no-email',
-				__( 'Unable to determine email address from user claim for domain validation.', 'daggerhart-openid-connect-generic' )
+				__( 'Unable to determine email address from user claim for domain validation.', 'icc-openid-client' )
 			);
 		}
 
@@ -681,7 +681,7 @@ class OpenID_Connect_Generic_Client_Wrapper {
 		if ( empty( $domain ) ) {
 			return new WP_Error(
 				'email-domain-invalid',
-				__( 'Unable to extract domain from email address.', 'daggerhart-openid-connect-generic' )
+				__( 'Unable to extract domain from email address.', 'icc-openid-client' )
 			);
 		}
 
@@ -701,7 +701,7 @@ class OpenID_Connect_Generic_Client_Wrapper {
 				'email-domain-not-allowed',
 				sprintf(
 					/* translators: %s is the email domain that was rejected */
-					__( 'Email domain "%s" is not allowed for login.', 'daggerhart-openid-connect-generic' ),
+					__( 'Email domain "%s" is not allowed for login.', 'icc-openid-client' ),
 					$domain
 				)
 			);
@@ -762,9 +762,9 @@ class OpenID_Connect_Generic_Client_Wrapper {
 		}
 
 		// Store the tokens for future reference.
-		update_user_option( $user->ID, 'openid-connect-generic-last-token-response', $token_response );
-		update_user_option( $user->ID, 'openid-connect-generic-last-id-token-claim', $id_token_claim );
-		update_user_option( $user->ID, 'openid-connect-generic-last-user-claim', $user_claim );
+		update_user_option( $user->ID, 'icc-openid-client-last-token-response', $token_response );
+		update_user_option( $user->ID, 'icc-openid-client-last-id-token-claim', $id_token_claim );
+		update_user_option( $user->ID, 'icc-openid-client-last-user-claim', $user_claim );
 
 		return $user_claim;
 	}
@@ -782,14 +782,14 @@ class OpenID_Connect_Generic_Client_Wrapper {
 	 */
 	public function login_user( $user, $token_response, $id_token_claim, $user_claim, $subject_identity ): void {
 		// Store the tokens for future reference.
-		update_user_option( $user->ID, 'openid-connect-generic-last-token-response', $token_response );
-		update_user_option( $user->ID, 'openid-connect-generic-last-id-token-claim', $id_token_claim );
-		update_user_option( $user->ID, 'openid-connect-generic-last-user-claim', $user_claim );
+		update_user_option( $user->ID, 'icc-openid-client-last-token-response', $token_response );
+		update_user_option( $user->ID, 'icc-openid-client-last-id-token-claim', $id_token_claim );
+		update_user_option( $user->ID, 'icc-openid-client-last-user-claim', $user_claim );
 		// Allow plugins / themes to take action using current claims on existing user (e.g. update role).
-		do_action( 'openid-connect-generic-update-user-using-current-claim', $user, $user_claim );
+		do_action( 'icc-openid-client-update-user-using-current-claim', $user, $user_claim );
 
 		// Determine the amount of days before the cookie expires.
-		$remember_me = apply_filters( 'openid-connect-generic-remember-me', false, $user, $token_response, $id_token_claim, $user_claim, $subject_identity );
+		$remember_me = apply_filters( 'icc-openid-client-remember-me', false, $user, $token_response, $id_token_claim, $user_claim, $subject_identity );
 		$wp_expiration_days = $remember_me ? 14 : 2;
 
 		// Create the WP session, so we know its token.
@@ -837,17 +837,17 @@ class OpenID_Connect_Generic_Client_Wrapper {
 	public function get_user_by_identity( $subject_identity ) {
 		global $wpdb;
 
-		// Look for user by their openid-connect-generic-subject-identity value.
+		// Look for user by their icc-openid-client-subject-identity value.
 		$user_query = new WP_User_Query(
 			array(
 				'meta_query' => array(
 					'relation' => 'OR',
 					array(
-						'key'   => 'openid-connect-generic-subject-identity',
+						'key'   => 'icc-openid-client-subject-identity',
 						'value' => $subject_identity,
 					),
 					array(
-						'key'   => $wpdb->get_blog_prefix() . 'openid-connect-generic-subject-identity',
+						'key'   => $wpdb->get_blog_prefix() . 'icc-openid-client-subject-identity',
 						'value' => $subject_identity,
 					),
 				),
@@ -893,7 +893,7 @@ class OpenID_Connect_Generic_Client_Wrapper {
 		}
 		if ( empty( $desired_username ) ) {
 			// Nothing to build a name from.
-			return new WP_Error( 'no-username', __( 'No appropriate username found.', 'daggerhart-openid-connect-generic' ), $user_claim );
+			return new WP_Error( 'no-username', __( 'No appropriate username found.', 'icc-openid-client' ), $user_claim );
 		}
 
 		// Don't use the full email address for a username.
@@ -903,7 +903,7 @@ class OpenID_Connect_Generic_Client_Wrapper {
 		$sanitized_username = sanitize_user( $desired_username, true );
 		if ( empty( $sanitized_username ) ) {
 			// translators: %1$s is the santitized version of the username from the IDP.
-			return new WP_Error( 'username-sanitization-failed', sprintf( __( 'Username %1$s could not be sanitized.', 'daggerhart-openid-connect-generic' ), $desired_username ), $desired_username );
+			return new WP_Error( 'username-sanitization-failed', sprintf( __( 'Username %1$s could not be sanitized.', 'icc-openid-client' ), $desired_username ), $desired_username );
 		}
 
 		return $sanitized_username;
@@ -925,7 +925,7 @@ class OpenID_Connect_Generic_Client_Wrapper {
 
 		if ( empty( $desired_nickname ) ) {
 			// translators: %1$s is the configured User Claim nickname key.
-			return new WP_Error( 'no-nickname', sprintf( __( 'No nickname found in user claim using key: %1$s.', 'daggerhart-openid-connect-generic' ), $this->settings->nickname_key ), $this->settings->nickname_key );
+			return new WP_Error( 'no-nickname', sprintf( __( 'No nickname found in user claim using key: %1$s.', 'icc-openid-client' ), $this->settings->nickname_key ), $this->settings->nickname_key );
 		}
 
 		return $desired_nickname;
@@ -988,7 +988,7 @@ class OpenID_Connect_Generic_Client_Wrapper {
 				( ! empty( $this->settings->endpoint_login ) ? $this->client->get_issuer_from_endpoint( $this->settings->endpoint_login ) : '' );
 
 			// Use JWT validator for secure signature verification.
-			$jwt_validator = new OpenID_Connect_Generic_JWT_Validator(
+			$jwt_validator = new ICC_OpenID_Client_JWT_Validator(
 				$this->settings->endpoint_jwks,
 				$this->settings->client_id,
 				$issuer,
@@ -1057,7 +1057,7 @@ class OpenID_Connect_Generic_Client_Wrapper {
 					if ( $error_on_missing_key ) {
 						return new WP_Error(
 							'incomplete-user-claim',
-							__( 'User claim incomplete.', 'daggerhart-openid-connect-generic' ),
+							__( 'User claim incomplete.', 'icc-openid-client' ),
 							array(
 								'message'    => 'Unable to find key: ' . $key . ' in user_claim',
 								'hint'       => 'Verify OpenID Scope includes a scope with the attributes you need',
@@ -1116,7 +1116,7 @@ class OpenID_Connect_Generic_Client_Wrapper {
 	 */
 	public function create_new_user( $subject_identity, $user_claim ) {
 		$start_time = microtime( true );
-		$user_claim = apply_filters( 'openid-connect-generic-alter-user-claim', $user_claim );
+		$user_claim = apply_filters( 'icc-openid-client-alter-user-claim', $user_claim );
 
 		// Default username & email to the subject identity.
 		$username       = $subject_identity;
@@ -1160,7 +1160,7 @@ class OpenID_Connect_Generic_Client_Wrapper {
 
 			// Make sure we didn't get an error.
 			if ( is_wp_error( $user_claim_result ) ) {
-				return new WP_Error( 'bad-user-claim-result', __( 'Bad user claim result.', 'daggerhart-openid-connect-generic' ), $user_claim_result );
+				return new WP_Error( 'bad-user-claim-result', __( 'Bad user claim result.', 'icc-openid-client' ), $user_claim_result );
 			}
 
 			$user_claim = json_decode( $user_claim_result['body'], true );
@@ -1212,7 +1212,7 @@ class OpenID_Connect_Generic_Client_Wrapper {
 			}
 			if ( ! empty( $uid ) ) {
 				$user = $this->update_existing_user( $uid, $subject_identity );
-				do_action( 'openid-connect-generic-update-user-using-current-claim', $user, $user_claim );
+				do_action( 'icc-openid-client-update-user-using-current-claim', $user, $user_claim );
 				$end_time = microtime( true );
 				$this->logger->log( "Existing user updated: {$user->user_login} ($uid)", __METHOD__, $end_time - $start_time );
 				return $user;
@@ -1223,10 +1223,10 @@ class OpenID_Connect_Generic_Client_Wrapper {
 		 * Allow other plugins / themes to determine authorization of new accounts
 		 * based on the returned user claim.
 		 */
-		$create_user = apply_filters( 'openid-connect-generic-user-creation-test', $this->settings->create_if_does_not_exist, $user_claim );
+		$create_user = apply_filters( 'icc-openid-client-user-creation-test', $this->settings->create_if_does_not_exist, $user_claim );
 
 		if ( ! $create_user ) {
-			return new WP_Error( 'cannot-authorize', __( 'Can not authorize.', 'daggerhart-openid-connect-generic' ), $create_user );
+			return new WP_Error( 'cannot-authorize', __( 'Can not authorize.', 'icc-openid-client' ), $create_user );
 		}
 
 		// Copy the username for incrementing.
@@ -1248,28 +1248,28 @@ class OpenID_Connect_Generic_Client_Wrapper {
 			'first_name' => isset( $user_claim['given_name'] ) ? $user_claim['given_name'] : '',
 			'last_name' => isset( $user_claim['family_name'] ) ? $user_claim['family_name'] : '',
 		);
-		$user_data = apply_filters( 'openid-connect-generic-alter-user-data', $user_data, $user_claim );
+		$user_data = apply_filters( 'icc-openid-client-alter-user-data', $user_data, $user_claim );
 
 		// Create the new user.
 		$uid = wp_insert_user( $user_data );
 
 		// Make sure we didn't fail in creating the user.
 		if ( is_wp_error( $uid ) ) {
-			return new WP_Error( 'failed-user-creation', __( 'Failed user creation.', 'daggerhart-openid-connect-generic' ), $uid );
+			return new WP_Error( 'failed-user-creation', __( 'Failed user creation.', 'icc-openid-client' ), $uid );
 		}
 
 		// Retrieve our new user.
 		$user = get_user_by( 'id', $uid );
 
 		// Save some meta data about this new user for the future.
-		update_user_option( $user->ID, 'openid-connect-generic-subject-identity', (string) $subject_identity, true );
+		update_user_option( $user->ID, 'icc-openid-client-subject-identity', (string) $subject_identity, true );
 
 		// Log the results.
 		$end_time = microtime( true );
 		$this->logger->log( "New user created: {$user->user_login} ($uid)", __METHOD__, $end_time - $start_time );
 
 		// Allow plugins / themes to take action on new user creation.
-		do_action( 'openid-connect-generic-user-create', $user, $user_claim );
+		do_action( 'icc-openid-client-user-create', $user, $user_claim );
 
 		return $user;
 	}
@@ -1284,10 +1284,10 @@ class OpenID_Connect_Generic_Client_Wrapper {
 	 */
 	public function update_existing_user( $uid, $subject_identity ) {
 		// Add the OpenID Connect meta data.
-		update_user_option( $uid, 'openid-connect-generic-subject-identity', strval( $subject_identity ), true );
+		update_user_option( $uid, 'icc-openid-client-subject-identity', strval( $subject_identity ), true );
 
 		// Allow plugins / themes to take action on user update.
-		do_action( 'openid-connect-generic-user-update', $uid );
+		do_action( 'icc-openid-client-user-update', $uid );
 
 		// Return our updated user.
 		return get_user_by( 'id', $uid );

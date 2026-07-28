@@ -2,7 +2,7 @@
 /**
  * Plugin logging class.
  *
- * @package   OpenID_Connect_Generic
+ * @package   ICC_OpenID_Client
  * @category  Logging
  * @author    Jonathan Daggerhart <jonathan@daggerhart.com>
  * @copyright 2015-2023 daggerhart
@@ -10,21 +10,21 @@
  */
 
 /**
- * OpenID_Connect_Generic_Option_Logger class.
+ * ICC_OpenID_Client_Option_Logger class.
  *
  * Simple class for logging messages to the options table.
  *
- * @package  OpenID_Connect_Generic
+ * @package  ICC_OpenID_Client
  * @category Logging
  */
-class OpenID_Connect_Generic_Option_Logger {
+class ICC_OpenID_Client_Option_Logger {
 
 	/**
 	 * Thw WordPress option name/key.
 	 *
 	 * @var string
 	 */
-	const OPTION_NAME = 'openid-connect-generic-logs';
+	const OPTION_NAME = 'icc-openid-client-logs';
 
 	/**
 	 * The default message type.
@@ -227,31 +227,31 @@ class OpenID_Connect_Generic_Option_Logger {
 		?>
 		<table id="logger-table" class="wp-list-table widefat fixed striped posts">
 			<thead>
-				<th class="col-details"><?php esc_html_e( 'Details', 'daggerhart-openid-connect-generic' ); ?></th>
-				<th class="col-data"><?php esc_html_e( 'Data', 'daggerhart-openid-connect-generic' ); ?></th>
+				<th class="col-details"><?php esc_html_e( 'Details', 'icc-openid-client' ); ?></th>
+				<th class="col-data"><?php esc_html_e( 'Data', 'icc-openid-client' ); ?></th>
 			</thead>
 			<tbody>
 			<?php foreach ( $logs as $log ) { ?>
 				<tr>
 					<td class="col-details">
 						<div>
-							<label><?php esc_html_e( 'Date', 'daggerhart-openid-connect-generic' ); ?></label>
+							<label><?php esc_html_e( 'Date', 'icc-openid-client' ); ?></label>
 							<?php print esc_html( ! empty( $log['time'] ) ? gmdate( 'Y-m-d H:i:s', $log['time'] ) : '' ); ?>
 						</div>
 						<div>
-							<label><?php esc_html_e( 'Type', 'daggerhart-openid-connect-generic' ); ?></label>
+							<label><?php esc_html_e( 'Type', 'icc-openid-client' ); ?></label>
 							<?php print esc_html( ! empty( $log['type'] ) ? $log['type'] : '' ); ?>
 						</div>
 						<div>
-							<label><?php esc_html_e( 'User', 'daggerhart-openid-connect-generic' ); ?>: </label>
+							<label><?php esc_html_e( 'User', 'icc-openid-client' ); ?>: </label>
 							<?php print esc_html( ( get_userdata( $log['user_ID'] ) ) ? get_userdata( $log['user_ID'] )->user_login : '0' ); ?>
 						</div>
 						<div>
-							<label><?php esc_html_e( 'URI ', 'daggerhart-openid-connect-generic' ); ?>: </label>
+							<label><?php esc_html_e( 'URI ', 'icc-openid-client' ); ?>: </label>
 							<?php print esc_url( ! empty( $log['uri'] ) ? $log['uri'] : '' ); ?>
 						</div>
 						<div>
-							<label><?php esc_html_e( 'Response&nbsp;Time&nbsp;(sec)', 'daggerhart-openid-connect-generic' ); ?></label>
+							<label><?php esc_html_e( 'Response&nbsp;Time&nbsp;(sec)', 'icc-openid-client' ); ?></label>
 							<?php print esc_html( ! empty( $log['processing_time'] ) ? $log['processing_time'] : 0 ); ?>
 						</div>
 					</td>
