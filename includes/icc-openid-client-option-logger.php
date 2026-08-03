@@ -4,8 +4,8 @@
  *
  * @package   ICC_OpenID_Client
  * @category  Logging
- * @author    Jonathan Daggerhart <jonathan@daggerhart.com>
- * @copyright 2015-2023 daggerhart
+ * @author    Ivan Carlos
+ * @copyright 2023-2025 Ivan Carlos
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt GPL-2.0+
  */
 

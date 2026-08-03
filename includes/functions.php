@@ -6,8 +6,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Global OIDCG functions.
  *
  * @package   ICC_OpenID_Client
- * @author    Jonathan Daggerhart <jonathan@daggerhart.com>
- * @copyright 2015-2020 daggerhart
+ * @author    Ivan Carlos
+ * @copyright 2023-2025 Ivan Carlos
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt GPL-2.0+
  */
 

@@ -3,17 +3,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 /**
- * OpenID Connect Generic Client
+ * ICC OpenID Client - WordPress OpenID Connect SSO Plugin
  *
  * This plugin provides the ability to authenticate users with Identity
  * Providers using the OpenID Connect OAuth2 API with Authorization Code Flow.
  *
  * @package   ICC_OpenID_Client
  * @category  General
- * @author    Jonathan Daggerhart <jonathan@daggerhartlab.com>
- * @copyright 2015-2023 daggerhart
+ * @author    Ivan Carlos
+ * @copyright 2023-2025 Ivan Carlos
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt GPL-2.0+
- * @link      https://github.com/oidc-wp
+ * @link      https://github.com/ivancarlosti/wordpressiccopenidclient
  *
  * @wordpress-plugin
  * Plugin Name:       ICC OpenID Client
@@ -22,13 +22,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Version:           3.11.3
  * Requires at least: 5.0
  * Requires PHP:      7.4
- * Author:            daggerhart
- * Author URI:        https://www.daggerhartlab.com
+ * Author:            ivancarlosti
+ * Author URI:        https://ivancarlos.me
  * Text Domain:       icc-openid-client
  * Domain Path:       /languages
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * GitHub Plugin URI: https://github.com/oidc-wp/icc-openid-client
+ * GitHub Plugin URI: https://github.com/ivancarlosti/wordpressiccopenidclient
  */
 
 /*
