@@ -17,5 +17,10 @@
         "classmap": [
             "includes/"
         ]
+    },
+    "extra": {
+        "prefixes": [
+            "icc-openid-client"
+        ]
     }
 }

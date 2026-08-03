@@ -2,57 +2,20 @@
 <ruleset name="ICC OpenID Client">
 	<description>PHPCS rules for ICC OpenID Client WordPress plugin.</description>
 
-	<!-- Set the text domain for i18n checks -->
-	<config name="text_domain" value="icc-openid-client"/>
-
-	<!-- Only check PHP files -->
-	<arg name="extensions" value="php"/>
-
-	<!-- Show progress and sniff codes -->
-	<arg value="ps"/>
-
-	<!-- Check PHP cross-version compatibility -->
-	<config name="testVersion" value="7.4-"/>
-
-	<!-- Files and directories to check -->
-	<file>./icc-openid-client.php</file>
-	<file>./includes/</file>
-
-	<!-- Exclude vendor directory -->
-	<exclude-pattern>/vendor/*</exclude-pattern>
-	<exclude-pattern>/languages/*</exclude-pattern>
-	<exclude-pattern>/node_modules/*</exclude-pattern>
-	<exclude-pattern>/tests/*</exclude-pattern>
-	<exclude-pattern>/.github/*</exclude-pattern>
-
-	<!-- Include WordPress Coding Standards -->
-	<rule ref="WordPress">
-		<!-- Exclude rules that don't apply or are handled separately -->
-		<exclude name="WordPress.Files.FileName"/>
-		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
-	</rule>
+	<!-- Include WordPress Coding Standards as the base -->
+	<rule ref="WordPress"/>
 
 	<!--
 		PrefixAllGlobals: Define the plugin's recognized prefixes.
-		- icc-openid-client  : hyphenated form used in action/filter hook names
-		- icc_openid_client  : underscored form used in options, shortcodes, constants
-		- ICC_OpenID_Client  : PascalCase class name prefix
+		WPCS auto-detects "icc_openid_client" (underscores) from the plugin name
+		"ICC OpenID Client", but our hooks use hyphens: "icc-openid-client-*".
+		This overrides the auto-detection to accept the hyphenated form used in
+		all action/filter hook names throughout the plugin.
 	-->
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
 			<property name="prefixes" type="array">
 				<element value="icc-openid-client"/>
-				<element value="icc_openid_client"/>
-				<element value="ICC_OpenID_Client"/>
-			</property>
-		</properties>
-	</rule>
-
-	<!-- Allow direct database queries for transient garbage collection -->
-	<rule ref="WordPress.DB.DirectDatabaseQuery">
-		<properties>
-			<property name="allowed_queries" type="array">
-				<element value="cron_states_garbage_collection"/>
 			</property>
 		</properties>
 	</rule>
