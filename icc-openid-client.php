@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Plugin Name:       ICC OpenID Client
  * Plugin URI:        https://github.com/ivancarlosti/wordpressiccopenidclient
  * Description:       Connect to an OpenID Connect identity provider using Authorization Code Flow. Features email domain restriction and SSO.
- * Version:           3.11.3
+ * Version:           3.1.2
  * Requires at least: 5.0
  * Requires PHP:      7.4
  * Author:            ivancarlosti
@@ -97,7 +97,7 @@ class ICC_OpenID_Client {
 	 *
 	 * @var string
 	 */
-	const VERSION = '3.11.3';
+	const VERSION = '3.1.2';
 
 	/**
 	 * Plugin settings.
