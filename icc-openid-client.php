@@ -79,6 +79,7 @@ Notes
  * @package ICC_OpenID_Client
  * @category  General
  */
+if ( ! class_exists( 'ICC_OpenID_Client' ) ) {
 class ICC_OpenID_Client {
 
 	/**
@@ -487,7 +488,6 @@ class ICC_OpenID_Client {
 		return self::$_instance;
 	}
 }
-
 ICC_OpenID_Client::instance();
 
 register_activation_hook( __FILE__, array( 'ICC_OpenID_Client', 'activation' ) );
@@ -495,3 +495,5 @@ register_deactivation_hook( __FILE__, array( 'ICC_OpenID_Client', 'deactivation'
 
 // Provide publicly accessible plugin helper functions.
 require_once 'includes/functions.php';
+
+} // End if ( ! class_exists( 'ICC_OpenID_Client' ) )
