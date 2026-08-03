@@ -46,15 +46,18 @@ jobs:
           echo "zip_name=${ZIP_NAME}" >> "$GITHUB_OUTPUT"
 
       # -------------------------------------------------------
-      # 3. Update plugin version in main file and readme.txt
+      # 3. Read version from manifest.json and stamp plugin files
       # -------------------------------------------------------
-      - name: 🔢 Stamp version in plugin files
+      - name: 🔢 Stamp version from manifest.json
         run: |
-          VERSION="${{ steps.version.outputs.version }}"
-          echo "Stamping version ${VERSION} into plugin files..."
+          VERSION=$(jq -r '.version' manifest.json)
+          echo "Version from manifest.json: ${VERSION}"
 
           # Update version in main plugin file header (Version: x.x.x)
           sed -i "s/^ \* Version: .*/ * Version:           ${VERSION}/" "${PLUGIN_SLUG}.php"
+
+          # Update const VERSION in plugin class
+          sed -i "s/const VERSION = '[^']*';/const VERSION = '${VERSION}';/" "${PLUGIN_SLUG}.php"
 
           # Update stable tag in readme.txt
           sed -i "s/^Stable tag: .*/Stable tag: ${VERSION}/" readme.txt
