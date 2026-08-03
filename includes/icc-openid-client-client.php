@@ -266,7 +266,7 @@ class ICC_OpenID_Client_Client {
 
 		// Check the client request state.
 		if ( ! isset( $request['state'] ) ) {
-			do_action( 'icc-openid-client-no-state-provided' );
+			do_action( 'icc_openid_client_no_state_provided' );
 			return new WP_Error( 'missing-state', __( 'Missing state.', 'icc-openid-client' ), $request );
 		}
 
@@ -322,7 +322,7 @@ class ICC_OpenID_Client_Client {
 		}
 
 		// Allow modifications to the request.
-		$request = apply_filters( 'icc-openid-client-alter-request', $request, 'get-authentication-token' );
+		$request = apply_filters( 'icc_openid_client_alter_request', $request, 'get-authentication-token' );
 
 		// Call the server and ask for a token.
 		$start_time = microtime( true );
@@ -355,7 +355,7 @@ class ICC_OpenID_Client_Client {
 		);
 
 		// Allow modifications to the request.
-		$request = apply_filters( 'icc-openid-client-alter-request', $request, 'refresh-token' );
+		$request = apply_filters( 'icc_openid_client_alter_request', $request, 'refresh-token' );
 
 		// Call the server and ask for new tokens.
 		$start_time = microtime( true );
@@ -411,7 +411,7 @@ class ICC_OpenID_Client_Client {
 	 */
 	public function request_userinfo( $access_token ) {
 		// Allow modifications to the request.
-		$request = apply_filters( 'icc-openid-client-alter-request', array(), 'get-userinfo' );
+		$request = apply_filters( 'icc_openid_client_alter_request', array(), 'get-userinfo' );
 
 		/*
 		 * Section 5.3.1 of the spec recommends sending the access token using the authorization header
@@ -471,7 +471,7 @@ class ICC_OpenID_Client_Client {
 		);
 
 		// Allow storing more data with the state. Eg. to identify user relationships.
-		$state_value = apply_filters( 'icc-openid-client-new-state-value', $state_value, $this );
+		$state_value = apply_filters( 'icc_openid_client_new_state_value', $state_value, $this );
 
 		set_transient( 'icc-openid-client-state--' . $state, $state_value, $this->state_time_limit );
 
@@ -490,14 +490,14 @@ class ICC_OpenID_Client_Client {
 		$state_found = true;
 
 		if ( ! get_option( '_transient_icc-openid-client-state--' . $state ) ) {
-			do_action( 'icc-openid-client-state-not-found', $state );
+			do_action( 'icc_openid_client_state_not_found', $state );
 			$state_found = false;
 		}
 
 		$valid = get_transient( 'icc-openid-client-state--' . $state );
 
 		if ( ! $valid && $state_found ) {
-			do_action( 'icc-openid-client-state-expired', $state );
+			do_action( 'icc_openid_client_state_expired', $state );
 		}
 
 		return boolval( $valid );
@@ -777,7 +777,7 @@ class ICC_OpenID_Client_Client {
 		}
 
 		// Allow for other plugins to alter the login success.
-		$login_user = apply_filters( 'icc-openid-client-user-login-test', true, $user_claim );
+		$login_user = apply_filters( 'icc_openid_client_user_login_test', true, $user_claim );
 
 		if ( ! $login_user ) {
 			return new WP_Error( 'unauthorized', __( 'Unauthorized access.', 'icc-openid-client' ), $login_user );

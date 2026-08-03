@@ -170,7 +170,7 @@ class ICC_OpenID_Client_Login_Form {
 			'icc_openid_client_login_button'
 		);
 
-		$text = apply_filters( 'icc-openid-client-login-button-text', $atts['button_text'] );
+		$text = apply_filters( 'icc_openid_client_login_button_text', $atts['button_text'] );
 		$text = esc_html( $text );
 
 		$href = $this->client_wrapper->get_authentication_url(

@@ -462,7 +462,7 @@ class ICC_OpenID_Client_Settings_Page {
 			),
 		);
 
-		return apply_filters( 'icc-openid-client-settings-fields', $fields );
+		return apply_filters( 'icc_openid_client_settings_fields', $fields );
 	}
 
 	/**

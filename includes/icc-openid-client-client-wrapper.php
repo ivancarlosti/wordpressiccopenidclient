@@ -97,7 +97,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 		}
 
 		// Alter the requests according to settings.
-		add_filter( 'icc-openid-client-alter-request', array( $client_wrapper, 'alter_request' ), 10, 2 );
+		add_filter( 'icc_openid_client_alter_request', array( $client_wrapper, 'alter_request' ), 10, 2 );
 
 		// Ensure tokens are refreshed before they expire.
 		if ( $settings->token_refresh_enable ) {
@@ -185,14 +185,14 @@ class ICC_OpenID_Client_Client_Wrapper {
 
 		// This hook is being deprecated with the move away from cookies.
 		$redirect_url = apply_filters_deprecated(
-			'icc-openid-client-cookie-redirect-url',
+			'icc_openid_client_cookie_redirect_url',
 			array( $redirect_url ),
 			'3.8.2',
-			'icc-openid-client-client-redirect-to'
+			'icc_openid_client_client_redirect_to'
 		);
 
 		// This is the new hook to use with the transients version of redirection.
-		return apply_filters( 'icc-openid-client-client-redirect-to', $redirect_url );
+		return apply_filters( 'icc_openid_client_client_redirect_to', $redirect_url );
 	}
 
 	/**
@@ -243,7 +243,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 			rawurlencode( $atts['acr_values'] )
 		);
 
-		$url = apply_filters( 'icc-openid-client-auth-url', $url );
+		$url = apply_filters( 'icc_openid_client_auth_url', $url );
 		$url = esc_url_raw( $url );
 		$this->logger->log( $url, 'make_authentication_url' );
 		return $url;
@@ -511,7 +511,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 		$token_response = $client->get_token_response( $token_result );
 
 		// Allow for other plugins to alter data before validation.
-		$token_response = apply_filters( 'icc-openid-client-modify-token-response-before-validation', $token_response );
+		$token_response = apply_filters( 'icc_openid_client_modify_token_response_before_validation', $token_response );
 
 		if ( is_wp_error( $token_response ) ) {
 			$this->error_redirect( $token_response );
@@ -532,7 +532,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 		$id_token_claim = $client->get_id_token_claim( $token_response );
 
 		// Allow for other plugins to alter data before validation.
-		$id_token_claim = apply_filters( 'icc-openid-client-modify-id-token-claim-before-validation', $id_token_claim );
+		$id_token_claim = apply_filters( 'icc_openid_client_modify_id_token_claim_before_validation', $id_token_claim );
 
 		if ( is_wp_error( $id_token_claim ) ) {
 			$this->error_redirect( $id_token_claim );
@@ -606,9 +606,9 @@ class ICC_OpenID_Client_Client_Wrapper {
 
 		// Allow plugins / themes to take action once a user is logged in.
 		$start_time = microtime( true );
-		do_action( 'icc-openid-client-user-logged-in', $user );
+		do_action( 'icc_openid_client_user_logged_in', $user );
 		$end_time = microtime( true );
-		$this->logger->log( 'icc-openid-client-user-logged-in', 'do_action', $end_time - $start_time );
+		$this->logger->log( 'icc_openid_client_user_logged_in', 'do_action', $end_time - $start_time );
 
 		// Default redirect to the homepage.
 		$redirect_url = home_url();
@@ -629,7 +629,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 
 		// Only do redirect-user-back action hook when the plugin is configured for it.
 		if ( $this->settings->redirect_user_back ) {
-			do_action( 'icc-openid-client-redirect-user-back', $redirect_url, $user );
+			do_action( 'icc_openid_client_redirect_user_back', $redirect_url, $user );
 		}
 
 		wp_safe_redirect( $redirect_url );
@@ -763,7 +763,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 		$id_token_claim = $client->get_id_token_claim( $token_response );
 
 		// Allow for other plugins to alter data before validation.
-		$id_token_claim = apply_filters( 'icc-openid-client-modify-id-token-claim-before-validation', $id_token_claim );
+		$id_token_claim = apply_filters( 'icc_openid_client_modify_id_token_claim_before_validation', $id_token_claim );
 
 		if ( is_wp_error( $id_token_claim ) ) {
 			return $id_token_claim;
@@ -820,13 +820,14 @@ class ICC_OpenID_Client_Client_Wrapper {
 		update_user_option( $user->ID, 'icc-openid-client-last-id-token-claim', $id_token_claim );
 		update_user_option( $user->ID, 'icc-openid-client-last-user-claim', $user_claim );
 		// Allow plugins / themes to take action using current claims on existing user (e.g. update role).
-		do_action( 'icc-openid-client-update-user-using-current-claim', $user, $user_claim );
+		do_action( 'icc_openid_client_update_user_using_current_claim', $user, $user_claim );
 
 		// Determine the amount of days before the cookie expires.
-		$remember_me = apply_filters( 'icc-openid-client-remember-me', false, $user, $token_response, $id_token_claim, $user_claim, $subject_identity );
+		$remember_me = apply_filters( 'icc_openid_client_remember_me', false, $user, $token_response, $id_token_claim, $user_claim, $subject_identity );
 		$wp_expiration_days = $remember_me ? 14 : 2;
 
 		// Create the WP session, so we know its token.
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress core filter, intentionally invoked.
 		$expiration = time() + apply_filters( 'auth_cookie_expiration', $wp_expiration_days * DAY_IN_SECONDS, $user->ID, $remember_me );
 		$manager = WP_Session_Tokens::get_instance( $user->ID );
 		$token = $manager->create( $expiration );
@@ -836,6 +837,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 
 		// you did great, have a cookie!
 		wp_set_auth_cookie( $user->ID, $remember_me, '', $token );
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress core action, intentionally invoked.
 		do_action( 'wp_login', $user->user_login, $user );
 	}
 
@@ -1151,7 +1153,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 	 */
 	public function create_new_user( $subject_identity, $user_claim ) {
 		$start_time = microtime( true );
-		$user_claim = apply_filters( 'icc-openid-client-alter-user-claim', $user_claim );
+		$user_claim = apply_filters( 'icc_openid_client_alter_user_claim', $user_claim );
 
 		// Default username & email to the subject identity.
 		$username       = $subject_identity;
@@ -1247,7 +1249,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 			}
 			if ( ! empty( $uid ) ) {
 				$user = $this->update_existing_user( $uid, $subject_identity );
-				do_action( 'icc-openid-client-update-user-using-current-claim', $user, $user_claim );
+				do_action( 'icc_openid_client_update_user_using_current_claim', $user, $user_claim );
 				$end_time = microtime( true );
 				$this->logger->log( "Existing user updated: {$user->user_login} ($uid)", __METHOD__, $end_time - $start_time );
 				return $user;
@@ -1258,7 +1260,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 		 * Allow other plugins / themes to determine authorization of new accounts
 		 * based on the returned user claim.
 		 */
-		$create_user = apply_filters( 'icc-openid-client-user-creation-test', $this->settings->create_if_does_not_exist, $user_claim );
+		$create_user = apply_filters( 'icc_openid_client_user_creation_test', $this->settings->create_if_does_not_exist, $user_claim );
 
 		if ( ! $create_user ) {
 			return new WP_Error( 'cannot-authorize', __( 'Can not authorize.', 'icc-openid-client' ), $create_user );
@@ -1283,7 +1285,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 			'first_name' => isset( $user_claim['given_name'] ) ? $user_claim['given_name'] : '',
 			'last_name' => isset( $user_claim['family_name'] ) ? $user_claim['family_name'] : '',
 		);
-		$user_data = apply_filters( 'icc-openid-client-alter-user-data', $user_data, $user_claim );
+		$user_data = apply_filters( 'icc_openid_client_alter_user_data', $user_data, $user_claim );
 
 		// Create the new user.
 		$uid = wp_insert_user( $user_data );
@@ -1304,7 +1306,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 		$this->logger->log( "New user created: {$user->user_login} ($uid)", __METHOD__, $end_time - $start_time );
 
 		// Allow plugins / themes to take action on new user creation.
-		do_action( 'icc-openid-client-user-create', $user, $user_claim );
+		do_action( 'icc_openid_client_user_create', $user, $user_claim );
 
 		return $user;
 	}
@@ -1322,7 +1324,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 		update_user_option( $uid, 'icc-openid-client-subject-identity', strval( $subject_identity ), true );
 
 		// Allow plugins / themes to take action on user update.
-		do_action( 'icc-openid-client-user-update', $uid );
+		do_action( 'icc_openid_client_user_update', $uid );
 
 		// Return our updated user.
 		return get_user_by( 'id', $uid );

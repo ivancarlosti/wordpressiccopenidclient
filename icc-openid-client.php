@@ -36,29 +36,29 @@ Notes
   Spec Doc - http://openid.net/specs/openid-connect-basic-1_0-32.html
 
   Filters
-  - icc-openid-client-alter-request       - 3 args: request array, plugin settings, specific request op
-  - icc-openid-client-settings-fields     - modify the fields provided on the settings page
-  - icc-openid-client-settings            - modify settings values early in plugin bootstrap.
-  - icc-openid-client-login-button-text   - modify the login button text
-  - icc-openid-client-cookie-redirect-url - modify the redirect url stored as a cookie
-  - icc-openid-client-user-login-test     - (bool) should the user be logged in based on their claim
-  - icc-openid-client-user-creation-test  - (bool) should the user be created based on their claim
-  - icc-openid-client-auth-url            - modify the authentication url
-  - icc-openid-client-alter-user-claim    - modify the user_claim before a new user is created
-  - icc-openid-client-alter-user-data     - modify user data before a new user is created
-  - openid-connect-modify-token-response-before-validation - modify the token response before validation
-  - openid-connect-modify-id-token-claim-before-validation - modify the token claim before validation
-  - icc-openid-client-new-state-value     - modify the user's state value before it us saved.
+  - icc_openid_client_alter_request       - 3 args: request array, plugin settings, specific request op
+  - icc_openid_client_settings_fields     - modify the fields provided on the settings page
+  - icc_openid_client_settings            - modify settings values early in plugin bootstrap.
+  - icc_openid_client_login_button_text   - modify the login button text
+  - icc_openid_client_cookie_redirect_url - modify the redirect url stored as a cookie
+  - icc_openid_client_user_login_test     - (bool) should the user be logged in based on their claim
+  - icc_openid_client_user_creation_test  - (bool) should the user be created based on their claim
+  - icc_openid_client_auth_url            - modify the authentication url
+  - icc_openid_client_alter_user_claim    - modify the user_claim before a new user is created
+  - icc_openid_client_alter_user_data     - modify user data before a new user is created
+  - icc_openid_client_modify_token_response_before_validation - modify the token response before validation
+  - icc_openid_client_modify_id_token_claim_before_validation - modify the token claim before validation
+  - icc_openid_client_new_state_value     - modify the user's state value before it us saved.
 
   Actions
-  - icc-openid-client-user-create                     - 2 args: fires when a new user is created by this plugin
-  - icc-openid-client-user-update                     - 1 arg: user ID, fires when user is updated by this plugin
-  - icc-openid-client-update-user-using-current-claim - 2 args: fires every time an existing user logs in and the claims are updated.
-  - icc-openid-client-redirect-user-back              - 2 args: $redirect_url, $user. Allows interruption of redirect during login.
-  - icc-openid-client-user-logged-in                  - 1 arg: $user, fires when user is logged in.
-  - icc-openid-client-cron-daily                      - daily cron action
-  - icc-openid-client-state-not-found                 - the given state does not exist in the database, regardless of its expiration.
-  - icc-openid-client-state-expired                   - the given state exists, but expired before this login attempt.
+  - icc_openid_client_user_create                     - 2 args: fires when a new user is created by this plugin
+  - icc_openid_client_user_update                     - 1 arg: user ID, fires when user is updated by this plugin
+  - icc_openid_client_update_user_using_current_claim - 2 args: fires every time an existing user logs in and the claims are updated.
+  - icc_openid_client_redirect_user_back              - 2 args: $redirect_url, $user. Allows interruption of redirect during login.
+  - icc_openid_client_user_logged_in                  - 1 arg: $user, fires when user is logged in.
+  - icc_openid_client_cron_daily                      - daily cron action
+  - icc_openid_client_state_not_found                 - the given state does not exist in the database, regardless of its expiration.
+  - icc_openid_client_state_expired                   - the given state exists, but expired before this login attempt.
 
   Callable actions
 
@@ -151,7 +151,7 @@ class ICC_OpenID_Client {
 	public function init() {
 
 		// Allow altering the settings.
-		$this->settings = apply_filters( 'icc-openid-client-settings', $this->settings );
+		$this->settings = apply_filters( 'icc_openid_client_settings', $this->settings );
 
 		$this->client = new ICC_OpenID_Client_Client(
 			$this->settings->client_id,
@@ -181,7 +181,7 @@ class ICC_OpenID_Client {
 		add_shortcode( 'icc_openid_client_auth_url', array( $this->client_wrapper, 'get_authentication_url' ) );
 
 		// Add actions to our scheduled cron jobs.
-		add_action( 'icc-openid-client-cron-daily', array( $this, 'cron_states_garbage_collection' ) );
+		add_action( 'icc_openid_client_cron_daily', array( $this, 'cron_states_garbage_collection' ) );
 
 		$this->upgrade();
 
@@ -237,7 +237,9 @@ class ICC_OpenID_Client {
 			if (
 				! defined( 'DOING_AJAX' ) ||
 				! boolval( constant( 'DOING_AJAX' ) ) ||
+				// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- OIDC callback from IDP; nonces not applicable.
 				! isset( $_GET['action'] ) ||
+				// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- OIDC callback from IDP; nonces not applicable.
 				'icc-openid-client-authorize' != $_GET['action'] ) {
 				auth_redirect();
 			}
@@ -364,8 +366,8 @@ class ICC_OpenID_Client {
 	 * @return void
 	 */
 	public static function setup_cron_jobs() {
-		if ( ! wp_next_scheduled( 'icc-openid-client-cron-daily' ) ) {
-			wp_schedule_event( time(), 'daily', 'icc-openid-client-cron-daily' );
+		if ( ! wp_next_scheduled( 'icc_openid_client_cron_daily' ) ) {
+			wp_schedule_event( time(), 'daily', 'icc_openid_client_cron_daily' );
 		}
 	}
 
@@ -384,7 +386,7 @@ class ICC_OpenID_Client {
 	 * @return void
 	 */
 	public static function deactivation() {
-		wp_clear_scheduled_hook( 'icc-openid-client-cron-daily' );
+		wp_clear_scheduled_hook( 'icc_openid_client_cron_daily' );
 	}
 
 	/**
