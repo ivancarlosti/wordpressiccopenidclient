@@ -28,7 +28,7 @@ After consent has been obtained from the Identity Provider, an existing user is 
 * **End Session Support** — Redirect users to the IDP logout endpoint when they log out of WordPress.
 * **Discovery Document Import** — Auto-populate endpoint settings from your IDP's `.well-known/openid-configuration` URL for quick setup.
 * **Shortcodes** — Use `[icc_openid_client_login_button]` to display a login button anywhere, or `[icc_openid_client_auth_url]` to get the authentication URL.
-* **Alternate Redirect URI** — Option to use a clean redirect URI without query strings (`/icc-openid-authorize`) for IDPs that don't support query parameters in redirect URIs.
+* **Alternate Redirect URI** — Option to use a clean redirect URI without query strings (`/icc-openid-client-authorize`) for IDPs that don't support query parameters in redirect URIs.
 * **Environment Constants** — All settings can be defined as PHP constants (`wp-config.php`) for added security and CI/CD deployment support.
 * **Developer Hooks** — Extensive action and filter hooks for customizing authentication behavior, user creation, claims modification, and more.
 * **Multisite Compatible** — Full support for WordPress Multisite networks.
@@ -83,7 +83,7 @@ Please submit issues to the Github repo: https://github.com/ivancarlosti/wordpre
 
 Most OAuth2 servers require whitelisting a set of redirect URIs for security purposes. The default Redirect URI provided by this client is:
 
-`https://example.com/wp-admin/admin-ajax.php?action=icc-openid-authorize`
+`https://example.com/wp-admin/admin-ajax.php?action=icc-openid-client-authorize`
 
 Replace `example.com` with your domain name and path to WordPress.
 
@@ -93,7 +93,7 @@ Some OAuth2 servers do not allow for a client redirect URI to contain a query st
 
 On the settings page (**Settings > ICC OpenID Client**) there is a checkbox for **Alternate Redirect URI**. When checked, the plugin will use the Redirect URI:
 
-`https://example.com/icc-openid-authorize`
+`https://example.com/icc-openid-client-authorize`
 
 = What Identity Providers are supported? =
 

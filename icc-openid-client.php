@@ -199,10 +199,10 @@ class ICC_OpenID_Client {
 	 * @return string
 	 */
 	public function get_redirect_uri( ICC_OpenID_Client_Option_Settings $settings ) {
-		$redirect_uri = admin_url( 'admin-ajax.php?action=icc-openid-authorize' );
+		$redirect_uri = admin_url( 'admin-ajax.php?action=icc-openid-client-authorize' );
 
 		if ( $settings->alternate_redirect_uri ) {
-			$redirect_uri = site_url( '/icc-openid-authorize' );
+			$redirect_uri = site_url( '/icc-openid-client-authorize' );
 		}
 
 		return $redirect_uri;
@@ -238,7 +238,7 @@ class ICC_OpenID_Client {
 				! defined( 'DOING_AJAX' ) ||
 				! boolval( constant( 'DOING_AJAX' ) ) ||
 				! isset( $_GET['action'] ) ||
-				'icc-openid-authorize' != $_GET['action'] ) {
+				'icc-openid-client-authorize' != $_GET['action'] ) {
 				auth_redirect();
 			}
 		}

@@ -109,14 +109,14 @@ class ICC_OpenID_Client_Client_Wrapper {
 			 * Use the ajax url to handle processing authorization without any html output
 			 * this callback will occur when then IDP returns with an authenticated value
 			 */
-			add_action( 'wp_ajax_icc-openid-authorize', array( $client_wrapper, 'authentication_request_callback' ) );
-			add_action( 'wp_ajax_nopriv_icc-openid-authorize', array( $client_wrapper, 'authentication_request_callback' ) );
+			add_action( 'wp_ajax_icc-openid-client-authorize', array( $client_wrapper, 'authentication_request_callback' ) );
+			add_action( 'wp_ajax_nopriv_icc-openid-client-authorize', array( $client_wrapper, 'authentication_request_callback' ) );
 		}
 
 		if ( $settings->alternate_redirect_uri ) {
 			// Provide an alternate route for authentication_request_callback.
-			add_rewrite_rule( '^icc-openid-authorize/?', 'index.php?icc-openid-authorize=1', 'top' );
-			add_rewrite_tag( '%icc-openid-authorize%', '1' );
+			add_rewrite_rule( '^icc-openid-client-authorize/?', 'index.php?icc-openid-client-authorize=1', 'top' );
+			add_rewrite_tag( '%icc-openid-client-authorize%', '1' );
 			add_action( 'parse_request', array( $client_wrapper, 'alternate_redirect_uri_parse_request' ) );
 		}
 
@@ -131,8 +131,8 @@ class ICC_OpenID_Client_Client_Wrapper {
 	 * @return void
 	 */
 	public function alternate_redirect_uri_parse_request( $query ) {
-		if ( isset( $query->query_vars['icc-openid-authorize'] ) &&
-			 '1' === $query->query_vars['icc-openid-authorize'] ) {
+		if ( isset( $query->query_vars['icc-openid-client-authorize'] ) &&
+			 '1' === $query->query_vars['icc-openid-client-authorize'] ) {
 			$this->authentication_request_callback();
 			exit;
 		}

@@ -498,10 +498,10 @@ class ICC_OpenID_Client_Settings_Page {
 
 		wp_enqueue_style( 'icc-openid-client-admin', plugin_dir_url( __DIR__ ) . 'css/styles-admin.css', array(), ICC_OpenID_Client::VERSION, 'all' );
 
-		$redirect_uri = admin_url( 'admin-ajax.php?action=icc-openid-authorize' );
+		$redirect_uri = admin_url( 'admin-ajax.php?action=icc-openid-client-authorize' );
 
 		if ( $this->settings->alternate_redirect_uri ) {
-			$redirect_uri = site_url( '/icc-openid-authorize' );
+			$redirect_uri = site_url( '/icc-openid-client-authorize' );
 		}
 		?>
 		<div class="wrap">

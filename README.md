@@ -110,13 +110,13 @@ define( 'OIDC_LOG_LIMIT', 1000 );
 The default redirect URI registered with your IDP should be:
 
 ```
-https://your-site.com/wp-admin/admin-ajax.php?action=icc-openid-authorize
+https://your-site.com/wp-admin/admin-ajax.php?action=icc-openid-client-authorize
 ```
 
 If your IDP doesn't support query strings in redirect URIs, enable **Alternate Redirect URI** in settings to use:
 
 ```
-https://your-site.com/icc-openid-authorize
+https://your-site.com/icc-openid-client-authorize
 ```
 
 ## Hooks & Filters
