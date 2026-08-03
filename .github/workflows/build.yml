@@ -108,10 +108,11 @@ jobs:
             done < <(git log --pretty=format:"%s (%h)" HEAD~1..HEAD 2>/dev/null)
           fi
 
-          # Append section to release body
+          # Append section to release body, preserving the original title
+          CURRENT_TITLE=$(gh release view "$TAG" --json name -q ".name")
           CURRENT_BODY=$(gh release view "$TAG" --json body -q ".body")
           UPDATED_BODY="${CURRENT_BODY}"$'\n\n'"${SECTION}"
-          gh release edit "$TAG" --notes "${UPDATED_BODY}"
+          gh release edit "$TAG" --title "${CURRENT_TITLE}" --notes "${UPDATED_BODY}"
 
       # ---- Docker ----
       - name: 🔍 Check if Dockerfile exists
