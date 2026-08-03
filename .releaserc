@@ -2,10 +2,10 @@
   "branches": ["main"],
   "plugins": [
     ["@semantic-release/commit-analyzer", {
-      "preset": "conventionalcommits"
+      "preset": "angular"
     }],
     ["@semantic-release/release-notes-generator", {
-      "preset": "conventionalcommits"
+      "preset": "angular"
     }],
     ["@semantic-release/exec", {
       "prepareCmd": "sed -i \"s/\\\"version\\\": \\\".*\\\"/\\\"version\\\": \\\"${nextRelease.version}\\\"/\" manifest.json && sed -i \"s/^ \\* Version: .*/ * Version:           ${nextRelease.version}/\" icc-openid-client.php && sed -i \"s/const VERSION = '.*';/const VERSION = '${nextRelease.version}';/\" icc-openid-client.php"

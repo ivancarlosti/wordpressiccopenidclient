@@ -102,8 +102,7 @@ jobs:
             @semantic-release/exec@^6 \
             @semantic-release/git@^10 \
             @semantic-release/github@^9 \
-            @semantic-release/changelog@^6 \
-            conventional-changelog-conventionalcommits@^7
+            @semantic-release/changelog@^6
 
       - name: 🔧 Ensure valid branch config
         if: inputs.version == ''
@@ -119,8 +118,8 @@ jobs:
             } else {
               config = {
                 plugins: [
-                  ['@semantic-release/commit-analyzer', { preset: 'conventionalcommits' }],
-                  ['@semantic-release/release-notes-generator', { preset: 'conventionalcommits' }],
+                  ['@semantic-release/commit-analyzer', { preset: 'angular' }],
+                  ['@semantic-release/release-notes-generator', { preset: 'angular' }],
                   '@semantic-release/github'
                 ]
               };
