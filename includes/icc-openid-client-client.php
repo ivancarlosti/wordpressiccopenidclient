@@ -302,7 +302,7 @@ class ICC_OpenID_Client_Client {
 	public function request_authentication_token( $code ) {
 
 		// Add Host header - required for when the openid-connect endpoint is behind a reverse-proxy.
-		$parsed_url = parse_url( $this->endpoint_token );
+		$parsed_url = wp_parse_url( $this->endpoint_token );
 		$host = $parsed_url['host'];
 
 		$request = array(
@@ -424,7 +424,7 @@ class ICC_OpenID_Client_Client {
 		$request['headers']['Authorization'] = 'Bearer ' . $access_token;
 
 		// Add Host header - required for when the openid-connect endpoint is behind a reverse-proxy.
-		$parsed_url = parse_url( $this->endpoint_userinfo );
+		$parsed_url = wp_parse_url( $this->endpoint_userinfo );
 		$host = $parsed_url['host'];
 
 		if ( ! empty( $parsed_url['port'] ) ) {

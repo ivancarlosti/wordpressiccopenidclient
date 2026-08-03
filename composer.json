@@ -1,0 +1,21 @@
+{
+    "name": "ivancarlosti/icc-openid-client",
+    "description": "WordPress plugin that provides SSO (Single Sign-On) authentication against an OpenID Connect OAuth2 Identity Provider using Authorization Code Flow.",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "ivancarlosti",
+            "homepage": "https://github.com/ivancarlosti"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "firebase/php-jwt": "^6.0"
+    },
+    "autoload": {
+        "classmap": [
+            "includes/"
+        ]
+    }
+}

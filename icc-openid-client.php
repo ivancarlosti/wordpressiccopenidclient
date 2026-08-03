@@ -1,4 +1,7 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 /**
  * OpenID Connect Generic Client
  *
@@ -344,7 +347,8 @@ class ICC_OpenID_Client {
 	 */
 	public function cron_states_garbage_collection() {
 		global $wpdb;
-		$states = $wpdb->get_col( "SELECT `option_name` FROM {$wpdb->options} WHERE `option_name` LIKE '_transient_icc-openid-client-state--%'" );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Transient garbage collection requires direct option table scan; caching not appropriate.
+		$states = $wpdb->get_col( $wpdb->prepare( "SELECT `option_name` FROM {$wpdb->options} WHERE `option_name` LIKE %s", '_transient_icc-openid-client-state--%' ) );
 
 		if ( ! empty( $states ) ) {
 			foreach ( $states as $state ) {

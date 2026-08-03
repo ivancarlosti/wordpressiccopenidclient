@@ -1,8 +1,8 @@
 === ICC OpenID Client ===
 Contributors: ivancarlosti
-Tags: security, login, oauth2, openidconnect, apps, authentication, autologin, sso, emaildomain, restriction, jwt, keycloak, auth0, azure, okta, google
+Tags: security, login, openidconnect, sso, authentication
 Requires at least: 5.0
-Tested up to: 6.9.0
+Tested up to: 7.0
 Stable tag: 3.11.3
 Requires PHP: 7.4
 License: GPLv2 or later

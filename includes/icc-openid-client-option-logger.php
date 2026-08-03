@@ -221,8 +221,6 @@ class ICC_OpenID_Client_Option_Logger {
 		}
 		$logs = array_reverse( $logs );
 
-		ini_set( 'xdebug.var_display_max_depth', '-1' );
-
 		ob_start();
 		?>
 		<table id="logger-table" class="wp-list-table widefat fixed striped posts">
@@ -256,7 +254,17 @@ class ICC_OpenID_Client_Option_Logger {
 						</div>
 					</td>
 					<td class="col-data">
-						<?php $log_data = ! empty( $log['data'] ) ? print_r( $log['data'], true ) : ''; ?>
+						<?php
+						if ( ! empty( $log['data'] ) ) {
+							if ( is_string( $log['data'] ) ) {
+								$log_data = $log['data'];
+							} else {
+								$log_data = wp_json_encode( $log['data'], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES );
+							}
+						} else {
+							$log_data = '';
+						}
+						?>
 						<pre><?php print esc_html( $log_data ); ?></pre>
 					</td>
 				</tr>

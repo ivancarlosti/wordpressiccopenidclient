@@ -149,6 +149,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 		 */
 		global $wp;
 
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- OAuth redirect callback; nonces not applicable.
 		if ( isset( $GLOBALS['pagenow'] ) && 'wp-login.php' == $GLOBALS['pagenow'] && isset( $_GET['action'] ) && 'logout' === $_GET['action'] ) {
 			return '';
 		}
@@ -162,6 +163,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 		}
 
 		// Honor Core WordPress & other plugin redirects.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Login redirect flow; nonces not applicable.
 		if ( isset( $_REQUEST['redirect_to'] ) ) {
 			$redirect_url = esc_url_raw( wp_unslash( $_REQUEST['redirect_to'] ) );
 		}
@@ -175,6 +177,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 				$redirect_url = home_url( add_query_arg( null, null ) );
 				// @phpstan-ignore-next-line
 				if ( $wp->did_permalink ) {
+					// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Login redirect flow; nonces not applicable.
 					$redirect_url = home_url( add_query_arg( $_GET, trailingslashit( $wp->request ) ) );
 				}
 			}
@@ -327,7 +330,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 		$this->logger->log( $error );
 
 		// Redirect user back to login page.
-		wp_redirect(
+		wp_safe_redirect(
 			wp_login_url() .
 			'?login-error=' . $error->get_error_code() .
 			'&message=' . urlencode( $error->get_error_message() )
@@ -352,7 +355,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 	 * @return array<string>|bool
 	 */
 	public function update_allowed_redirect_hosts( $allowed ) {
-		$host = parse_url( $this->settings->endpoint_end_session, PHP_URL_HOST );
+		$host = wp_parse_url( $this->settings->endpoint_end_session, PHP_URL_HOST );
 		if ( ! $host ) {
 			return false;
 		}
@@ -372,7 +375,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 	 */
 	public function get_end_session_logout_redirect_url( $redirect_url, $requested_redirect_to, $user ) {
 		$url = $this->settings->endpoint_end_session;
-		$query = parse_url( $url, PHP_URL_QUERY );
+		$query = wp_parse_url( $url, PHP_URL_QUERY );
 		$url .= $query ? '&' : '?';
 
 		// Prevent redirect back to the IDP when logging out in auto mode.
@@ -385,7 +388,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 		if ( ! $token_response ) {
 			// Happens if non-openid login was used.
 			return $redirect_url;
-		} else if ( ! parse_url( $redirect_url, PHP_URL_HOST ) ) {
+		} else if ( ! wp_parse_url( $redirect_url, PHP_URL_HOST ) ) {
 			// Convert to absolute url if needed, site_url() to be friendly with non-standard (Bedrock) layout.
 			$redirect_url = site_url( $redirect_url );
 		}
@@ -449,6 +452,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 		$client = $this->client;
 
 		// Start the authentication flow.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- OAuth redirect from IDP; nonces not applicable.
 		$authentication_request = $client->validate_authentication_request( $_GET );
 
 		if ( is_wp_error( $authentication_request ) ) {
@@ -462,6 +466,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 
 			$error_code = $authentication_request->get_error_code();
 			$is_retryable = in_array( $error_code, $retryable_idp_errors, true );
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- OAuth redirect from IDP; nonces not applicable.
 			$already_retried = isset( $_GET['icc-openid-client-retry'] );
 
 			if ( $is_retryable && ! $already_retried ) {
@@ -474,7 +479,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 				$auth_url = $this->get_authentication_url();
 				$auth_url = add_query_arg( 'icc-openid-client-retry', '1', $auth_url );
 
-				wp_redirect( $auth_url );
+				wp_redirect( $auth_url ); // phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect -- Redirect to external IDP authentication URL.
 				exit;
 			}
 
@@ -506,7 +511,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 		$token_response = $client->get_token_response( $token_result );
 
 		// Allow for other plugins to alter data before validation.
-		$token_response = apply_filters( 'openid-connect-modify-token-response-before-validation', $token_response );
+		$token_response = apply_filters( 'icc-openid-client-modify-token-response-before-validation', $token_response );
 
 		if ( is_wp_error( $token_response ) ) {
 			$this->error_redirect( $token_response );
@@ -527,7 +532,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 		$id_token_claim = $client->get_id_token_claim( $token_response );
 
 		// Allow for other plugins to alter data before validation.
-		$id_token_claim = apply_filters( 'openid-connect-modify-id-token-claim-before-validation', $id_token_claim );
+		$id_token_claim = apply_filters( 'icc-openid-client-modify-id-token-claim-before-validation', $id_token_claim );
 
 		if ( is_wp_error( $id_token_claim ) ) {
 			$this->error_redirect( $id_token_claim );
@@ -627,7 +632,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 			do_action( 'icc-openid-client-redirect-user-back', $redirect_url, $user );
 		}
 
-		wp_redirect( $redirect_url );
+		wp_safe_redirect( $redirect_url );
 
 		exit;
 	}
@@ -758,7 +763,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 		$id_token_claim = $client->get_id_token_claim( $token_response );
 
 		// Allow for other plugins to alter data before validation.
-		$id_token_claim = apply_filters( 'openid-connect-modify-id-token-claim-before-validation', $id_token_claim );
+		$id_token_claim = apply_filters( 'icc-openid-client-modify-id-token-claim-before-validation', $id_token_claim );
 
 		if ( is_wp_error( $id_token_claim ) ) {
 			return $id_token_claim;
@@ -869,6 +874,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 		// Look for user by their icc-openid-client-subject-identity value.
 		$user_query = new WP_User_Query(
 			array(
+				// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Necessary identity lookup; meta key is indexed.
 				'meta_query' => array(
 					'relation' => 'OR',
 					array(

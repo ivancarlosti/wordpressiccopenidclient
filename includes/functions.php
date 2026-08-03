@@ -1,4 +1,7 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 /**
  * Global OIDCG functions.
  *
@@ -13,7 +16,7 @@
  *
  * @return string
  */
-function oidcg_get_authentication_url() {
+function icc_openid_client_get_authentication_url() {
 	return \ICC_OpenID_Client::instance()->client_wrapper->get_authentication_url();
 }
 
@@ -25,6 +28,6 @@ function oidcg_get_authentication_url() {
  *
  * @return WP_Error|array
  */
-function oidcg_refresh_user_claim( $user, $token_response ) {
+function icc_openid_client_refresh_user_claim( $user, $token_response ) {
 	return \ICC_OpenID_Client::instance()->client_wrapper->refresh_user_claim( $user, $token_response );
 }

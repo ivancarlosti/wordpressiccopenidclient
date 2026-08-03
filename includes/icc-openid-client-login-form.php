@@ -81,6 +81,7 @@ class ICC_OpenID_Client_Login_Form {
 	 */
 	public function handle_redirect_login_type_auto() {
 
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- OAuth login flow; nonces not applicable.
 		if ( 'wp-login.php' == $GLOBALS['pagenow']
 			&& ( 'auto' == $this->settings->login_type || ! empty( $_GET['force_redirect'] ) )
 			// Don't send users to the IDP on logout or post password protected authentication.
@@ -88,12 +89,13 @@ class ICC_OpenID_Client_Login_Form {
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing -- WP Login Form doesn't have a nonce.
 			&& ! isset( $_POST['wp-submit'] ) ) {
 			if ( ! isset( $_GET['login-error'] ) ) {
-				wp_redirect( $this->client_wrapper->get_authentication_url() );
+				wp_redirect( $this->client_wrapper->get_authentication_url() ); // phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect -- Redirect to external IDP authentication URL.
 				exit;
 			} else {
 				add_action( 'login_footer', array( $this, 'remove_login_form' ), 99 );
 			}
 		}
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 	}
 
 	/**
@@ -105,8 +107,11 @@ class ICC_OpenID_Client_Login_Form {
 	 */
 	public function handle_login_page( $message ) {
 
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Error display on login form; nonces not applicable.
 		if ( isset( $_GET['login-error'] ) ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Error display on login form; nonces not applicable.
 			$error_message = ! empty( $_GET['message'] ) ? sanitize_text_field( wp_unslash( $_GET['message'] ) ) : 'Unknown error.';
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Error display on login form; nonces not applicable.
 			$message .= $this->make_error_output( sanitize_text_field( wp_unslash( $_GET['login-error'] ) ), $error_message );
 		}
 
@@ -180,11 +185,11 @@ class ICC_OpenID_Client_Login_Form {
 		);
 		$href = esc_url_raw( $href );
 
-		$login_button = <<<HTML
-<div class="icc-openid-login-button" style="margin: 1em 0; text-align: center;">
-	<a class="button button-large" href="{$href}">{$text}</a>
-</div>
-HTML;
+		$login_button = sprintf(
+			'<div class="icc-openid-login-button" style="margin: 1em 0; text-align: center;"><a class="button button-large" href="%1$s">%2$s</a></div>',
+			$href,
+			$text
+		);
 
 		return $login_button;
 	}
