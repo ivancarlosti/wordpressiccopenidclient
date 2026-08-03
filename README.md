@@ -22,7 +22,7 @@ A WordPress plugin that provides SSO (Single Sign-On) authentication against an 
 - **JWT Signature Verification** — JWKS-based JWT validation to prevent token forgery
 - **User Auto-Creation** — Automatically create WordPress users from IDP claims
 - **Link Existing Users** — Link existing WordPress accounts to IDP identities
-- **Email Domain Restriction** 🔒 — Restrict login to specific email domains (e.g., only `company.com`). Leave empty to allow all domains
+- **Email Domain Restriction** 🔒 — Restrict login to specific email domains (e.g., `company.com`) or full email addresses (e.g., `specificuser@gmail.com`). Leave empty to allow all
 - **Token Refresh** — Automatic access token refresh for supported IDPs
 - **End Session Support** — Redirect to IDP logout endpoint on WordPress logout
 - **Discovery Document Import** — Auto-populate settings from `.well-known/openid-configuration`
@@ -76,7 +76,7 @@ Supported IDPs:
 
 | Setting | Description |
 |---|---|
-| **Email Domain Restriction** 🔒 | Space-separated list of allowed email domains (e.g., `company.com partner.org`). Leave empty to allow all domains |
+| **Email Domain Restriction** 🔒 | Space-separated list of allowed email domains (e.g., `company.com`) or full email addresses (e.g., `specificuser@gmail.com`). Leave empty to allow all |
 | **Link Existing Users** | Match IDP identities to existing WordPress accounts by email |
 | **Create user if does not exist** | Auto-create new WordPress users on first login |
 | **Redirect Back to Origin Page** | Return users to the page they were on before login |
@@ -95,7 +95,7 @@ define( 'OIDC_ENDPOINT_LOGOUT_URL', 'https://idp.example.com/logout' );
 define( 'OIDC_ENDPOINT_JWKS_URL', 'https://idp.example.com/certs' );
 define( 'OIDC_CLIENT_SCOPE', 'openid profile email' );
 define( 'OIDC_LOGIN_TYPE', 'button' );
-define( 'OIDC_EMAIL_DOMAIN_RESTRICTION', 'company.com partner.org' );
+define( 'OIDC_EMAIL_DOMAIN_RESTRICTION', 'company.com specificuser@gmail.com partner.org' );
 define( 'OIDC_CREATE_IF_DOES_NOT_EXIST', true );
 define( 'OIDC_LINK_EXISTING_USERS', true );
 define( 'OIDC_ENFORCE_PRIVACY', false );

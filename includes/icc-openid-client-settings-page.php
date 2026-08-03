@@ -426,8 +426,8 @@ class ICC_OpenID_Client_Settings_Page {
 			),
 			'email_domain_restriction'   => array(
 				'title'       => __( 'Email Domain Restriction', 'icc-openid-client' ),
-				'description' => __( 'Restrict login to specific email domains. Enter domain names separated by spaces (e.g. "company.com partner.org"). Leave empty to allow all domains.', 'icc-openid-client' ),
-				'example'     => 'company.com partner.org',
+				'description' => __( 'Restrict login to specific email domains or full email addresses. Enter domains (e.g. "company.com") or full emails (e.g. "specificuser@gmail.com") separated by spaces. Leave empty to allow all.', 'icc-openid-client' ),
+				'example'     => 'company.com specificuser@gmail.com partner.org',
 				'type'        => 'text',
 				'disabled'    => defined( 'OIDC_EMAIL_DOMAIN_RESTRICTION' ),
 				'section'     => 'user_settings',

@@ -649,19 +649,23 @@ class ICC_OpenID_Client_Client_Wrapper {
 	}
 
 	/**
-	 * Validate that the user's email domain is in the allowed domains list.
+	 * Validate that the user's email matches the allowed domains or email addresses list.
 	 *
-	 * If the email_domain_restriction setting is empty, all domains are allowed.
+	 * Each entry in the restriction list can be:
+	 * - A domain name (e.g., "company.com") — matches any user at that domain.
+	 * - A full email address (e.g., "specificuser@gmail.com") — matches only that exact address.
+	 *
+	 * Comparisons are case-insensitive. If the setting is empty, all are allowed.
 	 *
 	 * @param array $user_claim The authenticated user claim containing email data.
 	 *
-	 * @return true|WP_Error True if domain is allowed, WP_Error otherwise.
+	 * @return true|WP_Error True if allowed, WP_Error otherwise.
 	 */
 	private function validate_email_domain( $user_claim ) {
-		$allowed_domains_setting = trim( $this->settings->email_domain_restriction );
+		$restriction_setting = trim( $this->settings->email_domain_restriction );
 
-		// Empty setting means allow all domains.
-		if ( empty( $allowed_domains_setting ) ) {
+		// Empty setting means allow all.
+		if ( empty( $restriction_setting ) ) {
 			return true;
 		}
 
@@ -674,9 +678,12 @@ class ICC_OpenID_Client_Client_Wrapper {
 			);
 		}
 
-		// Extract the domain from the email address.
-		$parts = explode( '@', $email );
-		$domain = strtolower( trim( $parts[1] ?? '' ) );
+		// Normalize the user's email for case-insensitive comparison.
+		$email_lower = strtolower( trim( $email ) );
+
+		// Extract the domain part from the user's email.
+		$parts = explode( '@', $email_lower );
+		$domain = trim( $parts[1] ?? '' );
 
 		if ( empty( $domain ) ) {
 			return new WP_Error(
@@ -685,24 +692,46 @@ class ICC_OpenID_Client_Client_Wrapper {
 			);
 		}
 
-		// Parse allowed domains (space-separated, case-insensitive).
-		$allowed_domains = preg_split( '/\s+/', strtolower( trim( $allowed_domains_setting ) ) );
+		// Parse allowed entries (space-separated, case-insensitive).
+		$allowed_entries = preg_split( '/\s+/', strtolower( trim( $restriction_setting ) ) );
 
-		if ( ! in_array( $domain, $allowed_domains, true ) ) {
+		// Check each entry: full emails get exact match, domains get domain match.
+		$matched = false;
+		foreach ( $allowed_entries as $entry ) {
+			if ( '' === $entry ) {
+				continue;
+			}
+
+			if ( false !== strpos( $entry, '@' ) ) {
+				// Full email address — compare against user's full email.
+				if ( $email_lower === $entry ) {
+					$matched = true;
+					break;
+				}
+			} else {
+				// Domain only — compare against user's email domain.
+				if ( $domain === $entry ) {
+					$matched = true;
+					break;
+				}
+			}
+		}
+
+		if ( ! $matched ) {
 			$this->logger->log(
 				sprintf(
-					'Email domain "%s" not in allowed list. Allowed: %s',
-					$domain,
-					implode( ', ', $allowed_domains )
+					'Email "%s" not in allowed restriction list. Allowed entries: %s',
+					$email,
+					implode( ', ', $allowed_entries )
 				),
 				'email-domain-restriction'
 			);
 			return new WP_Error(
 				'email-domain-not-allowed',
 				sprintf(
-					/* translators: %s is the email domain that was rejected */
-					__( 'Email domain "%s" is not allowed for login.', 'icc-openid-client' ),
-					$domain
+					/* translators: %s is the email address or domain that was rejected */
+					__( 'Email "%s" is not allowed for login. Check the allowed email or domain restrictions.', 'icc-openid-client' ),
+					$email
 				)
 			);
 		}

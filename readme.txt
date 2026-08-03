@@ -23,7 +23,7 @@ After consent has been obtained from the Identity Provider, an existing user is 
 * **JWT Signature Verification** — JWKS-based JWT validation to prevent token forgery and ensure token authenticity.
 * **User Auto-Creation** — Automatically create WordPress users from IDP claims when they log in for the first time.
 * **Link Existing Users** — Match IDP identities to existing WordPress accounts by email address.
-* **Email Domain Restriction** — Restrict login to specific email domains (e.g., only `company.com` and `partner.org`). Leave empty to allow all domains.
+* **Email Domain Restriction** — Restrict login to specific email domains (e.g., `company.com`) or full email addresses (e.g., `specificuser@gmail.com`). Leave empty to allow all.
 * **Token Refresh** — Automatic access token refresh for Identity Providers that support refresh tokens.
 * **End Session Support** — Redirect users to the IDP logout endpoint when they log out of WordPress.
 * **Discovery Document Import** — Auto-populate endpoint settings from your IDP's `.well-known/openid-configuration` URL for quick setup.
@@ -105,9 +105,9 @@ Yes. All plugin settings can be defined as PHP constants in your `wp-config.php`
 
 = How does Email Domain Restriction work? =
 
-You can enter one or more email domains (space-separated) in the **Email Domain Restriction** field on the settings page. Only users whose email address matches one of the specified domains will be allowed to log in. Leave the field empty to allow all domains.
+You can enter one or more email domains or full email addresses (space-separated) in the **Email Domain Restriction** field on the settings page. Only users whose email address matches one of the specified entries will be allowed to log in. Entries can be domain names (e.g., `company.com` matches any user at that domain) or full email addresses (e.g., `specificuser@gmail.com` matches only that exact address). Leave the field empty to allow all.
 
-Example: `company.com partner.org` — only users with emails ending in `@company.com` or `@partner.org` can authenticate.
+Example: `company.com specificuser@gmail.com partner.org` — only users with emails ending in `@company.com` or `@partner.org`, or the exact email `specificuser@gmail.com`, can authenticate.
 
 = Does the plugin support WordPress Multisite? =
 
@@ -120,6 +120,10 @@ Yes. The plugin is fully compatible with WordPress Multisite networks and uses `
 SECURITY UPDATE: 3.11.x branch - Fixes authentication vulnerabilities including JWT signature bypass and SSRF protection. Update immediately and configure JWKS endpoint in settings.
 
 == Changelog ==
+
+= 3.11.4 =
+
+* Improvement: Enhanced Email Domain Restriction to support full email addresses in addition to domain names (e.g., `company.com specificuser@gmail.com`). Case-insensitive matching for both.
 
 = 3.11.3 =
 

@@ -58,7 +58,7 @@
  * @property bool $token_refresh_enable     The flag whether to support refresh tokens by IDPs.
  * @property bool $link_existing_users      The flag to indicate whether to link to existing WordPress-only accounts or greturn an error.
  * @property bool $create_if_does_not_exist The flag to indicate whether to create new users or not.
- * @property string $email_domain_restriction Space-separated list of allowed email domains. Empty means allow all.
+ * @property string $email_domain_restriction Space-separated list of allowed email domains or full email addresses. Empty means allow all.
  * @property bool $redirect_user_back       The flag to indicate whether to redirect the user back to the page on which they started.
  * @property bool $redirect_on_logout       The flag to indicate whether to redirect to the login screen on session expiration.
  * @property bool $enable_logging           The flag to enable/disable logging.
