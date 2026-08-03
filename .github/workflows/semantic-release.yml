@@ -52,11 +52,10 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git tag -a "${TAG}" -m "Release ${TAG}"
           git push origin "${TAG}"
-          echo "${VERSION}" > .version
           sed -i "s/\"version\": \".*\"/\"version\": \"${VERSION}\"/" manifest.json
           sed -i "s/^ \\* Version: .*/ * Version:           ${VERSION}/" icc-openid-client.php
           sed -i "s/const VERSION = '.*';/const VERSION = '${VERSION}';/" icc-openid-client.php
-          git add manifest.json icc-openid-client.php .version
+          git add manifest.json icc-openid-client.php
           git commit -m "chore(release): bump version to ${VERSION} [skip ci]"
           git push origin main
           gh release create "${TAG}" \
@@ -143,14 +142,18 @@ jobs:
         if: inputs.version == '' && always() && steps.semantic.outcome == 'success'
         id: version
         run: |
-          if [ -f .version ]; then
-            VERSION=$(cat .version)
+          # Fetch tags to ensure the newly created tag is visible locally
+          git fetch --tags
+          # Find the most recent tag reachable from HEAD (the one semantic-release just created)
+          NEW_TAG=$(git describe --tags --abbrev=0 2>/dev/null || true)
+          if [ -n "$NEW_TAG" ]; then
+            VERSION="${NEW_TAG#v}"
             echo "new_release_version=${VERSION}" >> "$GITHUB_OUTPUT"
             echo "new_release_published=true" >> "$GITHUB_OUTPUT"
-            echo "Detected release version: ${VERSION}"
+            echo "Detected release version: ${VERSION} (tag: ${NEW_TAG})"
           else
             echo "new_release_published=false" >> "$GITHUB_OUTPUT"
-            echo "No .version file found — no release was published."
+            echo "No tags reachable from HEAD — no release was published."
           fi
 
       - name: 🔔 Trigger package build workflow

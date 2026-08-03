@@ -8,7 +8,7 @@
       "preset": "conventionalcommits"
     }],
     ["@semantic-release/exec", {
-      "prepareCmd": "echo ${nextRelease.version} > .version && sed -i \"s/\\\"version\\\": \\\".*\\\"/\\\"version\\\": \\\"${nextRelease.version}\\\"/\" manifest.json && sed -i \"s/^ \\* Version: .*/ * Version:           ${nextRelease.version}/\" icc-openid-client.php && sed -i \"s/const VERSION = '.*';/const VERSION = '${nextRelease.version}';/\" icc-openid-client.php"
+      "prepareCmd": "sed -i \"s/\\\"version\\\": \\\".*\\\"/\\\"version\\\": \\\"${nextRelease.version}\\\"/\" manifest.json && sed -i \"s/^ \\* Version: .*/ * Version:           ${nextRelease.version}/\" icc-openid-client.php && sed -i \"s/const VERSION = '.*';/const VERSION = '${nextRelease.version}';/\" icc-openid-client.php"
     }],
     ["@semantic-release/git", {
       "assets": ["manifest.json", "icc-openid-client.php"],
