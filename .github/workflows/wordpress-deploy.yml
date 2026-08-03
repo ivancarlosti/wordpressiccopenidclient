@@ -84,6 +84,7 @@ jobs:
             --exclude='README.md' \
             --exclude='LICENSE' \
             --exclude='manifest.json' \
+            --exclude='composer.lock' \
             --exclude='*.zip'
 
           # Create the zip with plugin slug as root folder

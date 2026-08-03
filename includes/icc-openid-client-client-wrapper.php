@@ -163,10 +163,11 @@ class ICC_OpenID_Client_Client_Wrapper {
 		}
 
 		// Honor Core WordPress & other plugin redirects.
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Login redirect flow; nonces not applicable.
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Login redirect flow; nonces not applicable.
 		if ( isset( $_REQUEST['redirect_to'] ) ) {
 			$redirect_url = esc_url_raw( wp_unslash( $_REQUEST['redirect_to'] ) );
 		}
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 		// Capture the current URL if set to redirect back to origin page.
 		if ( $this->settings->redirect_user_back ) {

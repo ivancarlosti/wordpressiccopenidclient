@@ -1,0 +1,21 @@
+{
+    "name": "ivancarlosti/icc-openid-client",
+    "description": "WordPress OpenID Connect SSO plugin using Authorization Code Flow.",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Ivan Carlos",
+            "email": "me@ivancarlos.me",
+            "homepage": "https://ivancarlos.me"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "firebase/php-jwt": "^6.0"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    }
+}
