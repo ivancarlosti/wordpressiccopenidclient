@@ -1,5 +1,5 @@
 === ICC OpenID Client ===
-Contributors: daggerhart, tnolte, ivancarlosti
+Contributors: ivancarlosti
 Tags: security, login, oauth2, openidconnect, apps, authentication, autologin, sso, emaildomain, restriction
 Requires at least: 5.0
 Tested up to: 6.9.0
