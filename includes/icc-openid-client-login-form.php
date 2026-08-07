@@ -116,8 +116,9 @@ class ICC_OpenID_Client_Login_Form {
 			$message .= $this->make_error_output( $error_code, $error_message );
 
 			// If the user is already logged in with another account at the IDP,
-			// provide a link to logout from the IDP first.
-			if ( 'cannot-authorize' === $error_code && ! empty( $this->settings->endpoint_end_session ) ) {
+			// or the email domain is not allowed, provide a link to logout from
+			// the IDP first so they can try with a different account.
+			if ( in_array( $error_code, array( 'cannot-authorize', 'email-domain-not-allowed' ), true ) && ! empty( $this->settings->endpoint_end_session ) ) {
 				$message .= $this->make_idp_logout_link();
 			}
 		}
