@@ -188,9 +188,21 @@ msgstr "Verificación JWT falló: %s"
 msgid "ERROR (%1$s)"
 msgstr "ERROR (%1$s)"
 
+#: includes/icc-openid-client-login-form.php:115
+msgid "Unknown error."
+msgstr "Error desconocido."
+
 #: includes/icc-openid-client-login-form.php:152
 msgid "Login with OpenID Connect"
 msgstr "Iniciar sesión con OpenID Connect"
+
+#: includes/icc-openid-client-login-form.php:169
+msgid "You may be logged in with a different account on the identity provider. Please logout from the identity provider first, then try again."
+msgstr "Es posible que haya iniciado sesión con una cuenta diferente en el proveedor de identidad. Cierre sesión en el proveedor de identidad primero y vuelva a intentarlo."
+
+#: includes/icc-openid-client-login-form.php:173
+msgid "Logout from Identity Provider"
+msgstr "Cerrar sesión del Proveedor de Identidad"
 
 #: includes/icc-openid-client-option-logger.php:230
 msgid "Details"

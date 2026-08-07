@@ -110,9 +110,16 @@ class ICC_OpenID_Client_Login_Form {
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Error display on login form; nonces not applicable.
 		if ( isset( $_GET['login-error'] ) ) {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Error display on login form; nonces not applicable.
-			$error_message = ! empty( $_GET['message'] ) ? sanitize_text_field( wp_unslash( $_GET['message'] ) ) : 'Unknown error.';
+			$error_code = sanitize_text_field( wp_unslash( $_GET['login-error'] ) );
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Error display on login form; nonces not applicable.
-			$message .= $this->make_error_output( sanitize_text_field( wp_unslash( $_GET['login-error'] ) ), $error_message );
+			$error_message = ! empty( $_GET['message'] ) ? sanitize_text_field( wp_unslash( $_GET['message'] ) ) : __( 'Unknown error.', 'icc-openid-client' );
+			$message .= $this->make_error_output( $error_code, $error_message );
+
+			// If the user is already logged in with another account at the IDP,
+			// provide a link to logout from the IDP first.
+			if ( 'cannot-authorize' === $error_code && ! empty( $this->settings->endpoint_end_session ) ) {
+				$message .= $this->make_idp_logout_link();
+			}
 		}
 
 		// Login button is appended to existing messages in case of error.
@@ -136,6 +143,36 @@ class ICC_OpenID_Client_Login_Form {
 		<div id="login_error"><?php // translators: %1$s is the error code from the IDP. ?>
 			<strong><?php printf( esc_html__( 'ERROR (%1$s)', 'icc-openid-client' ), esc_html( $error_code ) ); ?>: </strong>
 			<?php print esc_html( $error_message ); ?>
+		</div>
+		<?php
+		return wp_kses_post( ob_get_clean() );
+	}
+
+	/**
+	 * Display a link to logout from the Identity Provider.
+	 *
+	 * Used when the user is already logged in with a different account
+	 * at the IDP and needs to logout before trying again.
+	 *
+	 * @return string
+	 */
+	public function make_idp_logout_link() {
+
+		$end_session_url = $this->settings->endpoint_end_session;
+		$separator = ( false === strpos( $end_session_url, '?' ) ) ? '?' : '&';
+		$logout_url = $end_session_url . $separator . 'post_logout_redirect_uri=' . urlencode( wp_login_url() );
+
+		ob_start();
+		?>
+		<div class="message" style="margin-top: 10px;">
+			<p>
+				<?php esc_html_e( 'You may be logged in with a different account on the identity provider. Please logout from the identity provider first, then try again.', 'icc-openid-client' ); ?>
+			</p>
+			<p style="text-align: center;">
+				<a href="<?php echo esc_url( $logout_url ); ?>" class="button">
+					<?php esc_html_e( 'Logout from Identity Provider', 'icc-openid-client' ); ?>
+				</a>
+			</p>
 		</div>
 		<?php
 		return wp_kses_post( ob_get_clean() );

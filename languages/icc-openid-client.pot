@@ -204,8 +204,20 @@ msgstr ""
 msgid "ERROR (%1$s)"
 msgstr ""
 
+#: includes/icc-openid-client-login-form.php:115
+msgid "Unknown error."
+msgstr ""
+
 #: includes/icc-openid-client-login-form.php:152
 msgid "Login with OpenID Connect"
+msgstr ""
+
+#: includes/icc-openid-client-login-form.php:169
+msgid "You may be logged in with a different account on the identity provider. Please logout from the identity provider first, then try again."
+msgstr ""
+
+#: includes/icc-openid-client-login-form.php:173
+msgid "Logout from Identity Provider"
 msgstr ""
 
 #: includes/icc-openid-client-option-logger.php:230
