@@ -161,7 +161,20 @@ class ICC_OpenID_Client_Login_Form {
 
 		$end_session_url = $this->settings->endpoint_end_session;
 		$separator = ( false === strpos( $end_session_url, '?' ) ) ? '?' : '&';
-		$logout_url = $end_session_url . $separator . 'post_logout_redirect_uri=' . urlencode( wp_login_url() );
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Error display on login form; nonces not applicable.
+		if ( ! empty( $_GET['idp-logout-id'] ) ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Error display on login form; nonces not applicable.
+			$transient_key = sanitize_text_field( wp_unslash( $_GET['idp-logout-id'] ) );
+			$id_token = get_transient( 'icc-openid-client-idp-logout--' . $transient_key );
+			if ( ! empty( $id_token ) ) {
+				$logout_url = $end_session_url . $separator . 'id_token_hint=' . urlencode( $id_token ) . '&post_logout_redirect_uri=' . urlencode( wp_login_url() );
+			} else {
+				$logout_url = $end_session_url . $separator . 'post_logout_redirect_uri=' . urlencode( wp_login_url() );
+			}
+		} else {
+			$logout_url = $end_session_url . $separator . 'post_logout_redirect_uri=' . urlencode( wp_login_url() );
+		}
 
 		ob_start();
 		?>

@@ -327,15 +327,23 @@ class ICC_OpenID_Client_Client_Wrapper {
 	 *
 	 * @return void
 	 */
-	public function error_redirect( $error ) {
+	public function error_redirect( $error, $id_token = null ) {
 		$this->logger->log( $error );
 
-		// Redirect user back to login page.
-		wp_safe_redirect(
-			wp_login_url() .
+		$redirect_url = wp_login_url() .
 			'?login-error=' . $error->get_error_code() .
-			'&message=' . urlencode( $error->get_error_message() )
-		);
+			'&message=' . urlencode( $error->get_error_message() );
+
+		// If we have an id_token available, store it in a short-lived transient
+		// so the login form can build a proper end session URL with id_token_hint.
+		if ( ! empty( $id_token ) ) {
+			$transient_key = bin2hex( random_bytes( 8 ) );
+			set_transient( 'icc-openid-client-idp-logout--' . $transient_key, $id_token, 60 );
+			$redirect_url .= '&idp-logout-id=' . $transient_key;
+		}
+
+		// Redirect user back to login page.
+		wp_safe_redirect( $redirect_url );
 		exit;
 	}
 
@@ -567,7 +575,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 		// Validate email domain restriction before user lookup/creation.
 		$domain_valid = $this->validate_email_domain( $user_claim );
 		if ( is_wp_error( $domain_valid ) ) {
-			$this->error_redirect( $domain_valid );
+			$this->error_redirect( $domain_valid, $token_response['id_token'] );
 		}
 
 		/**
@@ -584,7 +592,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 			if ( $this->settings->link_existing_users || $this->settings->create_if_does_not_exist ) {
 				$user = $this->create_new_user( $subject_identity, $user_claim );
 				if ( is_wp_error( $user ) ) {
-					$this->error_redirect( $user );
+					$this->error_redirect( $user, $token_response['id_token'] );
 				}
 			} else {
 				$this->error_redirect( new WP_Error( 'identity-not-map-existing-user', __( 'User identity is not linked to an existing WordPress user.', 'icc-openid-client' ), $user_claim ) );
