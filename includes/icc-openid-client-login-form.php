@@ -41,6 +41,15 @@ class ICC_OpenID_Client_Login_Form {
 	private $client;
 
 	/**
+	 * Whether the login form should be removed from the DOM.
+	 *
+	 * Set when login-error is present in the URL during auto-login mode.
+	 *
+	 * @var bool
+	 */
+	private $should_remove_form = false;
+
+	/**
 	 * The class constructor.
 	 *
 	 * @param ICC_OpenID_Client_Option_Settings $settings       A plugin settings object instance.
@@ -71,6 +80,9 @@ class ICC_OpenID_Client_Login_Form {
 		// Add a shortcode for the login button.
 		add_shortcode( 'icc_openid_client_login_button', array( $login_form, 'make_login_button' ) );
 
+		// Enqueue scripts for the login page.
+		add_action( 'login_enqueue_scripts', array( $login_form, 'enqueue_login_scripts' ) );
+
 		$login_form->handle_redirect_login_type_auto();
 	}
 
@@ -92,7 +104,7 @@ class ICC_OpenID_Client_Login_Form {
 				wp_redirect( $this->client_wrapper->get_authentication_url() ); // phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect -- Redirect to external IDP authentication URL.
 				exit;
 			} else {
-				add_action( 'login_footer', array( $this, 'remove_login_form' ), 99 );
+				$this->should_remove_form = true;
 			}
 		}
 		// phpcs:enable WordPress.Security.NonceVerification.Recommended
@@ -234,7 +246,7 @@ class ICC_OpenID_Client_Login_Form {
 				'acr_values' => $atts['acr_values'],
 			)
 		);
-		$href = esc_url_raw( $href );
+		$href = esc_url( $href );
 
 		$login_button = sprintf(
 			'<div class="icc-openid-login-button" style="margin: 1em 0; text-align: center;"><a class="button button-large" href="%1$s">%2$s</a></div>',
@@ -246,19 +258,22 @@ class ICC_OpenID_Client_Login_Form {
 	}
 
 	/**
-	 * Removes the login form from the HTML DOM
+	 * Enqueue inline script to remove the login form from the DOM.
+	 *
+	 * Only enqueues the script when login-error is present during auto-login mode.
 	 *
 	 * @return void
 	 */
-	public function remove_login_form() {
-		?>
-		<script type="text/javascript">
-			(function() {
-				var loginForm = document.getElementById("user_login").form;
-				var parent = loginForm.parentNode;
-				parent.removeChild(loginForm);
-			})();
-		</script>
-		<?php
+	public function enqueue_login_scripts() {
+		if ( ! $this->should_remove_form ) {
+			return;
+		}
+
+		wp_register_script( 'icc-openid-client-login-form', false, array(), ICC_OpenID_Client::VERSION, true );
+		wp_enqueue_script( 'icc-openid-client-login-form' );
+		wp_add_inline_script(
+			'icc-openid-client-login-form',
+			'(function(){var f=document.getElementById("user_login").form;f.parentNode.removeChild(f);})();'
+		);
 	}
 }

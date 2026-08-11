@@ -478,9 +478,32 @@ class ICC_OpenID_Client_Settings_Page {
 		// Loop through settings fields to control what we're saving.
 		foreach ( $this->settings_fields as $key => $field ) {
 			if ( isset( $input[ $key ] ) ) {
-				$options[ $key ] = sanitize_text_field( trim( $input[ $key ] ) );
+				switch ( $field['type'] ) {
+					case 'checkbox':
+						$options[ $key ] = ( '1' === strval( $input[ $key ] ) ) ? 1 : 0;
+						break;
+
+					case 'number':
+						$options[ $key ] = absint( $input[ $key ] );
+						break;
+
+					case 'select':
+						// Only allow values that exist in the defined options.
+						if ( isset( $field['options'][ $input[ $key ] ] ) ) {
+							$options[ $key ] = sanitize_text_field( $input[ $key ] );
+						} else {
+							$options[ $key ] = '';
+						}
+						break;
+
+					case 'text':
+					default:
+						$options[ $key ] = sanitize_text_field( trim( $input[ $key ] ) );
+						break;
+				}
 			} else {
-				$options[ $key ] = '';
+				// Unchecked checkboxes must store 0.
+				$options[ $key ] = ( 'checkbox' === $field['type'] ) ? 0 : '';
 			}
 		}
 

@@ -150,7 +150,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 		global $wp;
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- OAuth redirect callback; nonces not applicable.
-		if ( isset( $GLOBALS['pagenow'] ) && 'wp-login.php' == $GLOBALS['pagenow'] && isset( $_GET['action'] ) && 'logout' === $_GET['action'] ) {
+		if ( isset( $GLOBALS['pagenow'] ) && 'wp-login.php' == $GLOBALS['pagenow'] && isset( $_GET['action'] ) && 'logout' === sanitize_text_field( wp_unslash( $_GET['action'] ) ) ) {
 			return '';
 		}
 
@@ -165,7 +165,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 		// Honor Core WordPress & other plugin redirects.
 		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Login redirect flow; nonces not applicable.
 		if ( isset( $_REQUEST['redirect_to'] ) ) {
-			$redirect_url = esc_url_raw( wp_unslash( $_REQUEST['redirect_to'] ) );
+			$redirect_url = esc_url_raw( sanitize_text_field( wp_unslash( $_REQUEST['redirect_to'] ) ) );
 		}
 		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
@@ -179,7 +179,8 @@ class ICC_OpenID_Client_Client_Wrapper {
 				// @phpstan-ignore-next-line
 				if ( $wp->did_permalink ) {
 					// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Login redirect flow; nonces not applicable.
-					$redirect_url = home_url( add_query_arg( $_GET, trailingslashit( $wp->request ) ) );
+					$safe_get = array_map( 'sanitize_text_field', $_GET );
+					$redirect_url = home_url( add_query_arg( $safe_get, trailingslashit( $wp->request ) ) );
 				}
 			}
 		}

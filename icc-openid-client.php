@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Description:       Connect to an OpenID Connect identity provider using Authorization Code Flow. Features email domain restriction and SSO.
  * Version:           3.1.5
  * Requires at least: 5.0
- * Requires PHP:      7.4
+ * Requires PHP:      8.1
  * Author:            ivancarlosti
  * Author URI:        https://ivancarlos.me
  * Text Domain:       icc-openid-client
@@ -178,7 +178,7 @@ class ICC_OpenID_Client {
 		ICC_OpenID_Client_Login_Form::register( $this->settings, $this->client_wrapper, $this->client );
 
 		// Add a shortcode to get the auth URL.
-		add_shortcode( 'icc_openid_client_auth_url', array( $this->client_wrapper, 'get_authentication_url' ) );
+		add_shortcode( 'icc_openid_client_auth_url', array( $this, 'shortcode_auth_url' ) );
 
 		// Add actions to our scheduled cron jobs.
 		add_action( 'icc_openid_client_cron_daily', array( $this, 'cron_states_garbage_collection' ) );
@@ -223,6 +223,17 @@ class ICC_OpenID_Client {
 		}
 
 		return $state_time_limit;
+	}
+
+	/**
+	 * Shortcode callback for [icc_openid_client_auth_url].
+	 *
+	 * Returns the authentication URL with proper output escaping.
+	 *
+	 * @return string
+	 */
+	public function shortcode_auth_url() {
+		return esc_url( $this->client_wrapper->get_authentication_url() );
 	}
 
 	/**
