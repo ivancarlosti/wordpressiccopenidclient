@@ -91,10 +91,14 @@ class ICC_OpenID_Client_Update_Checker {
 		// Hook 2: Provide plugin details for the "View version details" popup.
 		add_filter( 'plugins_api', array( $this, 'plugin_information' ), 20, 3 );
 
-		// Hook 3: Register our plugin in the list of plugins eligible for auto-updates.
-		// This ensures the "Enable automatic updates" / "Disable automatic updates"
-		// toggle link appears in the Plugins list. WordPress manages the on/off state
-		// via the auto_update_plugins site option — no auto_update_plugin filter needed.
+		// Hook 3: Allow WordPress to recognize this plugin as auto-update capable.
+		// Without this filter, WordPress won't show the auto-update column at all
+		// for non-WordPress.org plugins. We respect the user's choice by reading
+		// the auto_update_plugins option instead of forcing true.
+		add_filter( 'auto_update_plugin', array( $this, 'allow_auto_update' ), 10, 2 );
+
+		// Hook 4: Render the clickable toggle link ("Enable/Disable automatic updates").
+		// WordPress normally only shows this for WordPress.org-hosted plugins.
 		add_filter( 'plugin_auto_update_setting_html', array( $this, 'auto_update_setting_html' ), 10, 3 );
 	}
 
@@ -192,6 +196,28 @@ class ICC_OpenID_Client_Update_Checker {
 		);
 
 		return $info;
+	}
+
+	/**
+	 * Allow automatic updates for this plugin when the user has enabled them.
+	 *
+	 * This filter is required for WordPress to recognize the plugin as
+	 * auto-update capable. Without it, the auto-update column won't appear
+	 * for non-WordPress.org plugins. We read the user's actual choice from
+	 * the auto_update_plugins option — no forced true/false.
+	 *
+	 * @param bool|null $update Whether to update the plugin.
+	 * @param object    $item   The plugin update offer object.
+	 * @return bool|null
+	 */
+	public function allow_auto_update( $update, $item ) {
+		if ( ! isset( $item->plugin ) || $item->plugin !== $this->plugin_basename ) {
+			return $update;
+		}
+
+		// Respect the user's choice stored in the auto_update_plugins option.
+		$auto_updates = (array) get_site_option( 'auto_update_plugins', array() );
+		return in_array( $item->plugin, $auto_updates, true );
 	}
 
 	/**
