@@ -2,12 +2,6 @@
 
 A WordPress plugin that provides SSO (Single Sign-On) authentication against an OpenID Connect OAuth2 Identity Provider using Authorization Code Flow.
 
-## About OpenID Connect
-
-OpenID Connect (OIDC) is an open authentication protocol standardized by the **OpenID Foundation**. It extends the OAuth 2.0 authorization framework to provide identity verification and single sign-on capabilities. This plugin implements the OIDC Authorization Code Flow as defined in the [OpenID Connect Core 1.0 specification](https://openid.net/specs/openid-connect-core-1_0.html), enabling WordPress sites to delegate authentication to a trusted Identity Provider (IDP) rather than managing user credentials directly.
-
-The OpenID Foundation is a non-profit international standardization organization that develops and maintains the OpenID Connect protocol and related specifications. **This plugin is an independent implementation and is not affiliated with, endorsed by, or sponsored by the OpenID Foundation.**
-
 <!-- buttons -->
 [![Stars](https://img.shields.io/github/stars/ivancarlosti/wordpressiccopenidclient?label=⭐%20Stars&color=gold&style=flat)](https://github.com/ivancarlosti/wordpressiccopenidclient/stargazers)
 [![Watchers](https://img.shields.io/github/watchers/ivancarlosti/wordpressiccopenidclient?label=Watchers&style=flat&color=red)](https://github.com/sponsors/ivancarlosti)
@@ -160,6 +154,12 @@ This plugin creates and authenticates WordPress users as a technical necessity o
 | Email Domain Restriction | Administrators can restrict which email domains/addresses are allowed |
 | Token Claim Validation | Validates exp, aud, iss, iat, and nonce claims on every token |
 | Nonce Protection | All admin forms are protected against CSRF |
+
+## About OpenID Connect
+
+OpenID Connect (OIDC) is an open authentication protocol standardized by the **OpenID Foundation**. It extends the OAuth 2.0 authorization framework to provide identity verification and single sign-on capabilities. This plugin implements the OIDC Authorization Code Flow as defined in the [OpenID Connect Core 1.0 specification](https://openid.net/specs/openid-connect-core-1_0.html), enabling WordPress sites to delegate authentication to a trusted Identity Provider (IDP) rather than managing user credentials directly.
+
+The OpenID Foundation is a non-profit international standardization organization that develops and maintains the OpenID Connect protocol and related specifications. **This plugin is an independent implementation and is not affiliated with, endorsed by, or sponsored by the OpenID Foundation.**
 
 ## Credits
 
