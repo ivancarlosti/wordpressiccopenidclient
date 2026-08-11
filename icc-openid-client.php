@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 /**
- * ICC OpenID Client - WordPress OpenID Connect SSO Plugin
+ * ICC Sign-In for OpenID Connect - WordPress OpenID Connect SSO Plugin
  *
  * This plugin provides the ability to authenticate users with Identity
  * Providers using the OpenID Connect OAuth2 API with Authorization Code Flow.
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @link      https://github.com/ivancarlosti/wordpressiccopenidclient
  *
  * @wordpress-plugin
- * Plugin Name:       ICC OpenID Client
+ * Plugin Name:       ICC Sign-In for OpenID Connect
  * Plugin URI:        https://github.com/ivancarlosti/wordpressiccopenidclient
  * Description:       Connect to an OpenID Connect identity provider using Authorization Code Flow. Features email domain restriction and SSO.
  * Version:           3.1.5
@@ -24,11 +24,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Requires PHP:      8.1
  * Author:            ivancarlosti
  * Author URI:        https://ivancarlos.me
- * Text Domain:       icc-openid-client
- * Domain Path:       /languages
+ * Text Domain:       icc-sign-in-openid-connect
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * GitHub Plugin URI: https://github.com/ivancarlosti/wordpressiccopenidclient
  */
 
 /*
@@ -266,7 +264,7 @@ class ICC_OpenID_Client {
 	 */
 	public function enforce_privacy_feeds( $content ) {
 		if ( $this->settings->enforce_privacy && ! is_user_logged_in() ) {
-			$content = __( 'Private site', 'icc-openid-client' );
+			$content = __( 'Private site', 'icc-sign-in-openid-connect' );
 		}
 		return $content;
 	}
@@ -292,28 +290,28 @@ class ICC_OpenID_Client {
 			return;
 		}
 
-		$settings_url = admin_url( 'options-general.php?page=icc-openid-client-settings' );
+		$settings_url = admin_url( 'options-general.php?page=icc-sign-in-openid-connect-settings' );
 		?>
 		<div class="notice notice-error">
 			<p>
-				<strong><?php esc_html_e( 'ICC OpenID Client - Security Configuration Required', 'icc-openid-client' ); ?></strong>
+				<strong><?php esc_html_e( 'ICC Sign-In for OpenID Connect - Security Configuration Required', 'icc-sign-in-openid-connect' ); ?></strong>
 			</p>
 			<p>
 				<?php
 				echo wp_kses_post(
 					sprintf(
 						/* translators: %s is a link to the settings page */
-						__( 'Your OpenID Connect authentication is using an insecure fallback method. You must configure the <strong>JWKS endpoint</strong> in <a href="%s">plugin settings</a> as soon as possible.', 'icc-openid-client' ),
+						__( 'Your OpenID Connect authentication is using an insecure fallback method. You must configure the <strong>JWKS endpoint</strong> in <a href="%s">plugin settings</a> as soon as possible.', 'icc-sign-in-openid-connect' ),
 						esc_url( $settings_url )
 					)
 				);
 				?>
 			</p>
 			<p>
-				<?php esc_html_e( 'The current insecure fallback will be removed in version 3.12.0. After that update, authentication will fail until the JWKS endpoint is configured.', 'icc-openid-client' ); ?>
+				<?php esc_html_e( 'The current insecure fallback will be removed in version 3.12.0. After that update, authentication will fail until the JWKS endpoint is configured.', 'icc-sign-in-openid-connect' ); ?>
 			</p>
 			<p>
-				<strong><?php esc_html_e( 'Common JWKS endpoints:', 'icc-openid-client' ); ?></strong><br>
+				<strong><?php esc_html_e( 'Common JWKS endpoints:', 'icc-sign-in-openid-connect' ); ?></strong><br>
 				• Keycloak: <code>https://your-domain/realms/your-realm/protocol/openid-connect/certs</code><br>
 				• Auth0: <code>https://your-domain.auth0.com/.well-known/jwks.json</code><br>
 				• Okta: <code>https://your-domain.okta.com/oauth2/default/v1/keys</code><br>
@@ -437,17 +435,6 @@ class ICC_OpenID_Client {
 	 */
 	public static function bootstrap() {
 		require_once __DIR__ . '/vendor/autoload.php';
-
-		// GitHub-based update checking (mimics WordPress.org update API).
-		// Uses native WordPress hooks — no external library dependency.
-		// Provides: update notifications, one-click updates, version details
-		// popup, and the "Enable automatic updates" toggle.
-		require_once __DIR__ . '/includes/icc-openid-client-update-checker.php';
-		new ICC_OpenID_Client_Update_Checker(
-			__FILE__,
-			'icc-openid-client',
-			'https://github.com/ivancarlosti/wordpressiccopenidclient/releases/latest/download/plugin-update-info.json'
-		);
 
 		$settings = new ICC_OpenID_Client_Option_Settings(
 			// Default settings values.

@@ -124,7 +124,7 @@ class ICC_OpenID_Client_Login_Form {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Error display on login form; nonces not applicable.
 			$error_code = sanitize_text_field( wp_unslash( $_GET['login-error'] ) );
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Error display on login form; nonces not applicable.
-			$error_message = ! empty( $_GET['message'] ) ? sanitize_text_field( wp_unslash( $_GET['message'] ) ) : __( 'Unknown error.', 'icc-openid-client' );
+			$error_message = ! empty( $_GET['message'] ) ? sanitize_text_field( wp_unslash( $_GET['message'] ) ) : __( 'Unknown error.', 'icc-sign-in-openid-connect' );
 			$message .= $this->make_error_output( $error_code, $error_message );
 
 			// If the user is already logged in with another account at the IDP,
@@ -154,7 +154,7 @@ class ICC_OpenID_Client_Login_Form {
 		ob_start();
 		?>
 		<div id="login_error"><?php // translators: %1$s is the error code from the IDP. ?>
-			<strong><?php printf( esc_html__( 'ERROR (%1$s)', 'icc-openid-client' ), esc_html( $error_code ) ); ?>: </strong>
+			<strong><?php printf( esc_html__( 'ERROR (%1$s)', 'icc-sign-in-openid-connect' ), esc_html( $error_code ) ); ?>: </strong>
 			<?php print esc_html( $error_message ); ?>
 		</div>
 		<?php
@@ -192,11 +192,11 @@ class ICC_OpenID_Client_Login_Form {
 		?>
 		<div class="message" style="margin-top: 10px;">
 			<p>
-				<?php esc_html_e( 'You may be logged in with a different account on the identity provider. Please logout from the identity provider first, then try again.', 'icc-openid-client' ); ?>
+				<?php esc_html_e( 'You may be logged in with a different account on the identity provider. Please logout from the identity provider first, then try again.', 'icc-sign-in-openid-connect' ); ?>
 			</p>
 			<p style="text-align: center;">
 				<a href="<?php echo esc_url( $logout_url ); ?>" class="button">
-					<?php esc_html_e( 'Logout from Identity Provider', 'icc-openid-client' ); ?>
+					<?php esc_html_e( 'Logout from Identity Provider', 'icc-sign-in-openid-connect' ); ?>
 				</a>
 			</p>
 		</div>
@@ -217,7 +217,7 @@ class ICC_OpenID_Client_Login_Form {
 		// Use admin-configured button text, or fall back to default.
 		$default_button_text = ! empty( trim( $this->settings->login_button_text ?? '' ) )
 			? $this->settings->login_button_text
-			: __( 'Login with OpenID Connect', 'icc-openid-client' );
+			: __( 'Login with OpenID Connect', 'icc-sign-in-openid-connect' );
 
 		$atts = shortcode_atts(
 			array(

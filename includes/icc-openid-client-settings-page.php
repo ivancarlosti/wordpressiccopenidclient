@@ -46,7 +46,7 @@ class ICC_OpenID_Client_Settings_Page {
 	 *
 	 * @var string
 	 */
-	private $options_page_name = 'icc-openid-client-settings';
+	private $options_page_name = 'icc-sign-in-openid-connect-settings';
 
 	/**
 	 * Options page settings group name.
@@ -124,8 +124,8 @@ class ICC_OpenID_Client_Settings_Page {
 	 */
 	public function admin_menu() {
 		add_options_page(
-			__( 'ICC OpenID Client', 'icc-openid-client' ),
-			__( 'ICC OpenID Client', 'icc-openid-client' ),
+			__( 'ICC Sign-In for OpenID Connect', 'icc-sign-in-openid-connect' ),
+			__( 'ICC Sign-In for OpenID Connect', 'icc-sign-in-openid-connect' ),
 			'manage_options',
 			$this->options_page_name,
 			array( $this, 'settings_page' )
@@ -149,28 +149,28 @@ class ICC_OpenID_Client_Settings_Page {
 
 		add_settings_section(
 			'client_settings',
-			__( 'Client Settings', 'icc-openid-client' ),
+			__( 'Client Settings', 'icc-sign-in-openid-connect' ),
 			array( $this, 'client_settings_description' ),
 			$this->options_page_name
 		);
 
 		add_settings_section(
 			'user_settings',
-			__( 'WordPress User Settings', 'icc-openid-client' ),
+			__( 'WordPress User Settings', 'icc-sign-in-openid-connect' ),
 			array( $this, 'user_settings_description' ),
 			$this->options_page_name
 		);
 
 		add_settings_section(
 			'authorization_settings',
-			__( 'Authorization Settings', 'icc-openid-client' ),
+			__( 'Authorization Settings', 'icc-sign-in-openid-connect' ),
 			array( $this, 'authorization_settings_description' ),
 			$this->options_page_name
 		);
 
 		add_settings_section(
 			'log_settings',
-			__( 'Log Settings', 'icc-openid-client' ),
+			__( 'Log Settings', 'icc-sign-in-openid-connect' ),
 			array( $this, 'log_settings_description' ),
 			$this->options_page_name
 		);
@@ -228,234 +228,234 @@ class ICC_OpenID_Client_Settings_Page {
 		 */
 		$fields = array(
 			'login_type'        => array(
-				'title'       => __( 'Login Type', 'icc-openid-client' ),
-				'description' => __( 'Select how the client (login form) should provide login options.', 'icc-openid-client' ),
+				'title'       => __( 'Login Type', 'icc-sign-in-openid-connect' ),
+				'description' => __( 'Select how the client (login form) should provide login options.', 'icc-sign-in-openid-connect' ),
 				'type'        => 'select',
 				'options'     => array(
-					'button' => __( 'OpenID Connect button on login form', 'icc-openid-client' ),
-					'auto'   => __( 'Auto Login - SSO', 'icc-openid-client' ),
+					'button' => __( 'OpenID Connect button on login form', 'icc-sign-in-openid-connect' ),
+					'auto'   => __( 'Auto Login - SSO', 'icc-sign-in-openid-connect' ),
 				),
 				'disabled'    => defined( 'OIDC_LOGIN_TYPE' ),
 				'section'     => 'client_settings',
 			),
 			'login_button_text' => array(
-				'title'       => __( 'Login Button Text', 'icc-openid-client' ),
-				'description' => __( 'Customize the text shown on the OpenID Connect login button. Leave empty to use the default text.', 'icc-openid-client' ),
+				'title'       => __( 'Login Button Text', 'icc-sign-in-openid-connect' ),
+				'description' => __( 'Customize the text shown on the OpenID Connect login button. Leave empty to use the default text.', 'icc-sign-in-openid-connect' ),
 				'example'     => 'Login with Single Sign-On',
 				'type'        => 'text',
 				'section'     => 'client_settings',
 			),
 			'client_id'         => array(
-				'title'       => __( 'Client ID', 'icc-openid-client' ),
-				'description' => __( 'The ID this client will be recognized as when connecting the to Identity provider server.', 'icc-openid-client' ),
+				'title'       => __( 'Client ID', 'icc-sign-in-openid-connect' ),
+				'description' => __( 'The ID this client will be recognized as when connecting the to Identity provider server.', 'icc-sign-in-openid-connect' ),
 				'example'     => 'my-wordpress-client-id',
 				'type'        => 'text',
 				'disabled'    => defined( 'OIDC_CLIENT_ID' ),
 				'section'     => 'client_settings',
 			),
 			'client_secret'     => array(
-				'title'       => __( 'Client Secret Key', 'icc-openid-client' ),
-				'description' => __( 'Arbitrary secret key the server expects from this client. Can be anything, but should be very unique.', 'icc-openid-client' ),
+				'title'       => __( 'Client Secret Key', 'icc-sign-in-openid-connect' ),
+				'description' => __( 'Arbitrary secret key the server expects from this client. Can be anything, but should be very unique.', 'icc-sign-in-openid-connect' ),
 				'type'        => 'text',
 				'disabled'    => defined( 'OIDC_CLIENT_SECRET' ),
 				'section'     => 'client_settings',
 			),
 			'scope'             => array(
-				'title'       => __( 'OpenID Scope', 'icc-openid-client' ),
-				'description' => __( 'Space separated list of scopes this client should access.', 'icc-openid-client' ),
+				'title'       => __( 'OpenID Scope', 'icc-sign-in-openid-connect' ),
+				'description' => __( 'Space separated list of scopes this client should access.', 'icc-sign-in-openid-connect' ),
 				'example'     => 'email profile openid offline_access',
 				'type'        => 'text',
 				'disabled'    => defined( 'OIDC_CLIENT_SCOPE' ),
 				'section'     => 'client_settings',
 			),
 			'endpoint_login'    => array(
-				'title'       => __( 'Login Endpoint URL', 'icc-openid-client' ),
-				'description' => __( 'Identify provider authorization endpoint.', 'icc-openid-client' ),
+				'title'       => __( 'Login Endpoint URL', 'icc-sign-in-openid-connect' ),
+				'description' => __( 'Identify provider authorization endpoint.', 'icc-sign-in-openid-connect' ),
 				'example'     => 'https://example.com/oauth2/authorize',
 				'type'        => 'text',
 				'disabled'    => defined( 'OIDC_ENDPOINT_LOGIN_URL' ),
 				'section'     => 'client_settings',
 			),
 			'endpoint_userinfo' => array(
-				'title'       => __( 'Userinfo Endpoint URL', 'icc-openid-client' ),
-				'description' => __( 'Identify provider User information endpoint.', 'icc-openid-client' ),
+				'title'       => __( 'Userinfo Endpoint URL', 'icc-sign-in-openid-connect' ),
+				'description' => __( 'Identify provider User information endpoint.', 'icc-sign-in-openid-connect' ),
 				'example'     => 'https://example.com/oauth2/UserInfo',
 				'type'        => 'text',
 				'disabled'    => defined( 'OIDC_ENDPOINT_USERINFO_URL' ),
 				'section'     => 'client_settings',
 			),
 			'endpoint_token'    => array(
-				'title'       => __( 'Token Validation Endpoint URL', 'icc-openid-client' ),
-				'description' => __( 'Identify provider token endpoint.', 'icc-openid-client' ),
+				'title'       => __( 'Token Validation Endpoint URL', 'icc-sign-in-openid-connect' ),
+				'description' => __( 'Identify provider token endpoint.', 'icc-sign-in-openid-connect' ),
 				'example'     => 'https://example.com/oauth2/token',
 				'type'        => 'text',
 				'disabled'    => defined( 'OIDC_ENDPOINT_TOKEN_URL' ),
 				'section'     => 'client_settings',
 			),
 			'endpoint_end_session'    => array(
-				'title'       => __( 'End Session Endpoint URL', 'icc-openid-client' ),
-				'description' => __( 'Identify provider logout endpoint.', 'icc-openid-client' ),
+				'title'       => __( 'End Session Endpoint URL', 'icc-sign-in-openid-connect' ),
+				'description' => __( 'Identify provider logout endpoint.', 'icc-sign-in-openid-connect' ),
 				'example'     => 'https://example.com/oauth2/logout',
 				'type'        => 'text',
 				'disabled'    => defined( 'OIDC_ENDPOINT_LOGOUT_URL' ),
 				'section'     => 'client_settings',
 			),
 			'endpoint_jwks' => array(
-				'title'       => __( 'JWKS URI', 'icc-openid-client' ),
-				'description' => __( 'Identity provider JWKS (JSON Web Key Set) endpoint for JWT signature verification. Usually found at /.well-known/jwks.json', 'icc-openid-client' ),
+				'title'       => __( 'JWKS URI', 'icc-sign-in-openid-connect' ),
+				'description' => __( 'Identity provider JWKS (JSON Web Key Set) endpoint for JWT signature verification. Usually found at /.well-known/jwks.json', 'icc-sign-in-openid-connect' ),
 				'example'     => 'https://example.com/.well-known/jwks.json',
 				'type'        => 'text',
 				'disabled'    => defined( 'OIDC_ENDPOINT_JWKS_URL' ),
 				'section'     => 'client_settings',
 			),
 			'issuer' => array(
-				'title'       => __( 'Issuer', 'icc-openid-client' ),
-				'description' => __( 'Identity provider issuer URL for JWT validation. If not set, the issuer will be automatically derived from the Login Endpoint URL. Only configure this if your IDP uses a different issuer than the base URL of the login endpoint.', 'icc-openid-client' ),
+				'title'       => __( 'Issuer', 'icc-sign-in-openid-connect' ),
+				'description' => __( 'Identity provider issuer URL for JWT validation. If not set, the issuer will be automatically derived from the Login Endpoint URL. Only configure this if your IDP uses a different issuer than the base URL of the login endpoint.', 'icc-sign-in-openid-connect' ),
 				'example'     => 'https://example.com',
 				'type'        => 'text',
 				'disabled'    => defined( 'OIDC_ISSUER' ),
 				'section'     => 'client_settings',
 			),
 			'jwks_cache_ttl' => array(
-				'title'       => __( 'JWKS Cache TTL (seconds)', 'icc-openid-client' ),
-				'description' => __( 'Time in seconds to cache JWKS keys. Default: 3600 (1 hour)', 'icc-openid-client' ),
+				'title'       => __( 'JWKS Cache TTL (seconds)', 'icc-sign-in-openid-connect' ),
+				'description' => __( 'Time in seconds to cache JWKS keys. Default: 3600 (1 hour)', 'icc-sign-in-openid-connect' ),
 				'example'     => 3600,
 				'type'        => 'number',
 				'section'     => 'client_settings',
 			),
 			'acr_values'    => array(
-				'title'       => __( 'ACR values', 'icc-openid-client' ),
-				'description' => __( 'Use a specific defined authentication contract from the IDP - optional.', 'icc-openid-client' ),
+				'title'       => __( 'ACR values', 'icc-sign-in-openid-connect' ),
+				'description' => __( 'Use a specific defined authentication contract from the IDP - optional.', 'icc-sign-in-openid-connect' ),
 				'type'        => 'text',
 				'disabled'    => defined( 'OIDC_ACR_VALUES' ),
 				'section'     => 'client_settings',
 			),
 			'identity_key'     => array(
-				'title'       => __( 'Identity Key', 'icc-openid-client' ),
-				'description' => __( 'Where in the user claim array to find the user\'s identification data. Possible standard values: preferred_username, name, or sub. If you\'re having trouble, use "sub".', 'icc-openid-client' ),
+				'title'       => __( 'Identity Key', 'icc-sign-in-openid-connect' ),
+				'description' => __( 'Where in the user claim array to find the user\'s identification data. Possible standard values: preferred_username, name, or sub. If you\'re having trouble, use "sub".', 'icc-sign-in-openid-connect' ),
 				'example'     => 'preferred_username',
 				'type'        => 'text',
 				'section'     => 'client_settings',
 			),
 			'http_request_timeout'      => array(
-				'title'       => __( 'HTTP Request Timeout', 'icc-openid-client' ),
-				'description' => __( 'Set the timeout for requests made to the IDP. Default value is 5.', 'icc-openid-client' ),
+				'title'       => __( 'HTTP Request Timeout', 'icc-sign-in-openid-connect' ),
+				'description' => __( 'Set the timeout for requests made to the IDP. Default value is 5.', 'icc-sign-in-openid-connect' ),
 				'example'     => 30,
 				'type'        => 'text',
 				'section'     => 'client_settings',
 			),
 			'enforce_privacy'   => array(
-				'title'       => __( 'Enforce Privacy', 'icc-openid-client' ),
-				'description' => __( 'Require users be logged in to see the site.', 'icc-openid-client' ),
+				'title'       => __( 'Enforce Privacy', 'icc-sign-in-openid-connect' ),
+				'description' => __( 'Require users be logged in to see the site.', 'icc-sign-in-openid-connect' ),
 				'type'        => 'checkbox',
 				'disabled'    => defined( 'OIDC_ENFORCE_PRIVACY' ),
 				'section'     => 'authorization_settings',
 			),
 			'alternate_redirect_uri'   => array(
-				'title'       => __( 'Alternate Redirect URI', 'icc-openid-client' ),
-				'description' => __( 'Provide an alternative redirect route. Useful if your server is causing issues with the default admin-ajax method. You must flush rewrite rules after changing this setting. This can be done by saving the Permalinks settings page.', 'icc-openid-client' ),
+				'title'       => __( 'Alternate Redirect URI', 'icc-sign-in-openid-connect' ),
+				'description' => __( 'Provide an alternative redirect route. Useful if your server is causing issues with the default admin-ajax method. You must flush rewrite rules after changing this setting. This can be done by saving the Permalinks settings page.', 'icc-sign-in-openid-connect' ),
 				'type'        => 'checkbox',
 				'section'     => 'authorization_settings',
 			),
 			'nickname_key'     => array(
-				'title'       => __( 'Nickname Key', 'icc-openid-client' ),
-				'description' => __( 'Where in the user claim array to find the user\'s nickname. Possible standard values: preferred_username, name, or sub.', 'icc-openid-client' ),
+				'title'       => __( 'Nickname Key', 'icc-sign-in-openid-connect' ),
+				'description' => __( 'Where in the user claim array to find the user\'s nickname. Possible standard values: preferred_username, name, or sub.', 'icc-sign-in-openid-connect' ),
 				'example'     => 'preferred_username',
 				'type'        => 'text',
 				'section'     => 'client_settings',
 			),
 			'email_format'     => array(
-				'title'       => __( 'Email Formatting', 'icc-openid-client' ),
-				'description' => __( 'String from which the user\'s email address is built. Specify "{email}" as long as the user claim contains an email claim.', 'icc-openid-client' ),
+				'title'       => __( 'Email Formatting', 'icc-sign-in-openid-connect' ),
+				'description' => __( 'String from which the user\'s email address is built. Specify "{email}" as long as the user claim contains an email claim.', 'icc-sign-in-openid-connect' ),
 				'example'     => '{email}',
 				'type'        => 'text',
 				'section'     => 'client_settings',
 			),
 			'displayname_format'     => array(
-				'title'       => __( 'Display Name Formatting', 'icc-openid-client' ),
-				'description' => __( 'String from which the user\'s display name is built.', 'icc-openid-client' ),
+				'title'       => __( 'Display Name Formatting', 'icc-sign-in-openid-connect' ),
+				'description' => __( 'String from which the user\'s display name is built.', 'icc-sign-in-openid-connect' ),
 				'example'     => '{given_name} {family_name}',
 				'type'        => 'text',
 				'section'     => 'client_settings',
 			),
 			'identify_with_username'     => array(
-				'title'       => __( 'Identify with User Name', 'icc-openid-client' ),
-				'description' => __( 'If checked, the user\'s identity will be determined by the user name instead of the email address.', 'icc-openid-client' ),
+				'title'       => __( 'Identify with User Name', 'icc-sign-in-openid-connect' ),
+				'description' => __( 'If checked, the user\'s identity will be determined by the user name instead of the email address.', 'icc-sign-in-openid-connect' ),
 				'type'        => 'checkbox',
 				'section'     => 'client_settings',
 			),
 			'state_time_limit'     => array(
-				'title'       => __( 'State time limit', 'icc-openid-client' ),
-				'description' => __( 'State valid time in seconds. Defaults to 180', 'icc-openid-client' ),
+				'title'       => __( 'State time limit', 'icc-sign-in-openid-connect' ),
+				'description' => __( 'State valid time in seconds. Defaults to 180', 'icc-sign-in-openid-connect' ),
 				'type'        => 'number',
 				'section'     => 'client_settings',
 			),
 			'token_refresh_enable'   => array(
-				'title'       => __( 'Enable Refresh Token', 'icc-openid-client' ),
-				'description' => __( 'If checked, support refresh tokens used to obtain access tokens from supported IDPs.', 'icc-openid-client' ),
+				'title'       => __( 'Enable Refresh Token', 'icc-sign-in-openid-connect' ),
+				'description' => __( 'If checked, support refresh tokens used to obtain access tokens from supported IDPs.', 'icc-sign-in-openid-connect' ),
 				'type'        => 'checkbox',
 				'section'     => 'client_settings',
 			),
 			'no_sslverify'      => array(
-				'title'       => __( 'Disable SSL Verify', 'icc-openid-client' ),
+				'title'       => __( 'Disable SSL Verify', 'icc-sign-in-openid-connect' ),
 				// translators: %1$s HTML tags for layout/styles (strong tag start with warning class), %2$s closing HTML tag for styles.
-				'description' => sprintf( __( 'Do not require SSL verification during authorization. %1$sOnly works in local development (WP_DEBUG=true, WP_ENVIRONMENT_TYPE=local).%2$s This setting is automatically disabled in production. If you need this in production, fix your SSL certificates instead.', 'icc-openid-client' ), '<br><strong class="oidc-warning">', '</strong>' ),
+				'description' => sprintf( __( 'Do not require SSL verification during authorization. %1$sOnly works in local development (WP_DEBUG=true, WP_ENVIRONMENT_TYPE=local).%2$s This setting is automatically disabled in production. If you need this in production, fix your SSL certificates instead.', 'icc-sign-in-openid-connect' ), '<br><strong class="oidc-warning">', '</strong>' ),
 				'type'        => 'checkbox',
 				'section'     => 'client_settings',
 			),
 			'allow_internal_idp'      => array(
-				'title'       => __( 'Allow Internal IDP', 'icc-openid-client' ),
+				'title'       => __( 'Allow Internal IDP', 'icc-sign-in-openid-connect' ),
 				// translators: %1$s HTML tags for layout/styles (strong tag start with warning class), %2$s closing HTML tag for styles.
-				'description' => sprintf( __( 'Allow HTTP requests to internal/private network endpoints (localhost, 127.0.0.1, 10.x.x.x, 192.168.x.x, 172.16-31.x.x). %1$sOnly enable this for local development or corporate internal identity providers. Disabling SSRF protection can expose your server to security risks.%2$s', 'icc-openid-client' ), '<br><strong class="oidc-warning">', '</strong>' ),
+				'description' => sprintf( __( 'Allow HTTP requests to internal/private network endpoints (localhost, 127.0.0.1, 10.x.x.x, 192.168.x.x, 172.16-31.x.x). %1$sOnly enable this for local development or corporate internal identity providers. Disabling SSRF protection can expose your server to security risks.%2$s', 'icc-sign-in-openid-connect' ), '<br><strong class="oidc-warning">', '</strong>' ),
 				'type'        => 'checkbox',
 				'section'     => 'client_settings',
 			),
 			'link_existing_users'   => array(
-				'title'       => __( 'Link Existing Users', 'icc-openid-client' ),
-				'description' => __( 'If a WordPress account already exists with the same identity as a newly-authenticated user over OpenID Connect, login as that user instead of generating an error.', 'icc-openid-client' ),
+				'title'       => __( 'Link Existing Users', 'icc-sign-in-openid-connect' ),
+				'description' => __( 'If a WordPress account already exists with the same identity as a newly-authenticated user over OpenID Connect, login as that user instead of generating an error.', 'icc-sign-in-openid-connect' ),
 				'type'        => 'checkbox',
 				'disabled'    => defined( 'OIDC_LINK_EXISTING_USERS' ),
 				'section'     => 'user_settings',
 			),
 			'create_if_does_not_exist'   => array(
-				'title'       => __( 'Create user if does not exist', 'icc-openid-client' ),
-				'description' => __( 'If the user identity is not linked to an existing WordPress user, it is created. If this setting is not enabled, and if the user authenticates with an account which is not linked to an existing WordPress user, then the authentication will fail.', 'icc-openid-client' ),
+				'title'       => __( 'Create user if does not exist', 'icc-sign-in-openid-connect' ),
+				'description' => __( 'If the user identity is not linked to an existing WordPress user, it is created. If this setting is not enabled, and if the user authenticates with an account which is not linked to an existing WordPress user, then the authentication will fail.', 'icc-sign-in-openid-connect' ),
 				'type'        => 'checkbox',
 				'disabled'    => defined( 'OIDC_CREATE_IF_DOES_NOT_EXIST' ),
 				'section'     => 'user_settings',
 			),
 			'email_domain_restriction'   => array(
-				'title'       => __( 'Email Domain Restriction', 'icc-openid-client' ),
-				'description' => __( 'Restrict login to specific email domains or full email addresses. Enter domains (e.g. "company.com") or full emails (e.g. "specificuser@gmail.com") separated by spaces. Leave empty to allow all.', 'icc-openid-client' ),
+				'title'       => __( 'Email Domain Restriction', 'icc-sign-in-openid-connect' ),
+				'description' => __( 'Restrict login to specific email domains or full email addresses. Enter domains (e.g. "company.com") or full emails (e.g. "specificuser@gmail.com") separated by spaces. Leave empty to allow all.', 'icc-sign-in-openid-connect' ),
 				'example'     => 'company.com specificuser@gmail.com partner.org',
 				'type'        => 'text',
 				'disabled'    => defined( 'OIDC_EMAIL_DOMAIN_RESTRICTION' ),
 				'section'     => 'user_settings',
 			),
 			'redirect_user_back'   => array(
-				'title'       => __( 'Redirect Back to Origin Page', 'icc-openid-client' ),
-				'description' => __( 'After a successful OpenID Connect authentication, this will redirect the user back to the page on which they clicked the OpenID Connect login button. This will cause the login process to proceed in a traditional WordPress fashion. For example, users logging in through the default wp-login.php page would end up on the WordPress Dashboard and users logging in through the WooCommerce "My Account" page would end up on their account page.', 'icc-openid-client' ),
+				'title'       => __( 'Redirect Back to Origin Page', 'icc-sign-in-openid-connect' ),
+				'description' => __( 'After a successful OpenID Connect authentication, this will redirect the user back to the page on which they clicked the OpenID Connect login button. This will cause the login process to proceed in a traditional WordPress fashion. For example, users logging in through the default wp-login.php page would end up on the WordPress Dashboard and users logging in through the WooCommerce "My Account" page would end up on their account page.', 'icc-sign-in-openid-connect' ),
 				'type'        => 'checkbox',
 				'disabled'    => defined( 'OIDC_REDIRECT_USER_BACK' ),
 				'section'     => 'user_settings',
 			),
 			'redirect_on_logout'   => array(
-				'title'       => __( 'Redirect to the login screen when session is expired', 'icc-openid-client' ),
-				'description' => __( 'When enabled, this will automatically redirect the user back to the WordPress login page if their access token has expired.', 'icc-openid-client' ),
+				'title'       => __( 'Redirect to the login screen when session is expired', 'icc-sign-in-openid-connect' ),
+				'description' => __( 'When enabled, this will automatically redirect the user back to the WordPress login page if their access token has expired.', 'icc-sign-in-openid-connect' ),
 				'type'        => 'checkbox',
 				'disabled'    => defined( 'OIDC_REDIRECT_ON_LOGOUT' ),
 				'section'     => 'user_settings',
 			),
 			'enable_logging'    => array(
-				'title'       => __( 'Enable Logging', 'icc-openid-client' ),
-				'description' => __( 'Very simple log messages for debugging purposes.', 'icc-openid-client' ),
+				'title'       => __( 'Enable Logging', 'icc-sign-in-openid-connect' ),
+				'description' => __( 'Very simple log messages for debugging purposes.', 'icc-sign-in-openid-connect' ),
 				'type'        => 'checkbox',
 				'disabled'    => defined( 'OIDC_ENABLE_LOGGING' ),
 				'section'     => 'log_settings',
 			),
 			'log_limit'         => array(
-				'title'       => __( 'Log Limit', 'icc-openid-client' ),
-				'description' => __( 'Number of items to keep in the log. These logs are stored as an option in the database, so space is limited.', 'icc-openid-client' ),
+				'title'       => __( 'Log Limit', 'icc-sign-in-openid-connect' ),
+				'description' => __( 'Number of items to keep in the log. These logs are stored as an option in the database, so space is limited.', 'icc-sign-in-openid-connect' ),
 				'type'        => 'number',
 				'disabled'    => defined( 'OIDC_LOG_LIMIT' ),
 				'section'     => 'log_settings',
@@ -543,23 +543,23 @@ class ICC_OpenID_Client_Settings_Page {
 				?>
 			</form>
 
-			<h4><?php esc_html_e( 'Notes', 'icc-openid-client' ); ?></h4>
+			<h4><?php esc_html_e( 'Notes', 'icc-sign-in-openid-connect' ); ?></h4>
 
 			<p class="description">
-				<strong><?php esc_html_e( 'Redirect URI', 'icc-openid-client' ); ?></strong>
+				<strong><?php esc_html_e( 'Redirect URI', 'icc-sign-in-openid-connect' ); ?></strong>
 				<code><?php print esc_url( $redirect_uri ); ?></code>
 			</p>
 			<p class="description">
-				<strong><?php esc_html_e( 'Login Button Shortcode', 'icc-openid-client' ); ?></strong>
+				<strong><?php esc_html_e( 'Login Button Shortcode', 'icc-sign-in-openid-connect' ); ?></strong>
 				<code>[icc_openid_client_login_button]</code>
 			</p>
 			<p class="description">
-				<strong><?php esc_html_e( 'Authentication URL Shortcode', 'icc-openid-client' ); ?></strong>
+				<strong><?php esc_html_e( 'Authentication URL Shortcode', 'icc-sign-in-openid-connect' ); ?></strong>
 				<code>[icc_openid_client_auth_url]</code>
 			</p>
 
 			<?php if ( $this->settings->enable_logging ) { ?>
-				<h2><?php esc_html_e( 'Logs', 'icc-openid-client' ); ?></h2>
+				<h2><?php esc_html_e( 'Logs', 'icc-sign-in-openid-connect' ); ?></h2>
 				<div id="logger-table-wrapper">
 					<?php print wp_kses_post( $this->logger->get_logs_table() ); ?>
 				</div>
@@ -568,13 +568,13 @@ class ICC_OpenID_Client_Settings_Page {
 
 			<hr style="margin-top: 30px;">
 			<p style="text-align: center; color: #666; font-size: 12px;">
-				<?php esc_html_e( 'ICC OpenID Client - OpenID Connect SSO Plugin for WordPress', 'icc-openid-client' ); ?><br>
+				<?php esc_html_e( 'ICC Sign-In for OpenID Connect - OpenID Connect SSO Plugin for WordPress', 'icc-sign-in-openid-connect' ); ?><br>
 				<a href="https://github.com/ivancarlosti/wordpressiccopenidclient" target="_blank" rel="noopener noreferrer">
 					github.com/ivancarlosti/wordpressiccopenidclient
 				</a><br>
 				<?php echo esc_html( sprintf( 'v%s', ICC_OpenID_Client::VERSION ) ); ?>
 				&mdash;
-				<?php esc_html_e( 'Based on OpenID Connect Generic by daggerhart', 'icc-openid-client' ); ?>
+				<?php esc_html_e( 'Based on OpenID Connect Generic by daggerhart', 'icc-sign-in-openid-connect' ); ?>
 			</p>
 		</div>
 		<?php
@@ -659,7 +659,7 @@ class ICC_OpenID_Client_Settings_Page {
 		<p class="description">
 			<?php print wp_kses_post( $field['description'] ); ?>
 			<?php if ( isset( $field['example'] ) ) : ?>
-				<br/><strong><?php esc_html_e( 'Example', 'icc-openid-client' ); ?>: </strong>
+				<br/><strong><?php esc_html_e( 'Example', 'icc-sign-in-openid-connect' ); ?>: </strong>
 				<code><?php print esc_html( $field['example'] ); ?></code>
 			<?php endif; ?>
 		</p>
@@ -672,7 +672,7 @@ class ICC_OpenID_Client_Settings_Page {
 	 * @return void
 	 */
 	public function client_settings_description() {
-		esc_html_e( 'Enter your OpenID Connect identity provider settings.', 'icc-openid-client' );
+		esc_html_e( 'Enter your OpenID Connect identity provider settings.', 'icc-sign-in-openid-connect' );
 	}
 
 	/**
@@ -681,7 +681,7 @@ class ICC_OpenID_Client_Settings_Page {
 	 * @return void
 	 */
 	public function user_settings_description() {
-		esc_html_e( 'Modify the interaction between OpenID Connect and WordPress users.', 'icc-openid-client' );
+		esc_html_e( 'Modify the interaction between OpenID Connect and WordPress users.', 'icc-sign-in-openid-connect' );
 	}
 
 	/**
@@ -690,7 +690,7 @@ class ICC_OpenID_Client_Settings_Page {
 	 * @return void
 	 */
 	public function authorization_settings_description() {
-		esc_html_e( 'Control the authorization mechanics of the site.', 'icc-openid-client' );
+		esc_html_e( 'Control the authorization mechanics of the site.', 'icc-sign-in-openid-connect' );
 	}
 
 	/**
@@ -699,7 +699,7 @@ class ICC_OpenID_Client_Settings_Page {
 	 * @return void
 	 */
 	public function log_settings_description() {
-		esc_html_e( 'Log information about login attempts through ICC OpenID Client.', 'icc-openid-client' );
+		esc_html_e( 'Log information about login attempts through ICC Sign-In for OpenID Connect.', 'icc-sign-in-openid-connect' );
 	}
 
 	/**
@@ -714,7 +714,7 @@ class ICC_OpenID_Client_Settings_Page {
 		if ( empty( $discovery_url ) ) {
 			return new WP_Error(
 				'empty-discovery-url',
-				__( 'Please enter a discovery URL.', 'icc-openid-client' )
+				__( 'Please enter a discovery URL.', 'icc-sign-in-openid-connect' )
 			);
 		}
 
@@ -723,7 +723,7 @@ class ICC_OpenID_Client_Settings_Page {
 		if ( ! $parsed_url || ! isset( $parsed_url['scheme'] ) ) {
 			return new WP_Error(
 				'invalid-discovery-url',
-				__( 'Invalid discovery URL format.', 'icc-openid-client' )
+				__( 'Invalid discovery URL format.', 'icc-sign-in-openid-connect' )
 			);
 		}
 
@@ -734,7 +734,7 @@ class ICC_OpenID_Client_Settings_Page {
 		if ( 'https' !== $parsed_url['scheme'] && ! $is_local_dev ) {
 			return new WP_Error(
 				'discovery-url-not-https',
-				__( 'Discovery URL must use HTTPS in production environments.', 'icc-openid-client' )
+				__( 'Discovery URL must use HTTPS in production environments.', 'icc-sign-in-openid-connect' )
 			);
 		}
 
@@ -754,7 +754,7 @@ class ICC_OpenID_Client_Settings_Page {
 				'discovery-fetch-failed',
 				sprintf(
 					/* translators: %s: error message */
-					__( 'Failed to fetch discovery document: %s', 'icc-openid-client' ),
+					__( 'Failed to fetch discovery document: %s', 'icc-sign-in-openid-connect' ),
 					$response->get_error_message()
 				)
 			);
@@ -766,7 +766,7 @@ class ICC_OpenID_Client_Settings_Page {
 				'discovery-fetch-failed',
 				sprintf(
 					/* translators: %d: HTTP status code */
-					__( 'Discovery document request returned HTTP %d.', 'icc-openid-client' ),
+					__( 'Discovery document request returned HTTP %d.', 'icc-sign-in-openid-connect' ),
 					$response_code
 				)
 			);
@@ -779,7 +779,7 @@ class ICC_OpenID_Client_Settings_Page {
 		if ( null === $discovery || ! is_array( $discovery ) ) {
 			return new WP_Error(
 				'discovery-invalid-json',
-				__( 'Discovery document is not valid JSON.', 'icc-openid-client' )
+				__( 'Discovery document is not valid JSON.', 'icc-sign-in-openid-connect' )
 			);
 		}
 
@@ -798,7 +798,7 @@ class ICC_OpenID_Client_Settings_Page {
 				'discovery-missing-fields',
 				sprintf(
 					/* translators: %s: comma-separated list of missing fields */
-					__( 'Discovery document is missing required fields: %s', 'icc-openid-client' ),
+					__( 'Discovery document is missing required fields: %s', 'icc-sign-in-openid-connect' ),
 					implode( ', ', $missing_fields )
 				)
 			);
@@ -861,9 +861,9 @@ class ICC_OpenID_Client_Settings_Page {
 			! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['oidc_discovery_nonce'] ) ), 'oidc_discovery_import' )
 		) {
 			add_settings_error(
-				'icc-openid-client',
+				'icc-sign-in-openid-connect',
 				'invalid-nonce',
-				__( 'Security check failed. Please try again.', 'icc-openid-client' ),
+				__( 'Security check failed. Please try again.', 'icc-sign-in-openid-connect' ),
 				'error'
 			);
 			return;
@@ -879,7 +879,7 @@ class ICC_OpenID_Client_Settings_Page {
 
 		if ( is_wp_error( $discovery ) ) {
 			add_settings_error(
-				'icc-openid-client',
+				'icc-sign-in-openid-connect',
 				$discovery->get_error_code(),
 				$discovery->get_error_message(),
 				'error'
@@ -903,7 +903,7 @@ class ICC_OpenID_Client_Settings_Page {
 		// Show success message.
 		$field_count = count( $populated_fields );
 		add_settings_error(
-			'icc-openid-client',
+			'icc-sign-in-openid-connect',
 			'discovery-success',
 			sprintf(
 				/* translators: %d: number of fields populated */
@@ -911,7 +911,7 @@ class ICC_OpenID_Client_Settings_Page {
 					'Configuration loaded successfully! %d field was populated. Review the settings below and click "Save Changes" to apply.',
 					'Configuration loaded successfully! %d fields were populated. Review the settings below and click "Save Changes" to apply.',
 					$field_count,
-					'icc-openid-client'
+					'icc-sign-in-openid-connect'
 				),
 				$field_count
 			),
@@ -934,11 +934,11 @@ class ICC_OpenID_Client_Settings_Page {
 		?>
 		<details<?php echo esc_attr( $open_attribute ); ?> class="oidc-discovery-section">
 			<summary class="oidc-discovery-summary">
-				⚡ <?php esc_html_e( 'Quick Setup: Import from Discovery Document', 'icc-openid-client' ); ?>
+				⚡ <?php esc_html_e( 'Quick Setup: Import from Discovery Document', 'icc-sign-in-openid-connect' ); ?>
 			</summary>
 			<div class="notice notice-info inline oidc-discovery-content">
 				<p>
-					<?php esc_html_e( 'Auto-populate endpoint settings from your identity provider\'s OpenID Connect discovery document. After loading, review the populated fields below and click "Save Changes" to apply.', 'icc-openid-client' ); ?>
+					<?php esc_html_e( 'Auto-populate endpoint settings from your identity provider\'s OpenID Connect discovery document. After loading, review the populated fields below and click "Save Changes" to apply.', 'icc-sign-in-openid-connect' ); ?>
 				</p>
 				<form method="post" action="">
 					<?php wp_nonce_field( 'oidc_discovery_import', 'oidc_discovery_nonce' ); ?>
@@ -946,7 +946,7 @@ class ICC_OpenID_Client_Settings_Page {
 						<tr>
 							<th scope="row">
 								<label for="oidc_discovery_url">
-									<?php esc_html_e( 'Discovery URL', 'icc-openid-client' ); ?>
+									<?php esc_html_e( 'Discovery URL', 'icc-sign-in-openid-connect' ); ?>
 								</label>
 							</th>
 							<td>
@@ -958,9 +958,9 @@ class ICC_OpenID_Client_Settings_Page {
 									placeholder="https://your-idp.com/.well-known/openid-configuration"
 								/>
 								<p class="description">
-									<?php esc_html_e( 'Enter your identity provider\'s OpenID Connect discovery endpoint URL.', 'icc-openid-client' ); ?>
+									<?php esc_html_e( 'Enter your identity provider\'s OpenID Connect discovery endpoint URL.', 'icc-sign-in-openid-connect' ); ?>
 									<br>
-									<strong><?php esc_html_e( 'Examples:', 'icc-openid-client' ); ?></strong>
+									<strong><?php esc_html_e( 'Examples:', 'icc-sign-in-openid-connect' ); ?></strong>
 									<br>
 									• Auth0: <code>https://{tenant}.{region}.auth0.com/.well-known/openid-configuration</code>
 									<br>
@@ -971,7 +971,7 @@ class ICC_OpenID_Client_Settings_Page {
 							</td>
 						</tr>
 					</table>
-					<?php submit_button( __( 'Load Configuration', 'icc-openid-client' ), 'secondary', 'oidc_discovery_submit', false ); ?>
+					<?php submit_button( __( 'Load Configuration', 'icc-sign-in-openid-connect' ), 'secondary', 'oidc_discovery_submit', false ); ?>
 				</form>
 			</div>
 		</details>

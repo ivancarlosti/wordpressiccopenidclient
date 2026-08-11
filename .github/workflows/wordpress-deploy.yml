@@ -14,8 +14,9 @@ permissions:
   contents: write
 
 env:
-  PLUGIN_SLUG: icc-openid-client
-  SVN_URL: https://plugins.svn.wordpress.org/icc-openid-client
+  PLUGIN_SLUG: icc-sign-in-openid-connect
+  PLUGIN_FILE: icc-openid-client.php
+  SVN_URL: https://plugins.svn.wordpress.org/icc-sign-in-openid-connect
 
 jobs:
   deploy:
@@ -54,10 +55,10 @@ jobs:
           echo "Version from manifest.json: ${VERSION}"
 
           # Update version in main plugin file header (Version: x.x.x)
-          sed -i "s/^ \* Version: .*/ * Version:           ${VERSION}/" "${PLUGIN_SLUG}.php"
+          sed -i "s/^ \* Version: .*/ * Version:           ${VERSION}/" "${PLUGIN_FILE}"
 
           # Update const VERSION in plugin class
-          sed -i "s/const VERSION = '[^']*';/const VERSION = '${VERSION}';/" "${PLUGIN_SLUG}.php"
+          sed -i "s/const VERSION = '[^']*';/const VERSION = '${VERSION}';/" "${PLUGIN_FILE}"
 
           # Update stable tag in readme.txt
           sed -i "s/^Stable tag: .*/Stable tag: ${VERSION}/" readme.txt
@@ -113,65 +114,7 @@ jobs:
           echo "WordPress ZIP uploaded to release ${{ steps.version.outputs.tag }}"
 
       # -------------------------------------------------------
-      # 6. Generate update metadata JSON for GitHub-based plugin updates
-      #     This JSON is consumed by plugin-update-checker to provide
-      #     update notifications and one-click updates from WordPress admin.
-      #     Served via: releases/latest/download/plugin-update-info.json
-      # -------------------------------------------------------
-      - name: 📝 Generate update metadata JSON
-        run: |
-          VERSION="${{ steps.version.outputs.version }}"
-          DOWNLOAD_URL="https://github.com/${{ github.repository }}/releases/download/${{ steps.version.outputs.tag }}/${{ steps.version.outputs.zip_name }}"
-
-          # Extract version requirements from plugin header and readme.txt
-          REQUIRES_WP=$(grep -oP 'Requires at least:\s*\K[0-9.]+' ${PLUGIN_SLUG}.php || echo "5.0")
-          REQUIRES_PHP=$(grep -oP 'Requires PHP:\s*\K[0-9.]+' ${PLUGIN_SLUG}.php || echo "8.1")
-          TESTED_UP_TO=$(grep -oP 'Tested up to:\s*\K[0-9.]+' readme.txt || echo "6.7")
-
-          # Extract changelog from readme.txt (from == Changelog == to next top-level == section or EOF)
-          CHANGELOG=$(awk '/^== Changelog ==/{found=1; next} found && /^== /{exit} found' readme.txt)
-
-          jq -n \
-            --arg version "${VERSION}" \
-            --arg download_url "${DOWNLOAD_URL}" \
-            --arg requires_wp "${REQUIRES_WP}" \
-            --arg requires_php "${REQUIRES_PHP}" \
-            --arg tested "${TESTED_UP_TO}" \
-            --arg homepage "https://github.com/${{ github.repository }}" \
-            --arg description "Connect to an OpenID Connect identity provider using Authorization Code Flow. Features email domain restriction and SSO." \
-            --arg author "Ivan Carlos" \
-            --arg author_uri "https://ivancarlos.me" \
-            --arg changelog "${CHANGELOG}" \
-            '{
-              version: $version,
-              download_url: $download_url,
-              last_updated: (now | strftime("%Y-%m-%d")),
-              requires: $requires_wp,
-              requires_php: $requires_php,
-              tested: $tested,
-              homepage: $homepage,
-              author: $author,
-              author_profile: $author_uri,
-              sections: {
-                description: $description,
-                changelog: $changelog
-              }
-            }' > plugin-update-info.json
-
-          echo "Generated plugin-update-info.json:"
-          cat plugin-update-info.json
-
-      - name: 📤 Upload update metadata to GitHub Release
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh release upload "${{ steps.version.outputs.tag }}" \
-            plugin-update-info.json --clobber
-
-          echo "Update metadata uploaded to release ${{ steps.version.outputs.tag }}"
-
-      # -------------------------------------------------------
-      # 7. Deploy to WordPress.org SVN
+      # 6. Deploy to WordPress.org SVN
       #     Requires WPORG_SVN_USERNAME and WPORG_SVN_PASSWORD secrets
       # -------------------------------------------------------
       - name: 🔍 Check SVN credentials

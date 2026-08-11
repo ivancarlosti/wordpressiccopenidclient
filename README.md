@@ -1,4 +1,4 @@
-# ICC OpenID Client
+# ICC Sign-In for OpenID Connect
 
 A WordPress plugin that provides SSO (Single Sign-On) authentication against an OpenID Connect OAuth2 Identity Provider using Authorization Code Flow.
 
@@ -38,7 +38,7 @@ A WordPress plugin that provides SSO (Single Sign-On) authentication against an 
 
 1. Download the plugin or clone this repository into `/wp-content/plugins/`
 2. Activate the plugin through the WordPress admin panel
-3. Go to **Settings > ICC OpenID Client** to configure
+3. Go to **Settings > ICC Sign-In for OpenID Connect** to configure
 
 ## Quick Setup
 
@@ -149,7 +149,7 @@ Translations are managed through `.po` files in the `languages/` directory.
 
 ## Credits
 
-**ICC OpenID Client** is maintained by [Ivan Carlos](https://github.com/ivancarlosti).
+**ICC Sign-In for OpenID Connect** is maintained by [Ivan Carlos](https://github.com/ivancarlosti).
 
 Based on [OpenID Connect Generic](https://github.com/oidc-wp/openid-connect-generic) by [daggerhart](https://github.com/daggerhart).
 

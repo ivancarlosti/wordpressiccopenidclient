@@ -225,31 +225,31 @@ class ICC_OpenID_Client_Option_Logger {
 		?>
 		<table id="logger-table" class="wp-list-table widefat fixed striped posts">
 			<thead>
-				<th class="col-details"><?php esc_html_e( 'Details', 'icc-openid-client' ); ?></th>
-				<th class="col-data"><?php esc_html_e( 'Data', 'icc-openid-client' ); ?></th>
+				<th class="col-details"><?php esc_html_e( 'Details', 'icc-sign-in-openid-connect' ); ?></th>
+				<th class="col-data"><?php esc_html_e( 'Data', 'icc-sign-in-openid-connect' ); ?></th>
 			</thead>
 			<tbody>
 			<?php foreach ( $logs as $log ) { ?>
 				<tr>
 					<td class="col-details">
 						<div>
-							<label><?php esc_html_e( 'Date', 'icc-openid-client' ); ?></label>
+							<label><?php esc_html_e( 'Date', 'icc-sign-in-openid-connect' ); ?></label>
 							<?php print esc_html( ! empty( $log['time'] ) ? gmdate( 'Y-m-d H:i:s', $log['time'] ) : '' ); ?>
 						</div>
 						<div>
-							<label><?php esc_html_e( 'Type', 'icc-openid-client' ); ?></label>
+							<label><?php esc_html_e( 'Type', 'icc-sign-in-openid-connect' ); ?></label>
 							<?php print esc_html( ! empty( $log['type'] ) ? $log['type'] : '' ); ?>
 						</div>
 						<div>
-							<label><?php esc_html_e( 'User', 'icc-openid-client' ); ?>: </label>
+							<label><?php esc_html_e( 'User', 'icc-sign-in-openid-connect' ); ?>: </label>
 							<?php print esc_html( ( get_userdata( $log['user_ID'] ) ) ? get_userdata( $log['user_ID'] )->user_login : '0' ); ?>
 						</div>
 						<div>
-							<label><?php esc_html_e( 'URI ', 'icc-openid-client' ); ?>: </label>
+							<label><?php esc_html_e( 'URI ', 'icc-sign-in-openid-connect' ); ?>: </label>
 							<?php print esc_url( ! empty( $log['uri'] ) ? $log['uri'] : '' ); ?>
 						</div>
 						<div>
-							<label><?php esc_html_e( 'Response&nbsp;Time&nbsp;(sec)', 'icc-openid-client' ); ?></label>
+							<label><?php esc_html_e( 'Response&nbsp;Time&nbsp;(sec)', 'icc-sign-in-openid-connect' ); ?></label>
 							<?php print esc_html( ! empty( $log['processing_time'] ) ? $log['processing_time'] : 0 ); ?>
 						</div>
 					</td>

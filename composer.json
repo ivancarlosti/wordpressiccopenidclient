@@ -1,5 +1,5 @@
 {
-    "name": "ivancarlosti/icc-openid-client",
+    "name": "ivancarlosti/icc-sign-in-openid-connect",
     "description": "WordPress OpenID Connect SSO plugin using Authorization Code Flow.",
     "type": "wordpress-plugin",
     "license": "GPL-2.0-or-later",

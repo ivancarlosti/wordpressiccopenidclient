@@ -2,7 +2,7 @@
 
 ## Overview
 
-This plan adds built-in update capability to the ICC OpenID Client plugin, replicating exactly how WordPress.org-hosted plugins handle updates — but using GitHub Releases as the source. Users will see update notifications, one-click updates, the version details popup, and the "Enable automatic updates" toggle in their WordPress admin.
+This plan adds built-in update capability to the ICC Sign-In for OpenID Connect plugin, replicating exactly how WordPress.org-hosted plugins handle updates — but using GitHub Releases as the source. Users will see update notifications, one-click updates, the version details popup, and the "Enable automatic updates" toggle in their WordPress admin.
 
 **No external library dependency** — the entire update mechanism is a self-contained WordPress class using native hooks (`pre_set_site_transient_update_plugins`, `plugins_api`, `auto_update_plugin`).
 
@@ -124,9 +124,9 @@ The WordPress.org SVN deploy step is unchanged.
 
 ## How It Works (User Perspective)
 
-1. **"Enable automatic updates" toggle**: Appears in the Plugins list for ICC OpenID Client. Clicking it enables automatic background updates — WordPress will download and install new versions from GitHub without any user interaction.
+1. **"Enable automatic updates" toggle**: Appears in the Plugins list for ICC Sign-In for OpenID Connect. Clicking it enables automatic background updates — WordPress will download and install new versions from GitHub without any user interaction.
 
-2. **Update notification**: When a new GitHub release is published, the plugin shows the standard yellow update notice on the Plugins screen ("There is a new version of ICC OpenID Client available").
+2. **Update notification**: When a new GitHub release is published, the plugin shows the standard yellow update notice on the Plugins screen ("There is a new version of ICC Sign-In for OpenID Connect available").
 
 3. **One-click update**: Clicking "Update Now" downloads the ZIP from GitHub Releases, unpacks it, and replaces the plugin files — identical to WordPress.org-hosted plugins.
 

@@ -596,7 +596,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 					$this->error_redirect( $user, $token_response['id_token'] );
 				}
 			} else {
-				$this->error_redirect( new WP_Error( 'identity-not-map-existing-user', __( 'User identity is not linked to an existing WordPress user.', 'icc-openid-client' ), $user_claim ) );
+				$this->error_redirect( new WP_Error( 'identity-not-map-existing-user', __( 'User identity is not linked to an existing WordPress user.', 'icc-sign-in-openid-connect' ), $user_claim ) );
 			}
 		}
 
@@ -657,7 +657,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 	public function validate_user( $user ) {
 		// Ensure the found user is a real WP_User.
 		if ( ! is_a( $user, 'WP_User' ) || ! $user->exists() ) {
-			return new WP_Error( 'invalid-user', __( 'Invalid user.', 'icc-openid-client' ), $user );
+			return new WP_Error( 'invalid-user', __( 'Invalid user.', 'icc-sign-in-openid-connect' ), $user );
 		}
 
 		return true;
@@ -689,7 +689,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 		if ( is_wp_error( $email ) || empty( $email ) ) {
 			return new WP_Error(
 				'email-domain-no-email',
-				__( 'Unable to determine email address from user claim for domain validation.', 'icc-openid-client' )
+				__( 'Unable to determine email address from user claim for domain validation.', 'icc-sign-in-openid-connect' )
 			);
 		}
 
@@ -703,7 +703,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 		if ( empty( $domain ) ) {
 			return new WP_Error(
 				'email-domain-invalid',
-				__( 'Unable to extract domain from email address.', 'icc-openid-client' )
+				__( 'Unable to extract domain from email address.', 'icc-sign-in-openid-connect' )
 			);
 		}
 
@@ -745,7 +745,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 				'email-domain-not-allowed',
 				sprintf(
 					/* translators: %s is the email address or domain that was rejected */
-					__( 'Email "%s" is not allowed for login. Check the allowed email or domain restrictions.', 'icc-openid-client' ),
+					__( 'Email "%s" is not allowed for login. Check the allowed email or domain restrictions.', 'icc-sign-in-openid-connect' ),
 					$email
 				)
 			);
@@ -940,7 +940,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 		}
 		if ( empty( $desired_username ) ) {
 			// Nothing to build a name from.
-			return new WP_Error( 'no-username', __( 'No appropriate username found.', 'icc-openid-client' ), $user_claim );
+			return new WP_Error( 'no-username', __( 'No appropriate username found.', 'icc-sign-in-openid-connect' ), $user_claim );
 		}
 
 		// Don't use the full email address for a username.
@@ -950,7 +950,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 		$sanitized_username = sanitize_user( $desired_username, true );
 		if ( empty( $sanitized_username ) ) {
 			// translators: %1$s is the santitized version of the username from the IDP.
-			return new WP_Error( 'username-sanitization-failed', sprintf( __( 'Username %1$s could not be sanitized.', 'icc-openid-client' ), $desired_username ), $desired_username );
+			return new WP_Error( 'username-sanitization-failed', sprintf( __( 'Username %1$s could not be sanitized.', 'icc-sign-in-openid-connect' ), $desired_username ), $desired_username );
 		}
 
 		return $sanitized_username;
@@ -972,7 +972,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 
 		if ( empty( $desired_nickname ) ) {
 			// translators: %1$s is the configured User Claim nickname key.
-			return new WP_Error( 'no-nickname', sprintf( __( 'No nickname found in user claim using key: %1$s.', 'icc-openid-client' ), $this->settings->nickname_key ), $this->settings->nickname_key );
+			return new WP_Error( 'no-nickname', sprintf( __( 'No nickname found in user claim using key: %1$s.', 'icc-sign-in-openid-connect' ), $this->settings->nickname_key ), $this->settings->nickname_key );
 		}
 
 		return $desired_nickname;
@@ -1104,7 +1104,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 					if ( $error_on_missing_key ) {
 						return new WP_Error(
 							'incomplete-user-claim',
-							__( 'User claim incomplete.', 'icc-openid-client' ),
+							__( 'User claim incomplete.', 'icc-sign-in-openid-connect' ),
 							array(
 								'message'    => 'Unable to find key: ' . $key . ' in user_claim',
 								'hint'       => 'Verify OpenID Scope includes a scope with the attributes you need',
@@ -1207,7 +1207,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 
 			// Make sure we didn't get an error.
 			if ( is_wp_error( $user_claim_result ) ) {
-				return new WP_Error( 'bad-user-claim-result', __( 'Bad user claim result.', 'icc-openid-client' ), $user_claim_result );
+				return new WP_Error( 'bad-user-claim-result', __( 'Bad user claim result.', 'icc-sign-in-openid-connect' ), $user_claim_result );
 			}
 
 			$user_claim = json_decode( $user_claim_result['body'], true );
@@ -1273,7 +1273,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 		$create_user = apply_filters( 'icc_openid_client_user_creation_test', $this->settings->create_if_does_not_exist, $user_claim );
 
 		if ( ! $create_user ) {
-			return new WP_Error( 'cannot-authorize', __( 'Can not authorize.', 'icc-openid-client' ), $create_user );
+			return new WP_Error( 'cannot-authorize', __( 'Can not authorize.', 'icc-sign-in-openid-connect' ), $create_user );
 		}
 
 		// Copy the username for incrementing.
@@ -1302,7 +1302,7 @@ class ICC_OpenID_Client_Client_Wrapper {
 
 		// Make sure we didn't fail in creating the user.
 		if ( is_wp_error( $uid ) ) {
-			return new WP_Error( 'failed-user-creation', __( 'Failed user creation.', 'icc-openid-client' ), $uid );
+			return new WP_Error( 'failed-user-creation', __( 'Failed user creation.', 'icc-sign-in-openid-connect' ), $uid );
 		}
 
 		// Retrieve our new user.

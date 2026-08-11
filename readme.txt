@@ -1,4 +1,4 @@
-=== ICC OpenID Client ===
+=== ICC Sign-In for OpenID Connect ===
 Contributors: ivancarlosti
 Tags: security, login, openidconnect, sso, authentication
 Requires at least: 5.0
@@ -60,7 +60,7 @@ The plugin works with any OpenID Connect compliant Identity Provider, including:
 * Portuguese (Brazil) — `pt_BR`
 * Spanish (Mexico) — `es_MX`
 
-Much of the documentation can be found on the **Settings > ICC OpenID Client** dashboard page.
+Much of the documentation can be found on the **Settings > ICC Sign-In for OpenID Connect** dashboard page.
 
 Please submit issues to the Github repo: https://github.com/ivancarlosti/wordpressiccopenidclient
 
@@ -68,7 +68,7 @@ Please submit issues to the Github repo: https://github.com/ivancarlosti/wordpre
 
 1. Upload the plugin files to the `/wp-content/plugins/` directory, or install the plugin through the WordPress plugins screen directly.
 2. Activate the plugin through the 'Plugins' screen in WordPress.
-3. Go to **Settings > ICC OpenID Client** and configure the plugin to meet your needs.
+3. Go to **Settings > ICC Sign-In for OpenID Connect** and configure the plugin to meet your needs.
 
 **Quick Setup with Discovery Document:**
 
@@ -91,7 +91,7 @@ Replace `example.com` with your domain name and path to WordPress.
 
 Some OAuth2 servers do not allow for a client redirect URI to contain a query string. The default URI provided by this plugin leverages WordPress's `admin-ajax.php` endpoint as an easy way to provide a route that does not include HTML, but this will naturally involve a query string.
 
-On the settings page (**Settings > ICC OpenID Client**) there is a checkbox for **Alternate Redirect URI**. When checked, the plugin will use the Redirect URI:
+On the settings page (**Settings > ICC Sign-In for OpenID Connect**) there is a checkbox for **Alternate Redirect URI**. When checked, the plugin will use the Redirect URI:
 
 `https://example.com/icc-openid-client-authorize`
 

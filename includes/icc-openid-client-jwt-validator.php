@@ -124,7 +124,7 @@ class ICC_OpenID_Client_JWT_Validator {
 			$this->logger->log( $response, 'jwks-fetch-failed' );
 			return new WP_Error(
 				'jwks-fetch-failed',
-				__( 'Failed to fetch JWKS from identity provider.', 'icc-openid-client' ),
+				__( 'Failed to fetch JWKS from identity provider.', 'icc-sign-in-openid-connect' ),
 				$response
 			);
 		}
@@ -135,7 +135,7 @@ class ICC_OpenID_Client_JWT_Validator {
 				'jwks-fetch-failed',
 				sprintf(
 					/* translators: %d is the HTTP response code */
-					__( 'JWKS endpoint returned HTTP %d', 'icc-openid-client' ),
+					__( 'JWKS endpoint returned HTTP %d', 'icc-sign-in-openid-connect' ),
 					$response_code
 				)
 			);
@@ -149,7 +149,7 @@ class ICC_OpenID_Client_JWT_Validator {
 		if ( ! $jwks || ! isset( $jwks['keys'] ) ) {
 			$error = new WP_Error(
 				'jwks-invalid-format',
-				__( 'Invalid JWKS format received from identity provider.', 'icc-openid-client' )
+				__( 'Invalid JWKS format received from identity provider.', 'icc-sign-in-openid-connect' )
 			);
 			$this->logger->log( $error, 'jwks-invalid-format' );
 			return $error;
@@ -173,7 +173,7 @@ class ICC_OpenID_Client_JWT_Validator {
 		if ( ! isset( $decoded_jwt->sub ) || empty( $decoded_jwt->sub ) ) {
 			return new WP_Error(
 				'missing-sub',
-				__( 'Token missing subject claim.', 'icc-openid-client' )
+				__( 'Token missing subject claim.', 'icc-sign-in-openid-connect' )
 			);
 		}
 
@@ -181,7 +181,7 @@ class ICC_OpenID_Client_JWT_Validator {
 		if ( ! isset( $decoded_jwt->exp ) ) {
 			return new WP_Error(
 				'missing-exp',
-				__( 'Token missing expiration claim.', 'icc-openid-client' )
+				__( 'Token missing expiration claim.', 'icc-sign-in-openid-connect' )
 			);
 		}
 
@@ -189,7 +189,7 @@ class ICC_OpenID_Client_JWT_Validator {
 		if ( ! isset( $decoded_jwt->iat ) ) {
 			return new WP_Error(
 				'missing-iat',
-				__( 'Token missing issued at claim.', 'icc-openid-client' )
+				__( 'Token missing issued at claim.', 'icc-sign-in-openid-connect' )
 			);
 		}
 
@@ -197,7 +197,7 @@ class ICC_OpenID_Client_JWT_Validator {
 		if ( ! isset( $decoded_jwt->aud ) ) {
 			return new WP_Error(
 				'missing-aud',
-				__( 'Token missing audience claim.', 'icc-openid-client' )
+				__( 'Token missing audience claim.', 'icc-sign-in-openid-connect' )
 			);
 		}
 
@@ -214,7 +214,7 @@ class ICC_OpenID_Client_JWT_Validator {
 		if ( ! $audience_valid ) {
 			return new WP_Error(
 				'invalid-aud',
-				__( 'Token audience does not match client.', 'icc-openid-client' )
+				__( 'Token audience does not match client.', 'icc-sign-in-openid-connect' )
 			);
 		}
 
@@ -223,14 +223,14 @@ class ICC_OpenID_Client_JWT_Validator {
 			if ( ! isset( $decoded_jwt->iss ) ) {
 				return new WP_Error(
 					'missing-iss',
-					__( 'Token missing issuer claim.', 'icc-openid-client' )
+					__( 'Token missing issuer claim.', 'icc-sign-in-openid-connect' )
 				);
 			}
 
 			if ( rtrim( $decoded_jwt->iss, '/' ) !== rtrim( $this->issuer, '/' ) ) {
 				$this->logger->log(
 					sprintf(
-						'Issuer mismatch - Expected: "%s", Received: "%s". Configure the correct issuer in Settings > ICC OpenID Client > Issuer field, or via the OIDC_ISSUER constant.',
+						'Issuer mismatch - Expected: "%s", Received: "%s". Configure the correct issuer in Settings > ICC Sign-In for OpenID Connect > Issuer field, or via the OIDC_ISSUER constant.',
 						$this->issuer,
 						$decoded_jwt->iss
 					),
@@ -238,7 +238,7 @@ class ICC_OpenID_Client_JWT_Validator {
 				);
 				return new WP_Error(
 					'invalid-iss',
-					__( 'Token issuer does not match expected issuer.', 'icc-openid-client' )
+					__( 'Token issuer does not match expected issuer.', 'icc-sign-in-openid-connect' )
 				);
 			}
 		}
@@ -312,7 +312,7 @@ class ICC_OpenID_Client_JWT_Validator {
 		if ( empty( $this->jwks_uri ) ) {
 			$error = new WP_Error(
 				'jwks-not-configured',
-				__( 'JWKS URI not configured. JWT signature verification requires JWKS endpoint.', 'icc-openid-client' )
+				__( 'JWKS URI not configured. JWT signature verification requires JWKS endpoint.', 'icc-sign-in-openid-connect' )
 			);
 			$this->logger->log( $error, 'jwks-not-configured' );
 			return $error;
@@ -343,7 +343,7 @@ class ICC_OpenID_Client_JWT_Validator {
 				'jwt-verification-failed',
 				sprintf(
 					/* translators: %s is the error message */
-					__( 'JWT verification failed: %s', 'icc-openid-client' ),
+					__( 'JWT verification failed: %s', 'icc-sign-in-openid-connect' ),
 					$e->getMessage()
 				)
 			);
