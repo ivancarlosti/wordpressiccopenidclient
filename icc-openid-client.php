@@ -438,6 +438,20 @@ class ICC_OpenID_Client {
 	public static function bootstrap() {
 		require_once __DIR__ . '/vendor/autoload.php';
 
+		// GitHub-based update checking (mimics WordPress.org update API).
+		if (is_admin()) {
+			add_action('init', function () {
+				if (!class_exists(\YahnisElsts\Plugin\UpdateChecker\v5\PucFactory::class)) {
+					return;
+				}
+				\YahnisElsts\Plugin\UpdateChecker\v5\PucFactory::buildUpdateChecker(
+					'https://github.com/ivancarlosti/wordpressiccopenidclient/releases/latest/download/plugin-update-info.json',
+					__FILE__,
+					'icc-openid-client'
+				);
+			}, 0);
+		}
+
 		$settings = new ICC_OpenID_Client_Option_Settings(
 			// Default settings values.
 			array(
