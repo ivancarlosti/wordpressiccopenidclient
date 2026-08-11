@@ -31,7 +31,7 @@ A WordPress plugin that provides SSO (Single Sign-On) authentication against an 
 ## Requirements
 
 - WordPress 5.0+
-- PHP 7.4+
+- PHP 8.1+
 - An OpenID Connect Identity Provider (Keycloak, Auth0, Okta, Azure AD, Google, etc.)
 
 ## Installation
