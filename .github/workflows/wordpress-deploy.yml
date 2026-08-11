@@ -15,7 +15,7 @@ permissions:
 
 env:
   PLUGIN_SLUG: icc-sign-in-openid-connect
-  PLUGIN_FILE: icc-openid-client.php
+  PLUGIN_FILE: icc-sign-in-openid-connect.php
   SVN_URL: https://plugins.svn.wordpress.org/icc-sign-in-openid-connect
 
 jobs:
