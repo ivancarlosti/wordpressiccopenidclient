@@ -2,6 +2,12 @@
 
 A WordPress plugin that provides SSO (Single Sign-On) authentication against an OpenID Connect OAuth2 Identity Provider using Authorization Code Flow.
 
+## About OpenID Connect
+
+OpenID Connect (OIDC) is an open authentication protocol standardized by the **OpenID Foundation**. It extends the OAuth 2.0 authorization framework to provide identity verification and single sign-on capabilities. This plugin implements the OIDC Authorization Code Flow as defined in the [OpenID Connect Core 1.0 specification](https://openid.net/specs/openid-connect-core-1_0.html), enabling WordPress sites to delegate authentication to a trusted Identity Provider (IDP) rather than managing user credentials directly.
+
+The OpenID Foundation is a non-profit international standardization organization that develops and maintains the OpenID Connect protocol and related specifications. **This plugin is an independent implementation and is not affiliated with, endorsed by, or sponsored by the OpenID Foundation.**
+
 <!-- buttons -->
 [![Stars](https://img.shields.io/github/stars/ivancarlosti/wordpressiccopenidclient?label=⭐%20Stars&color=gold&style=flat)](https://github.com/ivancarlosti/wordpressiccopenidclient/stargazers)
 [![Watchers](https://img.shields.io/github/watchers/ivancarlosti/wordpressiccopenidclient?label=Watchers&style=flat&color=red)](https://github.com/sponsors/ivancarlosti)
@@ -38,7 +44,7 @@ A WordPress plugin that provides SSO (Single Sign-On) authentication against an 
 
 1. Download the plugin or clone this repository into `/wp-content/plugins/`
 2. Activate the plugin through the WordPress admin panel
-3. Go to **Settings > ICC Sign-In for OpenID Connect** to configure
+3. Go to **Settings > OpenID Connect** to configure
 
 ## Quick Setup
 
@@ -130,14 +136,6 @@ The plugin provides many hooks for customization. See the main plugin file for t
 - `icc-openid-client-login-button-text` — Customize the login button text
 - `icc-openid-client-user-logged-in` — Action fired after successful login
 
-## Languages
-
-- 🇺🇸 English (default)
-- 🇧🇷 Portuguese (Brazil) — `pt_BR`
-- 🇲🇽 Spanish (Mexico) — `es_MX`
-
-Translations are managed through `.po` files in the `languages/` directory.
-
 ## Security
 
 - JWKS-based JWT signature verification to prevent token forgery
@@ -146,6 +144,22 @@ Translations are managed through `.po` files in the `languages/` directory.
 - SSL verification bypass restricted to local development environments only
 - Nonce-protected settings forms
 - Email domain restriction for access control
+
+## User Authentication & Creation
+
+This plugin creates and authenticates WordPress users as a technical necessity of its core function — OpenID Connect Single Sign-On. User sessions are established only after successful authentication by the configured Identity Provider. User accounts are created only when explicitly enabled by the site administrator and only after the IDP has verified the user's identity.
+
+**Security measures protecting user login/creation:**
+
+| Measure | Description |
+|---------|-------------|
+| JWT Signature Verification | All ID tokens are cryptographically verified via JWKS to prevent forgery |
+| Secure State Generation | Anti-CSRF state values use `random_bytes()` to prevent code interception |
+| SSRF Protection | All outbound requests use `wp_safe_remote_*()` by default |
+| Core WordPress Functions | Uses `wp_create_user()`, `wp_update_user()`, `wp_signon()` — triggering all standard security plugin hooks |
+| Email Domain Restriction | Administrators can restrict which email domains/addresses are allowed |
+| Token Claim Validation | Validates exp, aud, iss, iat, and nonce claims on every token |
+| Nonce Protection | All admin forms are protected against CSRF |
 
 ## Credits
 

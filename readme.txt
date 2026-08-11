@@ -1,5 +1,5 @@
 === ICC Sign-In for OpenID Connect ===
-Contributors: ivancarlosti
+Contributors: ivancarlos
 Tags: security, login, openidconnect, sso, authentication
 Requires at least: 5.0
 Tested up to: 7.0
@@ -15,6 +15,12 @@ A WordPress plugin that provides SSO (Single Sign-On) authentication against an 
 This plugin allows you to authenticate users against any OpenID Connect OAuth2 API with Authorization Code Flow. Once installed, it can be configured to automatically authenticate users (SSO), or provide a "Login with OpenID Connect" button on the WordPress login form.
 
 After consent has been obtained from the Identity Provider, an existing user is automatically logged into WordPress, while new users can be automatically created in the WordPress database based on IDP claims.
+
+**About OpenID Connect:**
+
+OpenID Connect (OIDC) is an open authentication protocol standardized by the OpenID Foundation. It extends the OAuth 2.0 authorization framework to provide identity verification and single sign-on capabilities. This plugin implements the OIDC Authorization Code Flow as defined in the OpenID Connect Core 1.0 specification, enabling WordPress sites to delegate authentication to a trusted Identity Provider (IDP) rather than managing user credentials directly.
+
+The OpenID Foundation is a non-profit international standardization organization that develops and maintains the OpenID Connect protocol and related specifications. This plugin is an independent implementation and is not affiliated with, endorsed by, or sponsored by the OpenID Foundation.
 
 **Features:**
 
@@ -54,13 +60,9 @@ The plugin works with any OpenID Connect compliant Identity Provider, including:
 * Email domain restriction for access control
 * Token claim validation (exp, aud, iss, iat, nonce)
 
-**Languages:**
+Translations are managed through the WordPress.org translation platform. The plugin is fully internationalized and ready for translation into any language.
 
-* English (default)
-* Portuguese (Brazil) — `pt_BR`
-* Spanish (Mexico) — `es_MX`
-
-Much of the documentation can be found on the **Settings > ICC Sign-In for OpenID Connect** dashboard page.
+Much of the documentation can be found on the **Settings > OpenID Connect** dashboard page.
 
 Please submit issues to the Github repo: https://github.com/ivancarlosti/wordpressiccopenidclient
 
@@ -68,7 +70,7 @@ Please submit issues to the Github repo: https://github.com/ivancarlosti/wordpre
 
 1. Upload the plugin files to the `/wp-content/plugins/` directory, or install the plugin through the WordPress plugins screen directly.
 2. Activate the plugin through the 'Plugins' screen in WordPress.
-3. Go to **Settings > ICC Sign-In for OpenID Connect** and configure the plugin to meet your needs.
+3. Go to **Settings > OpenID Connect** and configure the plugin to meet your needs.
 
 **Quick Setup with Discovery Document:**
 
@@ -91,7 +93,7 @@ Replace `example.com` with your domain name and path to WordPress.
 
 Some OAuth2 servers do not allow for a client redirect URI to contain a query string. The default URI provided by this plugin leverages WordPress's `admin-ajax.php` endpoint as an easy way to provide a route that does not include HTML, but this will naturally involve a query string.
 
-On the settings page (**Settings > ICC Sign-In for OpenID Connect**) there is a checkbox for **Alternate Redirect URI**. When checked, the plugin will use the Redirect URI:
+On the settings page (**Settings > OpenID Connect**) there is a checkbox for **Alternate Redirect URI**. When checked, the plugin will use the Redirect URI:
 
 `https://example.com/icc-openid-client-authorize`
 
@@ -112,6 +114,24 @@ Example: `company.com specificuser@gmail.com partner.org` — only users with em
 = Does the plugin support WordPress Multisite? =
 
 Yes. The plugin is fully compatible with WordPress Multisite networks and uses `*_user_options()` functions for proper multisite support.
+
+= Why does this plugin need to create or log in users? =
+
+User authentication and creation are technically essential for this plugin to function as an OpenID Connect SSO provider. The plugin's core purpose is to delegate authentication to an external Identity Provider — this inherently requires creating user sessions (logging in) and, when configured, creating WordPress user accounts that correspond to identities verified by the IDP. Without these capabilities, SSO integration would not be possible.
+
+This behavior is standard for all OpenID Connect plugins and is the same mechanism used by enterprise SSO solutions. The plugin only creates users or establishes sessions after the Identity Provider has successfully authenticated the user and the site administrator has explicitly configured it to do so.
+
+= What security measures protect the user login/creation process? =
+
+The plugin implements multiple layers of security:
+
+* **JWT Signature Verification**: All ID tokens are cryptographically verified using JWKS (JSON Web Key Set) to prevent token forgery.
+* **Cryptographically Secure State**: Anti-CSRF state values are generated using `random_bytes()` to prevent authorization code interception attacks.
+* **SSRF Protection**: All outbound requests use `wp_safe_remote_*()` functions by default, preventing requests to internal/private network endpoints.
+* **Standard WordPress User Functions**: The plugin uses `wp_create_user()`, `wp_update_user()`, and `wp_signon()` — WordPress core functions that trigger all standard hooks used by security plugins for rate limiting, brute force protection, and audit logging.
+* **Email Domain Restriction**: Administrators can restrict which email domains or specific addresses are allowed to authenticate, preventing unauthorized access.
+* **Nonce-Protected Settings**: All admin forms are protected against CSRF attacks.
+* **Token Claim Validation**: The plugin validates exp, aud, iss, iat, and nonce claims on every token to prevent replay and spoofing attacks.
 
 == Upgrade Notice ==
 

@@ -125,7 +125,7 @@ class ICC_OpenID_Client_Settings_Page {
 	public function admin_menu() {
 		add_options_page(
 			__( 'ICC Sign-In for OpenID Connect', 'icc-sign-in-openid-connect' ),
-			__( 'ICC Sign-In for OpenID Connect', 'icc-sign-in-openid-connect' ),
+			__( 'OpenID Connect', 'icc-sign-in-openid-connect' ),
 			'manage_options',
 			$this->options_page_name,
 			array( $this, 'settings_page' )
