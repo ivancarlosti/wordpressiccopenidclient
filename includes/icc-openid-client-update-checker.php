@@ -91,12 +91,10 @@ class ICC_OpenID_Client_Update_Checker {
 		// Hook 2: Provide plugin details for the "View version details" popup.
 		add_filter( 'plugins_api', array( $this, 'plugin_information' ), 20, 3 );
 
-		// Hook 3: Explicitly allow automatic updates for this plugin.
-		// This is what makes the "Enable automatic updates" toggle appear and work.
-		add_filter( 'auto_update_plugin', array( $this, 'allow_auto_update' ), 10, 2 );
-
-		// Hook 4: Register our plugin in the list of plugins eligible for auto-updates.
-		// This ensures the "Enable automatic updates" link appears in the Plugins list.
+		// Hook 3: Register our plugin in the list of plugins eligible for auto-updates.
+		// This ensures the "Enable automatic updates" / "Disable automatic updates"
+		// toggle link appears in the Plugins list. WordPress manages the on/off state
+		// via the auto_update_plugins site option — no auto_update_plugin filter needed.
 		add_filter( 'plugin_auto_update_setting_html', array( $this, 'auto_update_setting_html' ), 10, 3 );
 	}
 
@@ -194,30 +192,6 @@ class ICC_OpenID_Client_Update_Checker {
 		);
 
 		return $info;
-	}
-
-	/**
-	 * Allow automatic updates for this specific plugin.
-	 *
-	 * This filter runs during WP-Cron auto-update checks. Returning true
-	 * tells WordPress that this plugin is eligible for automatic updates.
-	 *
-	 * @param bool|null $update Whether to update the plugin.
-	 * @param object    $item   The plugin update offer object.
-	 * @return bool|null
-	 */
-	public function allow_auto_update( $update, $item ) {
-		// If WordPress already decided, respect that.
-		if ( isset( $update ) ) {
-			return $update;
-		}
-
-		// Allow auto-updates for our plugin when our plugin is being checked.
-		if ( isset( $item->plugin ) && $item->plugin === $this->plugin_basename ) {
-			return true;
-		}
-
-		return $update;
 	}
 
 	/**
