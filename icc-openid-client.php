@@ -439,18 +439,19 @@ class ICC_OpenID_Client {
 		require_once __DIR__ . '/vendor/autoload.php';
 
 		// GitHub-based update checking (mimics WordPress.org update API).
-		if (is_admin()) {
-			add_action('init', function () {
-				if (!class_exists(\YahnisElsts\Plugin\UpdateChecker\v5\PucFactory::class)) {
-					return;
-				}
-				\YahnisElsts\Plugin\UpdateChecker\v5\PucFactory::buildUpdateChecker(
-					'https://github.com/ivancarlosti/wordpressiccopenidclient/releases/latest/download/plugin-update-info.json',
-					__FILE__,
-					'icc-openid-client'
-				);
-			}, 0);
-		}
+		// Must run on ALL requests — automatic updates happen via WP-Cron which is
+		// not an admin context. Without this, the "Enable automatic updates" link
+		// is missing and auto-updates will not work.
+		add_action('init', function () {
+			if (!class_exists(\YahnisElsts\PluginUpdateChecker\v5\PucFactory::class)) {
+				return;
+			}
+			\YahnisElsts\PluginUpdateChecker\v5\PucFactory::buildUpdateChecker(
+				'https://github.com/ivancarlosti/wordpressiccopenidclient/releases/latest/download/plugin-update-info.json',
+				__FILE__,
+				'icc-openid-client'
+			);
+		}, 0);
 
 		$settings = new ICC_OpenID_Client_Option_Settings(
 			// Default settings values.

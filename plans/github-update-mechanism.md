@@ -63,11 +63,14 @@ Inside the `bootstrap()` method, after the plugin instance is created but before
 
 ```php
 // GitHub-based update checking (mimics WordPress.org update API).
+// Must run on ALL requests — automatic updates happen via WP-Cron which is
+// not an admin context. Without this, the "Enable automatic updates" link
+// is missing and auto-updates will not work.
 add_action('init', function () {
-    if (!class_exists(\YahnisElsts\Plugin\UpdateChecker\v5\PucFactory::class)) {
+    if (!class_exists(\YahnisElsts\PluginUpdateChecker\v5\PucFactory::class)) {
         return;
     }
-    \YahnisElsts\Plugin\UpdateChecker\v5\PucFactory::buildUpdateChecker(
+    \YahnisElsts\PluginUpdateChecker\v5\PucFactory::buildUpdateChecker(
         'https://github.com/ivancarlosti/wordpressiccopenidclient/releases/latest/download/plugin-update-info.json',
         __FILE__,
         'icc-openid-client'
