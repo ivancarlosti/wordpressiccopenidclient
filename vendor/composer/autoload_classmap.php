@@ -114,7 +114,7 @@ return array(
     'Firebase\\JWT\\JWTExceptionWithPayloadInterface' => $vendorDir . '/firebase/php-jwt/src/JWTExceptionWithPayloadInterface.php',
     'Firebase\\JWT\\Key' => $vendorDir . '/firebase/php-jwt/src/Key.php',
     'Firebase\\JWT\\SignatureInvalidException' => $vendorDir . '/firebase/php-jwt/src/SignatureInvalidException.php',
-    'ICC_OpenID_Client' => $baseDir . '/icc-openid-client.php',
+    'ICC_OpenID_Client' => $baseDir . '/icc-sign-in-openid-connect.php',
     'ICC_OpenID_Client_Client' => $baseDir . '/includes/icc-openid-client-client.php',
     'ICC_OpenID_Client_Client_Wrapper' => $baseDir . '/includes/icc-openid-client-client-wrapper.php',
     'ICC_OpenID_Client_JWT_Validator' => $baseDir . '/includes/icc-openid-client-jwt-validator.php',

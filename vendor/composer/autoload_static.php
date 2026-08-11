@@ -137,7 +137,7 @@ class ComposerStaticInitdf50dab69727c9acc15d5a5590cd963a
         'Firebase\\JWT\\JWTExceptionWithPayloadInterface' => __DIR__ . '/..' . '/firebase/php-jwt/src/JWTExceptionWithPayloadInterface.php',
         'Firebase\\JWT\\Key' => __DIR__ . '/..' . '/firebase/php-jwt/src/Key.php',
         'Firebase\\JWT\\SignatureInvalidException' => __DIR__ . '/..' . '/firebase/php-jwt/src/SignatureInvalidException.php',
-        'ICC_OpenID_Client' => __DIR__ . '/../..' . '/icc-openid-client.php',
+        'ICC_OpenID_Client' => __DIR__ . '/../..' . '/icc-sign-in-openid-connect.php',
         'ICC_OpenID_Client_Client' => __DIR__ . '/../..' . '/includes/icc-openid-client-client.php',
         'ICC_OpenID_Client_Client_Wrapper' => __DIR__ . '/../..' . '/includes/icc-openid-client-client-wrapper.php',
         'ICC_OpenID_Client_JWT_Validator' => __DIR__ . '/../..' . '/includes/icc-openid-client-jwt-validator.php',
