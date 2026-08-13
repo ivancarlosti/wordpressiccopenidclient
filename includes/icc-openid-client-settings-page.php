@@ -42,6 +42,20 @@ class ICC_OpenID_Client_Settings_Page {
 	private $settings_fields = array();
 
 	/**
+	 * Settings fields that hold URLs and must be sanitized with esc_url_raw().
+	 *
+	 * @var array
+	 */
+	private $url_settings_fields = array(
+		'endpoint_login',
+		'endpoint_token',
+		'endpoint_userinfo',
+		'endpoint_end_session',
+		'endpoint_jwks',
+		'issuer',
+	);
+
+	/**
 	 * Options page slug.
 	 *
 	 * @var string
@@ -142,8 +156,8 @@ class ICC_OpenID_Client_Settings_Page {
 			$this->settings_field_group,
 			$this->settings->get_option_name(),
 			array(
-				$this,
-				'sanitize_settings',
+				'type'              => 'array',
+				'sanitize_callback' => array( $this, 'sanitize_settings' ),
 			)
 		);
 
@@ -498,7 +512,14 @@ class ICC_OpenID_Client_Settings_Page {
 
 					case 'text':
 					default:
-						$options[ $key ] = sanitize_text_field( trim( $input[ $key ] ) );
+						$value = trim( $input[ $key ] );
+
+						// URL fields must be sanitized with a URL-aware sanitizer.
+						if ( in_array( $key, $this->url_settings_fields, true ) ) {
+							$options[ $key ] = esc_url_raw( $value );
+						} else {
+							$options[ $key ] = sanitize_text_field( $value );
+						}
 						break;
 				}
 			} else {
