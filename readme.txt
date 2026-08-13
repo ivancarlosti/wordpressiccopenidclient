@@ -133,3 +133,9 @@ OpenID Connect (OIDC) is an open authentication protocol standardized by the Ope
 
 The OpenID Foundation is a non-profit international standardization organization that develops and maintains the OpenID Connect protocol and related specifications. This plugin is an independent implementation and is not affiliated with, endorsed by, or sponsored by the OpenID Foundation.
 
+== Changelog ==
+
+= 4.0.4 =
+* Security: Upgraded the firebase/php-jwt dependency to v7.1.0.
+* Security: Sanitized URL-based settings (endpoints and issuer) with esc_url_raw().
+
