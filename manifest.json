@@ -1,6 +1,6 @@
 {
   "name": "ICC.gg Sign-In for OpenID Connect",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "slug": "icc-gg-sign-in-openid-connect",
   "author": "Ivan Carlos"
 }
