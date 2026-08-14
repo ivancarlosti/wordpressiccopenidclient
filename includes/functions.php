@@ -3,9 +3,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 /**
- * Global OIDCG functions.
+ * Global plugin helper functions.
  *
- * @package   ICC_OpenID_Client
+ * @package   ICC_GG_Sign_In_OpenID_Connect
  * @author    Ivan Carlos
  * @copyright 2023-2025 Ivan Carlos
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt GPL-2.0+
@@ -16,8 +16,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @return string
  */
-function icc_openid_client_get_authentication_url() {
-	return \ICC_OpenID_Client::instance()->client_wrapper->get_authentication_url();
+function icc_gg_sign_in_openid_connect_get_authentication_url() {
+	return \ICC_GG_Sign_In_OpenID_Connect::instance()->client_wrapper->get_authentication_url();
 }
 
 /**
@@ -28,6 +28,6 @@ function icc_openid_client_get_authentication_url() {
  *
  * @return WP_Error|array
  */
-function icc_openid_client_refresh_user_claim( $user, $token_response ) {
-	return \ICC_OpenID_Client::instance()->client_wrapper->refresh_user_claim( $user, $token_response );
+function icc_gg_sign_in_openid_connect_refresh_user_claim( $user, $token_response ) {
+	return \ICC_GG_Sign_In_OpenID_Connect::instance()->client_wrapper->refresh_user_claim( $user, $token_response );
 }

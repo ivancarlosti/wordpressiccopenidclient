@@ -2,7 +2,7 @@
 /**
  * WordPress options handling class.
  *
- * @package   ICC_OpenID_Client
+ * @package   ICC_GG_Sign_In_OpenID_Connect
  * @category  Settings
  * @author    Ivan Carlos
  * @copyright 2023-2025 Ivan Carlos
@@ -14,7 +14,7 @@
  *
  * WordPress options handling.
  *
- * @package ICC_OpenID_Client
+ * @package ICC_GG_Sign_In_OpenID_Connect
  * @category  Settings
  *
  * Legacy Settings:
@@ -64,14 +64,14 @@
  * @property bool $enable_logging           The flag to enable/disable logging.
  * @property int  $log_limit                The maximum number of log entries to keep.
  */
-class ICC_OpenID_Client_Option_Settings {
+class ICC_GG_Sign_In_OpenID_Connect_Option_Settings {
 
 	/**
 	 * WordPress option name/key.
 	 *
 	 * @var string
 	 */
-	const OPTION_NAME = 'icc_openid_client_settings';
+	const OPTION_NAME = 'icc_gg_sign_in_openid_connect_settings';
 
 	/**
 	 * Stored option values array.

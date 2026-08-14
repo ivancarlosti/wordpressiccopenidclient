@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
-        'name' => 'ivancarlosti/icc-sign-in-openid-connect',
+        'name' => 'ivancarlosti/icc-gg-sign-in-openid-connect',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '920c03b8ce4553bec4c1fcac510b7cceeddc1c86',
+        'reference' => '65b758914fd3acf00e1c6dcf0a58a16bfe934849',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -19,10 +19,10 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-        'ivancarlosti/icc-sign-in-openid-connect' => array(
+        'ivancarlosti/icc-gg-sign-in-openid-connect' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '920c03b8ce4553bec4c1fcac510b7cceeddc1c86',
+            'reference' => '65b758914fd3acf00e1c6dcf0a58a16bfe934849',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

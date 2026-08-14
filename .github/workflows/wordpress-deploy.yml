@@ -14,9 +14,9 @@ permissions:
   contents: write
 
 env:
-  PLUGIN_SLUG: icc-sign-in-openid-connect
-  PLUGIN_FILE: icc-sign-in-openid-connect.php
-  SVN_URL: https://plugins.svn.wordpress.org/icc-sign-in-openid-connect
+  PLUGIN_SLUG: icc-gg-sign-in-openid-connect
+  PLUGIN_FILE: icc-gg-sign-in-openid-connect.php
+  SVN_URL: https://plugins.svn.wordpress.org/icc-gg-sign-in-openid-connect
 
 jobs:
   deploy:

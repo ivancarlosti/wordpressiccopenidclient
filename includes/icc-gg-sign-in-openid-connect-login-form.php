@@ -2,7 +2,7 @@
 /**
  * Login form and login button handling class.
  *
- * @package   ICC_OpenID_Client
+ * @package   ICC_GG_Sign_In_OpenID_Connect
  * @category  Login
  * @author    Ivan Carlos
  * @copyright 2023-2025 Ivan Carlos
@@ -10,33 +10,33 @@
  */
 
 /**
- * ICC_OpenID_Client_Login_Form class.
+ * ICC_GG_Sign_In_OpenID_Connect_Login_Form class.
  *
  * Login form and login button handling.
  *
- * @package ICC_OpenID_Client
+ * @package ICC_GG_Sign_In_OpenID_Connect
  * @category  Login
  */
-class ICC_OpenID_Client_Login_Form {
+class ICC_GG_Sign_In_OpenID_Connect_Login_Form {
 
 	/**
 	 * Plugin settings object.
 	 *
-	 * @var ICC_OpenID_Client_Option_Settings
+	 * @var ICC_GG_Sign_In_OpenID_Connect_Option_Settings
 	 */
 	private $settings;
 
 	/**
 	 * Plugin client wrapper instance.
 	 *
-	 * @var ICC_OpenID_Client_Client_Wrapper
+	 * @var ICC_GG_Sign_In_OpenID_Connect_Client_Wrapper
 	 */
 	private $client_wrapper;
 
 	/**
 	 * The client object instance.
 	 *
-	 * @var ICC_OpenID_Client_Client
+	 * @var ICC_GG_Sign_In_OpenID_Connect_Client
 	 */
 	private $client;
 
@@ -52,9 +52,9 @@ class ICC_OpenID_Client_Login_Form {
 	/**
 	 * The class constructor.
 	 *
-	 * @param ICC_OpenID_Client_Option_Settings $settings       A plugin settings object instance.
-	 * @param ICC_OpenID_Client_Client_Wrapper  $client_wrapper A plugin client wrapper object instance.
-	 * @param ICC_OpenID_Client_Client          $client         A plugin client object instance.
+	 * @param ICC_GG_Sign_In_OpenID_Connect_Option_Settings $settings       A plugin settings object instance.
+	 * @param ICC_GG_Sign_In_OpenID_Connect_Client_Wrapper  $client_wrapper A plugin client wrapper object instance.
+	 * @param ICC_GG_Sign_In_OpenID_Connect_Client          $client         A plugin client object instance.
 	 */
 	public function __construct( $settings, $client_wrapper, $client ) {
 		$this->settings = $settings;
@@ -63,11 +63,11 @@ class ICC_OpenID_Client_Login_Form {
 	}
 
 	/**
-	 * Create an instance of the ICC_OpenID_Client_Login_Form class.
+	 * Create an instance of the ICC_GG_Sign_In_OpenID_Connect_Login_Form class.
 	 *
-	 * @param ICC_OpenID_Client_Option_Settings $settings       A plugin settings object instance.
-	 * @param ICC_OpenID_Client_Client_Wrapper  $client_wrapper A plugin client wrapper object instance.
-	 * @param ICC_OpenID_Client_Client          $client         A plugin client object instance.
+	 * @param ICC_GG_Sign_In_OpenID_Connect_Option_Settings $settings       A plugin settings object instance.
+	 * @param ICC_GG_Sign_In_OpenID_Connect_Client_Wrapper  $client_wrapper A plugin client wrapper object instance.
+	 * @param ICC_GG_Sign_In_OpenID_Connect_Client          $client         A plugin client object instance.
 	 *
 	 * @return void
 	 */
@@ -78,7 +78,7 @@ class ICC_OpenID_Client_Login_Form {
 		add_filter( 'login_message', array( $login_form, 'handle_login_page' ), 99 );
 
 		// Add a shortcode for the login button.
-		add_shortcode( 'icc_openid_client_login_button', array( $login_form, 'make_login_button' ) );
+		add_shortcode( 'icc_gg_sign_in_openid_connect_login_button', array( $login_form, 'make_login_button' ) );
 
 		// Enqueue scripts for the login page.
 		add_action( 'login_enqueue_scripts', array( $login_form, 'enqueue_login_scripts' ) );
@@ -124,7 +124,7 @@ class ICC_OpenID_Client_Login_Form {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Error display on login form; nonces not applicable.
 			$error_code = sanitize_text_field( wp_unslash( $_GET['login-error'] ) );
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Error display on login form; nonces not applicable.
-			$error_message = ! empty( $_GET['message'] ) ? sanitize_text_field( wp_unslash( $_GET['message'] ) ) : __( 'Unknown error.', 'icc-sign-in-openid-connect' );
+			$error_message = ! empty( $_GET['message'] ) ? sanitize_text_field( wp_unslash( $_GET['message'] ) ) : __( 'Unknown error.', 'icc-gg-sign-in-openid-connect' );
 			$message .= $this->make_error_output( $error_code, $error_message );
 
 			// If the user is already logged in with another account at the IDP,
@@ -154,7 +154,7 @@ class ICC_OpenID_Client_Login_Form {
 		ob_start();
 		?>
 		<div id="login_error"><?php // translators: %1$s is the error code from the IDP. ?>
-			<strong><?php printf( esc_html__( 'ERROR (%1$s)', 'icc-sign-in-openid-connect' ), esc_html( $error_code ) ); ?>: </strong>
+			<strong><?php printf( esc_html__( 'ERROR (%1$s)', 'icc-gg-sign-in-openid-connect' ), esc_html( $error_code ) ); ?>: </strong>
 			<?php print esc_html( $error_message ); ?>
 		</div>
 		<?php
@@ -178,7 +178,7 @@ class ICC_OpenID_Client_Login_Form {
 		if ( ! empty( $_GET['idp-logout-id'] ) ) {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Error display on login form; nonces not applicable.
 			$transient_key = sanitize_text_field( wp_unslash( $_GET['idp-logout-id'] ) );
-			$id_token = get_transient( 'icc-openid-client-idp-logout--' . $transient_key );
+			$id_token = get_transient( 'icc-gg-sign-in-openid-connect-idp-logout--' . $transient_key );
 			if ( ! empty( $id_token ) ) {
 				$logout_url = $end_session_url . $separator . 'id_token_hint=' . urlencode( $id_token ) . '&post_logout_redirect_uri=' . urlencode( wp_login_url() );
 			} else {
@@ -192,11 +192,11 @@ class ICC_OpenID_Client_Login_Form {
 		?>
 		<div class="message" style="margin-top: 10px;">
 			<p>
-				<?php esc_html_e( 'You may be logged in with a different account on the identity provider. Please logout from the identity provider first, then try again.', 'icc-sign-in-openid-connect' ); ?>
+				<?php esc_html_e( 'You may be logged in with a different account on the identity provider. Please logout from the identity provider first, then try again.', 'icc-gg-sign-in-openid-connect' ); ?>
 			</p>
 			<p style="text-align: center;">
 				<a href="<?php echo esc_url( $logout_url ); ?>" class="button">
-					<?php esc_html_e( 'Logout from Identity Provider', 'icc-sign-in-openid-connect' ); ?>
+					<?php esc_html_e( 'Logout from Identity Provider', 'icc-gg-sign-in-openid-connect' ); ?>
 				</a>
 			</p>
 		</div>
@@ -217,7 +217,7 @@ class ICC_OpenID_Client_Login_Form {
 		// Use admin-configured button text, or fall back to default.
 		$default_button_text = ! empty( trim( $this->settings->login_button_text ?? '' ) )
 			? $this->settings->login_button_text
-			: __( 'Login with OpenID Connect', 'icc-sign-in-openid-connect' );
+			: __( 'Login with OpenID Connect', 'icc-gg-sign-in-openid-connect' );
 
 		$atts = shortcode_atts(
 			array(
@@ -230,10 +230,10 @@ class ICC_OpenID_Client_Login_Form {
 				'acr_values' => $this->settings->acr_values,
 			),
 			$atts,
-			'icc_openid_client_login_button'
+			'icc_gg_sign_in_openid_connect_login_button'
 		);
 
-		$text = apply_filters( 'icc_openid_client_login_button_text', $atts['button_text'] );
+		$text = apply_filters( 'icc_gg_sign_in_openid_connect_login_button_text', $atts['button_text'] );
 		$text = esc_html( $text );
 
 		$href = $this->client_wrapper->get_authentication_url(
@@ -249,7 +249,7 @@ class ICC_OpenID_Client_Login_Form {
 		$href = esc_url( $href );
 
 		$login_button = sprintf(
-			'<div class="icc-openid-login-button" style="margin: 1em 0; text-align: center;"><a class="button button-large" href="%1$s">%2$s</a></div>',
+			'<div class="icc-gg-sign-in-openid-connect-login-button" style="margin: 1em 0; text-align: center;"><a class="button button-large" href="%1$s">%2$s</a></div>',
 			$href,
 			$text
 		);
@@ -269,10 +269,10 @@ class ICC_OpenID_Client_Login_Form {
 			return;
 		}
 
-		wp_register_script( 'icc-openid-client-login-form', false, array(), ICC_OpenID_Client::VERSION, true );
-		wp_enqueue_script( 'icc-openid-client-login-form' );
+		wp_register_script( 'icc-gg-sign-in-openid-connect-login-form', false, array(), ICC_GG_Sign_In_OpenID_Connect::VERSION, true );
+		wp_enqueue_script( 'icc-gg-sign-in-openid-connect-login-form' );
 		wp_add_inline_script(
-			'icc-openid-client-login-form',
+			'icc-gg-sign-in-openid-connect-login-form',
 			'(function(){var f=document.getElementById("user_login").form;f.parentNode.removeChild(f);})();'
 		);
 	}

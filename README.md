@@ -1,4 +1,4 @@
-# ICC Sign-In for OpenID Connect
+# ICC.gg Sign-In for OpenID Connect
 
 A WordPress plugin that provides SSO (Single Sign-On) authentication against an OpenID Connect OAuth2 Identity Provider using Authorization Code Flow.
 
@@ -26,7 +26,7 @@ A WordPress plugin that provides SSO (Single Sign-On) authentication against an 
 - **Token Refresh** — Automatic access token refresh for supported IDPs
 - **End Session Support** — Redirect to IDP logout endpoint on WordPress logout
 - **Discovery Document Import** — Auto-populate settings from `.well-known/openid-configuration`
-- **Shortcodes** — `[icc_openid_client_login_button]` and `[icc_openid_client_auth_url]`
+- **Shortcodes** — `[icc_gg_sign_in_openid_connect_login_button]` and `[icc_gg_sign_in_openid_connect_auth_url]`
 
 ## Requirements
 
@@ -110,25 +110,25 @@ define( 'OIDC_LOG_LIMIT', 1000 );
 The default redirect URI registered with your IDP should be:
 
 ```
-https://your-site.com/wp-admin/admin-ajax.php?action=icc-openid-client-authorize
+https://your-site.com/wp-admin/admin-ajax.php?action=icc-gg-sign-in-openid-connect-authorize
 ```
 
 If your IDP doesn't support query strings in redirect URIs, enable **Alternate Redirect URI** in settings to use:
 
 ```
-https://your-site.com/icc-openid-client-authorize
+https://your-site.com/icc-gg-sign-in-openid-connect-authorize
 ```
 
 ## Hooks & Filters
 
 The plugin provides many hooks for customization. See the main plugin file for the complete list including:
 
-- `icc-openid-client-user-login-test` — Control whether a user can log in based on their claim
-- `icc-openid-client-user-creation-test` — Control whether a new user can be created
-- `icc-openid-client-alter-user-claim` — Modify user claim data before user creation
-- `icc-openid-client-alter-user-data` — Modify user data before insertion
-- `icc-openid-client-login-button-text` — Customize the login button text
-- `icc-openid-client-user-logged-in` — Action fired after successful login
+- `icc_gg_sign_in_openid_connect_user_login_test` — Control whether a user can log in based on their claim
+- `icc_gg_sign_in_openid_connect_user_creation_test` — Control whether a new user can be created
+- `icc_gg_sign_in_openid_connect_alter_user_claim` — Modify user claim data before user creation
+- `icc_gg_sign_in_openid_connect_alter_user_data` — Modify user data before insertion
+- `icc_gg_sign_in_openid_connect_login_button_text` — Customize the login button text
+- `icc_gg_sign_in_openid_connect_user_logged_in` — Action fired after successful login
 
 ## Security
 
@@ -163,7 +163,7 @@ The OpenID Foundation is a non-profit international standardization organization
 
 ## Credits
 
-**ICC Sign-In for OpenID Connect** is maintained by [Ivan Carlos](https://github.com/ivancarlosti).
+**ICC.gg Sign-In for OpenID Connect** is maintained by [Ivan Carlos](https://github.com/ivancarlosti).
 
 Based on [OpenID Connect Generic](https://github.com/oidc-wp/openid-connect-generic) by [daggerhart](https://github.com/daggerhart).
 

@@ -2,7 +2,7 @@
 /**
  * Plugin logging class.
  *
- * @package   ICC_OpenID_Client
+ * @package   ICC_GG_Sign_In_OpenID_Connect
  * @category  Logging
  * @author    Ivan Carlos
  * @copyright 2023-2025 Ivan Carlos
@@ -10,21 +10,21 @@
  */
 
 /**
- * ICC_OpenID_Client_Option_Logger class.
+ * ICC_GG_Sign_In_OpenID_Connect_Option_Logger class.
  *
  * Simple class for logging messages to the options table.
  *
- * @package  ICC_OpenID_Client
+ * @package  ICC_GG_Sign_In_OpenID_Connect
  * @category Logging
  */
-class ICC_OpenID_Client_Option_Logger {
+class ICC_GG_Sign_In_OpenID_Connect_Option_Logger {
 
 	/**
 	 * Thw WordPress option name/key.
 	 *
 	 * @var string
 	 */
-	const OPTION_NAME = 'icc-openid-client-logs';
+	const OPTION_NAME = 'icc-gg-sign-in-openid-connect-logs';
 
 	/**
 	 * The default message type.
@@ -225,31 +225,31 @@ class ICC_OpenID_Client_Option_Logger {
 		?>
 		<table id="logger-table" class="wp-list-table widefat fixed striped posts">
 			<thead>
-				<th class="col-details"><?php esc_html_e( 'Details', 'icc-sign-in-openid-connect' ); ?></th>
-				<th class="col-data"><?php esc_html_e( 'Data', 'icc-sign-in-openid-connect' ); ?></th>
+				<th class="col-details"><?php esc_html_e( 'Details', 'icc-gg-sign-in-openid-connect' ); ?></th>
+				<th class="col-data"><?php esc_html_e( 'Data', 'icc-gg-sign-in-openid-connect' ); ?></th>
 			</thead>
 			<tbody>
 			<?php foreach ( $logs as $log ) { ?>
 				<tr>
 					<td class="col-details">
 						<div>
-							<label><?php esc_html_e( 'Date', 'icc-sign-in-openid-connect' ); ?></label>
+							<label><?php esc_html_e( 'Date', 'icc-gg-sign-in-openid-connect' ); ?></label>
 							<?php print esc_html( ! empty( $log['time'] ) ? gmdate( 'Y-m-d H:i:s', $log['time'] ) : '' ); ?>
 						</div>
 						<div>
-							<label><?php esc_html_e( 'Type', 'icc-sign-in-openid-connect' ); ?></label>
+							<label><?php esc_html_e( 'Type', 'icc-gg-sign-in-openid-connect' ); ?></label>
 							<?php print esc_html( ! empty( $log['type'] ) ? $log['type'] : '' ); ?>
 						</div>
 						<div>
-							<label><?php esc_html_e( 'User', 'icc-sign-in-openid-connect' ); ?>: </label>
+							<label><?php esc_html_e( 'User', 'icc-gg-sign-in-openid-connect' ); ?>: </label>
 							<?php print esc_html( ( get_userdata( $log['user_ID'] ) ) ? get_userdata( $log['user_ID'] )->user_login : '0' ); ?>
 						</div>
 						<div>
-							<label><?php esc_html_e( 'URI ', 'icc-sign-in-openid-connect' ); ?>: </label>
+							<label><?php esc_html_e( 'URI ', 'icc-gg-sign-in-openid-connect' ); ?>: </label>
 							<?php print esc_url( ! empty( $log['uri'] ) ? $log['uri'] : '' ); ?>
 						</div>
 						<div>
-							<label><?php esc_html_e( 'Response&nbsp;Time&nbsp;(sec)', 'icc-sign-in-openid-connect' ); ?></label>
+							<label><?php esc_html_e( 'Response&nbsp;Time&nbsp;(sec)', 'icc-gg-sign-in-openid-connect' ); ?></label>
 							<?php print esc_html( ! empty( $log['processing_time'] ) ? $log['processing_time'] : 0 ); ?>
 						</div>
 					</td>
