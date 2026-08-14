@@ -132,10 +132,3 @@ The plugin implements multiple layers of security:
 OpenID Connect (OIDC) is an open authentication protocol standardized by the OpenID Foundation. It extends the OAuth 2.0 authorization framework to provide identity verification and single sign-on capabilities. This plugin implements the OIDC Authorization Code Flow as defined in the OpenID Connect Core 1.0 specification, enabling WordPress sites to delegate authentication to a trusted Identity Provider (IDP) rather than managing user credentials directly.
 
 The OpenID Foundation is a non-profit international standardization organization that develops and maintains the OpenID Connect protocol and related specifications. This plugin is an independent implementation and is not affiliated with, endorsed by, or sponsored by the OpenID Foundation.
-
-== Changelog ==
-
-= 4.0.4 =
-* Security: Upgraded the firebase/php-jwt dependency to v7.1.0.
-* Security: Sanitized URL-based settings (endpoints and issuer) with esc_url_raw().
-
