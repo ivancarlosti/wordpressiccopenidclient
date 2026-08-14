@@ -112,7 +112,7 @@ class ICC_GG_Sign_In_OpenID_Connect {
 	private $logger;
 
 	/**
-	 * Openid Connect Generic client
+	 * OpenID Connect client
 	 *
 	 * @var ICC_GG_Sign_In_OpenID_Connect_Client
 	 */
@@ -435,6 +435,9 @@ class ICC_GG_Sign_In_OpenID_Connect {
 	 */
 	public static function bootstrap() {
 		require_once __DIR__ . '/vendor/autoload.php';
+
+		// Register the plugin's custom autoloader before instantiating classes.
+		spl_autoload_register( array( __CLASS__, 'autoload' ) );
 
 		$settings = new ICC_GG_Sign_In_OpenID_Connect_Option_Settings(
 			// Default settings values.

@@ -10,7 +10,7 @@
  */
 
 /**
- * OpenId_Connect_Generic_Option_Settings class.
+ * ICC_GG_Sign_In_OpenID_Connect_Option_Settings class.
  *
  * WordPress options handling.
  *
