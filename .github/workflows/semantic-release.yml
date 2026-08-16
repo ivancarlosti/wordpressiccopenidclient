@@ -53,9 +53,20 @@ jobs:
           git tag -a "${TAG}" -m "Release ${TAG}"
           git push origin "${TAG}"
           sed -i "s/\"version\": \".*\"/\"version\": \"${VERSION}\"/" manifest.json
-          sed -i "s/^ \\* Version: .*/ * Version:           ${VERSION}/" icc-gg-sign-in-openid-connect.php
-          sed -i "s/const VERSION = '.*';/const VERSION = '${VERSION}';/" icc-gg-sign-in-openid-connect.php
-          git add manifest.json icc-gg-sign-in-openid-connect.php
+          PLUGIN_FILE=$(grep -l 'Plugin Name:' *.php 2>/dev/null | head -n 1)
+          if [ -z "${PLUGIN_FILE}" ]; then
+            echo "::error::No WordPress plugin file with a 'Plugin Name:' header found in the repository root."
+            exit 1
+          fi
+          sed -i "s/^ \* Version: .*/ * Version:           ${VERSION}/" "${PLUGIN_FILE}"
+          sed -i "s/const VERSION = '[^']*';/const VERSION = '${VERSION}';/" "${PLUGIN_FILE}" || true
+          if [ -f readme.txt ]; then
+            sed -i "s/^Stable tag: .*/Stable tag: ${VERSION}/" readme.txt
+          fi
+          git add manifest.json "${PLUGIN_FILE}"
+          if [ -f readme.txt ]; then
+            git add readme.txt
+          fi
           git commit -m "chore(release): bump version to ${VERSION} [skip ci]"
           git push origin main
           gh release create "${TAG}" \

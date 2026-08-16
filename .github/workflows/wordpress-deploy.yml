@@ -13,11 +13,6 @@ on:
 permissions:
   contents: write
 
-env:
-  PLUGIN_SLUG: icc-gg-sign-in-openid-connect
-  PLUGIN_FILE: icc-gg-sign-in-openid-connect.php
-  SVN_URL: https://plugins.svn.wordpress.org/icc-gg-sign-in-openid-connect
-
 jobs:
   deploy:
     name: 📦 Package & Deploy to WordPress.org
@@ -41,27 +36,49 @@ jobs:
         run: |
           TAG="${{ github.event.release.tag_name || inputs.version }}"
           VERSION="${TAG#v}"
+
+          PLUGIN_FILE=$(grep -l 'Plugin Name:' *.php 2>/dev/null | head -n 1)
+          if [ -z "${PLUGIN_FILE}" ]; then
+            echo "::error::No WordPress plugin file with a 'Plugin Name:' header found in the repository root."
+            exit 1
+          fi
+
+          PLUGIN_SLUG="${PLUGIN_FILE%.php}"
+          SVN_URL="https://plugins.svn.wordpress.org/${PLUGIN_SLUG}"
           ZIP_NAME="${PLUGIN_SLUG}.zip"
+
           echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
           echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+          echo "plugin_file=${PLUGIN_FILE}" >> "$GITHUB_OUTPUT"
+          echo "plugin_slug=${PLUGIN_SLUG}" >> "$GITHUB_OUTPUT"
+          echo "svn_url=${SVN_URL}" >> "$GITHUB_OUTPUT"
           echo "zip_name=${ZIP_NAME}" >> "$GITHUB_OUTPUT"
 
       # -------------------------------------------------------
-      # 3. Read version from manifest.json and stamp plugin files
+      # 3. Resolve version and stamp plugin files
       # -------------------------------------------------------
-      - name: 🔢 Stamp version from manifest.json
+      - name: 🔢 Stamp version
         run: |
-          VERSION=$(jq -r '.version' manifest.json)
-          echo "Version from manifest.json: ${VERSION}"
+          if [ -f manifest.json ]; then
+            VERSION=$(jq -r '.version' manifest.json)
+            echo "Version from manifest.json: ${VERSION}"
+          else
+            VERSION="${{ steps.version.outputs.version }}"
+            echo "manifest.json not found; using tag version: ${VERSION}"
+          fi
+
+          PLUGIN_FILE="${{ steps.version.outputs.plugin_file }}"
 
           # Update version in main plugin file header (Version: x.x.x)
           sed -i "s/^ \* Version: .*/ * Version:           ${VERSION}/" "${PLUGIN_FILE}"
 
-          # Update const VERSION in plugin class
-          sed -i "s/const VERSION = '[^']*';/const VERSION = '${VERSION}';/" "${PLUGIN_FILE}"
+          # Update const VERSION in plugin class (if present)
+          sed -i "s/const VERSION = '[^']*';/const VERSION = '${VERSION}';/" "${PLUGIN_FILE}" || true
 
-          # Update stable tag in readme.txt
-          sed -i "s/^Stable tag: .*/Stable tag: ${VERSION}/" readme.txt
+          # Update stable tag in readme.txt (if present)
+          if [ -f readme.txt ]; then
+            sed -i "s/^Stable tag: .*/Stable tag: ${VERSION}/" readme.txt
+          fi
 
           echo "Version stamping complete."
 
@@ -71,7 +88,7 @@ jobs:
       # -------------------------------------------------------
       - name: 📦 Create WordPress ZIP package
         run: |
-          BUILD_DIR="/tmp/wp-build/${PLUGIN_SLUG}"
+          BUILD_DIR="/tmp/wp-build/${{ steps.version.outputs.plugin_slug }}"
           mkdir -p "${BUILD_DIR}"
 
           # Copy plugin files to build directory, excluding dev/dot files
@@ -93,7 +110,7 @@ jobs:
 
           # Create the zip with plugin slug as root folder
           cd /tmp/wp-build
-          zip -r "${GITHUB_WORKSPACE}/${{ steps.version.outputs.zip_name }}" "${PLUGIN_SLUG}/"
+          zip -r "${GITHUB_WORKSPACE}/${{ steps.version.outputs.zip_name }}" "${{ steps.version.outputs.plugin_slug }}/"
 
           echo "WordPress ZIP created: ${{ steps.version.outputs.zip_name }}"
           ls -lh "${GITHUB_WORKSPACE}/${{ steps.version.outputs.zip_name }}"
@@ -140,7 +157,7 @@ jobs:
           echo "Deploying version ${VERSION} to WordPress.org SVN..."
 
           # Checkout only trunk and tags to keep it fast
-          svn checkout "${SVN_URL}" "${SVN_DIR}" --depth empty --non-interactive --no-auth-cache \
+          svn checkout "${{ steps.version.outputs.svn_url }}" "${SVN_DIR}" --depth empty --non-interactive --no-auth-cache \
             --username "${SVN_USERNAME}" --password "${SVN_PASSWORD}"
 
           cd "${SVN_DIR}"
