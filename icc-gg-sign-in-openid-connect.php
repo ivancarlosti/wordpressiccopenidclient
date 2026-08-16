@@ -514,4 +514,26 @@ register_deactivation_hook( __FILE__, array( 'ICC_GG_Sign_In_OpenID_Connect', 'd
 // Provide publicly accessible plugin helper functions.
 require_once 'includes/functions.php';
 
+/**
+ * Initialize the GitHub updater.
+ *
+ * Runs on `init` and also during the WordPress cron job so the plugin can be
+ * updated automatically, mirroring the updater bootstrap used by plugins that
+ * rely on a custom update server.
+ *
+ * @return void
+ */
+function icc_gg_sign_in_openid_connect_init_github_updater() {
+	$doing_cron = defined( 'DOING_CRON' ) && DOING_CRON;
+	if ( ! current_user_can( 'manage_options' ) && ! $doing_cron ) {
+		return;
+	}
+
+	new ICC_GG_Sign_In_OpenID_Connect_Github_Updater(
+		plugin_basename( __FILE__ ),
+		ICC_GG_Sign_In_OpenID_Connect::VERSION
+	);
+}
+add_action( 'init', 'icc_gg_sign_in_openid_connect_init_github_updater' );
+
 } // End if ( ! class_exists( 'ICC_GG_Sign_In_OpenID_Connect' ) )
