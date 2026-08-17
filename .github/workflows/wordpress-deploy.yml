@@ -62,43 +62,81 @@ jobs:
           VERSION="${{ steps.version.outputs.version }}"
           PLUGIN_FILE="${{ steps.version.outputs.plugin_file }}"
 
-          echo "Stamping version ${VERSION} into ${PLUGIN_FILE} and readme.txt..."
+          echo "Stamping version ${VERSION}..."
 
-          # Plugin header (Version: x.x.x).
-          if grep -Eq '^[[:space:]]*\*[[:space:]]*Version:[[:space:]]*' "${PLUGIN_FILE}"; then
-            sed -i "s/^ \* Version: .*/ * Version:           ${VERSION}/" "${PLUGIN_FILE}"
-          else
+          # 1. WordPress plugin header(s): stamp 'Version:' in every .php file
+          #    that carries a 'Plugin Name:' header (main file and drop-ins),
+          #    skipping vendored directories.
+          HEADER_FILES=$(grep -rl 'Plugin Name:' --include='*.php' . 2>/dev/null | grep -Ev '/(vendor|dependencies|node_modules|\.git)/' || true)
+          HEADER_FILES="$(printf '%s\n%s' "${PLUGIN_FILE}" "${HEADER_FILES}")"
+
+          for file in ${HEADER_FILES}; do
+            if grep -Eq '^[[:space:]]*\*[[:space:]]*Version:[[:space:]]*' "${file}"; then
+              sed -i "s/^ \* Version: .*/ * Version:           ${VERSION}/" "${file}"
+              echo "  ✓ header ${file}"
+            fi
+          done
+
+          if ! grep -Eq '^[[:space:]]*\*[[:space:]]*Version:[[:space:]]*' "${PLUGIN_FILE}"; then
             echo "::error::Plugin header 'Version:' not found in ${PLUGIN_FILE}."
             exit 1
           fi
 
-          # Class constant (const VERSION = 'x.x.x').
+          # 2. Class constant 'const VERSION = ...' when present.
           if grep -Eq "const VERSION = '[^']*';" "${PLUGIN_FILE}"; then
             sed -i "s/const VERSION = '[^']*';/const VERSION = '${VERSION}';/" "${PLUGIN_FILE}"
-          else
-            echo "::error::'const VERSION' declaration not found in ${PLUGIN_FILE}."
-            exit 1
+            echo "  ✓ const VERSION ${PLUGIN_FILE}"
           fi
 
-          # readme.txt Stable tag.
-          if [ ! -f readme.txt ]; then
-            echo "::error::readme.txt not found."
-            exit 1
+          # 3. Any define( '...VERSION', 'x.y.z' ); carrying a semver value.
+          if grep -Eq "define\( '[A-Za-z0-9_]*VERSION', '[0-9]+\.[0-9]+\.[0-9]+([-.][0-9A-Za-z.-]+)?' \);" "${PLUGIN_FILE}"; then
+            sed -i -E "s/(define\( '[A-Za-z0-9_]*VERSION', ')[0-9]+\.[0-9]+\.[0-9]+([-.][0-9A-Za-z.-]+)?(' \);)/\1__NEW_VERSION__\3/" "${PLUGIN_FILE}"
+            sed -i "s/__NEW_VERSION__/${VERSION}/g" "${PLUGIN_FILE}"
+            echo "  ✓ version define ${PLUGIN_FILE}"
           fi
-          if grep -Eq '^Stable tag:[[:space:]]*' readme.txt; then
+
+          # 4. readme.txt Stable tag, when present.
+          if [ -f readme.txt ] && grep -Eq '^Stable tag:[[:space:]]*' readme.txt; then
             sed -i "s/^Stable tag: .*/Stable tag: ${VERSION}/" readme.txt
-          else
-            echo "::error::'Stable tag:' line not found in readme.txt."
-            exit 1
+            echo "  ✓ readme.txt Stable tag"
           fi
 
-          # Verify every marker now carries the release version.
-          HEADER_VERSION=$(sed -nE 's/^[[:space:]]*\*[[:space:]]*Version:[[:space:]]*(.*)$/\1/p' "${PLUGIN_FILE}" | head -n 1 | tr -d '[:space:]')
-          CONST_VERSION=$(sed -nE "s/.*const VERSION = '([^']*)';.*/\1/p" "${PLUGIN_FILE}" | head -n 1 | tr -d '[:space:]')
-          STABLE_TAG=$(sed -nE 's/^Stable tag:[[:space:]]*(.*)$/\1/p' readme.txt | head -n 1 | tr -d '[:space:]')
+          # Verify every marker that exists now carries the release version.
+          FAIL=0
 
-          if [ "${HEADER_VERSION}" != "${VERSION}" ] || [ "${CONST_VERSION}" != "${VERSION}" ] || [ "${STABLE_TAG}" != "${VERSION}" ]; then
-            echo "::error::Version stamping failed verification: header=${HEADER_VERSION} const=${CONST_VERSION} stable_tag=${STABLE_TAG} expected=${VERSION}"
+          for file in ${HEADER_FILES}; do
+            HV=$(sed -nE 's/^[[:space:]]*\*[[:space:]]*Version:[[:space:]]*(.*)$/\1/p' "${file}" | head -n 1 | tr -d '[:space:]')
+            if [ -n "${HV}" ] && [ "${HV}" != "${VERSION}" ]; then
+              echo "::error::Header 'Version:' in ${file} is '${HV}', expected '${VERSION}'."
+              FAIL=1
+            fi
+          done
+
+          if grep -Eq "const VERSION = '[^']*';" "${PLUGIN_FILE}"; then
+            CV=$(sed -nE "s/.*const VERSION = '([^']*)';.*/\1/p" "${PLUGIN_FILE}" | head -n 1 | tr -d '[:space:]')
+            if [ "${CV}" != "${VERSION}" ]; then
+              echo "::error::const VERSION is '${CV}', expected '${VERSION}'."
+              FAIL=1
+            fi
+          fi
+
+          if grep -Eq "define\( '[A-Za-z0-9_]*VERSION', '[0-9]+\.[0-9]+\.[0-9]+([-.][0-9A-Za-z.-]+)?' \);" "${PLUGIN_FILE}"; then
+            DV=$(sed -nE "s/.*define\( '[A-Za-z0-9_]*VERSION', '([^']*)' \);.*/\1/p" "${PLUGIN_FILE}" | head -n 1 | tr -d '[:space:]')
+            if [ "${DV}" != "${VERSION}" ]; then
+              echo "::error::Version define is '${DV}', expected '${VERSION}'."
+              FAIL=1
+            fi
+          fi
+
+          if [ -f readme.txt ] && grep -Eq '^Stable tag:[[:space:]]*' readme.txt; then
+            ST=$(sed -nE 's/^Stable tag:[[:space:]]*(.*)$/\1/p' readme.txt | head -n 1 | tr -d '[:space:]')
+            if [ "${ST}" != "${VERSION}" ]; then
+              echo "::error::Stable tag is '${ST}', expected '${VERSION}'."
+              FAIL=1
+            fi
+          fi
+
+          if [ "${FAIL}" -ne 0 ]; then
             exit 1
           fi
 
