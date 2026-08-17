@@ -50,25 +50,57 @@ jobs:
           TAG="v${VERSION}"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git tag -a "${TAG}" -m "Release ${TAG}"
-          git push origin "${TAG}"
-          sed -i "s/\"version\": \".*\"/\"version\": \"${VERSION}\"/" manifest.json
-          PLUGIN_FILE=$(grep -l 'Plugin Name:' *.php 2>/dev/null | head -n 1)
-          if [ -z "${PLUGIN_FILE}" ]; then
-            echo "::error::No WordPress plugin file with a 'Plugin Name:' header found in the repository root."
-            exit 1
+
+          # Collect the files whose version was changed so they can be staged later.
+          FILES_TO_ADD=""
+
+          # 1. manifest.json — generic JSON manifest.
+          if [ -f manifest.json ]; then
+            sed -i "s/\"version\": \".*\"/\"version\": \"${VERSION}\"/" manifest.json
+            FILES_TO_ADD="${FILES_TO_ADD} manifest.json"
           fi
-          sed -i "s/^ \* Version: .*/ * Version:           ${VERSION}/" "${PLUGIN_FILE}"
-          sed -i "s/const VERSION = '[^']*';/const VERSION = '${VERSION}';/" "${PLUGIN_FILE}" || true
+
+          # 2. composer.json — Composer/PHP projects.
+          if [ -f composer.json ]; then
+            sed -i "s/\"version\": \".*\"/\"version\": \"${VERSION}\"/" composer.json
+            FILES_TO_ADD="${FILES_TO_ADD} composer.json"
+          fi
+
+          # 3. package.json — Node.js projects.
+          if [ -f package.json ]; then
+            sed -i "s/\"version\": \".*\"/\"version\": \"${VERSION}\"/" package.json
+            FILES_TO_ADD="${FILES_TO_ADD} package.json"
+          fi
+
+          # 4. WordPress plugin header (only when a plugin file actually exists).
+          PLUGIN_FILE=$(grep -l 'Plugin Name:' *.php 2>/dev/null | head -n 1)
+          if [ -n "${PLUGIN_FILE}" ]; then
+            sed -i "s/^ \* Version: .*/ * Version:           ${VERSION}/" "${PLUGIN_FILE}"
+            sed -i "s/const VERSION = '[^']*';/const VERSION = '${VERSION}';/" "${PLUGIN_FILE}" || true
+            FILES_TO_ADD="${FILES_TO_ADD} ${PLUGIN_FILE}"
+          fi
+
+          # 5. WordPress.org readme.txt Stable tag (only when present).
           if [ -f readme.txt ]; then
             sed -i "s/^Stable tag: .*/Stable tag: ${VERSION}/" readme.txt
+            FILES_TO_ADD="${FILES_TO_ADD} readme.txt"
           fi
-          git add manifest.json "${PLUGIN_FILE}"
-          if [ -f readme.txt ]; then
-            git add readme.txt
+
+          # Stage and commit only when something actually changed.
+          if [ -n "${FILES_TO_ADD}" ]; then
+            git add ${FILES_TO_ADD}
           fi
-          git commit -m "chore(release): bump version to ${VERSION} [skip ci]"
+          if git diff --cached --quiet; then
+            echo "No version changes to commit — version ${VERSION} is already stamped."
+          else
+            git commit -m "chore(release): bump version to ${VERSION} [skip ci]"
+          fi
+
+          # Tag the version-stamped commit, then push the branch and the tag.
+          git tag -a "${TAG}" -m "Release ${TAG}"
           git push origin main
+          git push origin "${TAG}"
+
           gh release create "${TAG}" \
             --title "${TAG}" \
             --notes "Manual release ${TAG}" \
