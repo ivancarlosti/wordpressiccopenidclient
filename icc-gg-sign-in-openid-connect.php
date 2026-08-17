@@ -514,6 +514,9 @@ register_deactivation_hook( __FILE__, array( 'ICC_GG_Sign_In_OpenID_Connect', 'd
 // Provide publicly accessible plugin helper functions.
 require_once 'includes/functions.php';
 
+add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'icc_gg_sign_in_openid_connect_add_settings_link' );
+add_filter( 'plugin_row_meta', 'icc_gg_sign_in_openid_connect_add_plugin_row_meta', 10, 2 );
+
 /**
  * Initialize the GitHub updater.
  *
