@@ -1,5 +1,5 @@
 === ICC.gg Sign-In for OpenID Connect ===
-Contributors: ivancarlos
+Contributors: ivancarlosti
 Tags: security, login, openidconnect, sso, authentication
 Requires at least: 5.0
 Tested up to: 7.0

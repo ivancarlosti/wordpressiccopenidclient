@@ -5,7 +5,7 @@
  * @package   ICC_GG_Sign_In_OpenID_Connect
  * @category  Settings
  * @author    Ivan Carlos
- * @copyright 2023-2025 Ivan Carlos
+ * @copyright 2007-2026 Ivan Carlos Consultoria
  * @license   http://www.gnu.org/licenses/gpl-2.0.txt GPL-2.0+
  */
 
