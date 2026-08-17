@@ -594,8 +594,6 @@ class ICC_GG_Sign_In_OpenID_Connect_Settings_Page {
 					github.com/ivancarlosti/wordpressiccopenidclient
 				</a><br>
 				<?php echo esc_html( sprintf( 'v%s', ICC_GG_Sign_In_OpenID_Connect::VERSION ) ); ?>
-				&mdash;
-				<?php esc_html_e( 'Based on OpenID Connect Generic by daggerhart', 'icc-gg-sign-in-openid-connect' ); ?>
 			</p>
 		</div>
 		<?php
