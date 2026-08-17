@@ -59,28 +59,50 @@ jobs:
       # -------------------------------------------------------
       - name: 🔢 Stamp version
         run: |
-          if [ -f manifest.json ]; then
-            VERSION=$(jq -r '.version' manifest.json)
-            echo "Version from manifest.json: ${VERSION}"
-          else
-            VERSION="${{ steps.version.outputs.version }}"
-            echo "manifest.json not found; using tag version: ${VERSION}"
-          fi
-
+          VERSION="${{ steps.version.outputs.version }}"
           PLUGIN_FILE="${{ steps.version.outputs.plugin_file }}"
 
-          # Update version in main plugin file header (Version: x.x.x)
-          sed -i "s/^ \* Version: .*/ * Version:           ${VERSION}/" "${PLUGIN_FILE}"
+          echo "Stamping version ${VERSION} into ${PLUGIN_FILE} and readme.txt..."
 
-          # Update const VERSION in plugin class (if present)
-          sed -i "s/const VERSION = '[^']*';/const VERSION = '${VERSION}';/" "${PLUGIN_FILE}" || true
-
-          # Update stable tag in readme.txt (if present)
-          if [ -f readme.txt ]; then
-            sed -i "s/^Stable tag: .*/Stable tag: ${VERSION}/" readme.txt
+          # Plugin header (Version: x.x.x).
+          if grep -Eq '^[[:space:]]*\*[[:space:]]*Version:[[:space:]]*' "${PLUGIN_FILE}"; then
+            sed -i "s/^ \* Version: .*/ * Version:           ${VERSION}/" "${PLUGIN_FILE}"
+          else
+            echo "::error::Plugin header 'Version:' not found in ${PLUGIN_FILE}."
+            exit 1
           fi
 
-          echo "Version stamping complete."
+          # Class constant (const VERSION = 'x.x.x').
+          if grep -Eq "const VERSION = '[^']*';" "${PLUGIN_FILE}"; then
+            sed -i "s/const VERSION = '[^']*';/const VERSION = '${VERSION}';/" "${PLUGIN_FILE}"
+          else
+            echo "::error::'const VERSION' declaration not found in ${PLUGIN_FILE}."
+            exit 1
+          fi
+
+          # readme.txt Stable tag.
+          if [ ! -f readme.txt ]; then
+            echo "::error::readme.txt not found."
+            exit 1
+          fi
+          if grep -Eq '^Stable tag:[[:space:]]*' readme.txt; then
+            sed -i "s/^Stable tag: .*/Stable tag: ${VERSION}/" readme.txt
+          else
+            echo "::error::'Stable tag:' line not found in readme.txt."
+            exit 1
+          fi
+
+          # Verify every marker now carries the release version.
+          HEADER_VERSION=$(sed -nE 's/^[[:space:]]*\*[[:space:]]*Version:[[:space:]]*(.*)$/\1/p' "${PLUGIN_FILE}" | head -n 1 | tr -d '[:space:]')
+          CONST_VERSION=$(sed -nE "s/.*const VERSION = '([^']*)';.*/\1/p" "${PLUGIN_FILE}" | head -n 1 | tr -d '[:space:]')
+          STABLE_TAG=$(sed -nE 's/^Stable tag:[[:space:]]*(.*)$/\1/p' readme.txt | head -n 1 | tr -d '[:space:]')
+
+          if [ "${HEADER_VERSION}" != "${VERSION}" ] || [ "${CONST_VERSION}" != "${VERSION}" ] || [ "${STABLE_TAG}" != "${VERSION}" ]; then
+            echo "::error::Version stamping failed verification: header=${HEADER_VERSION} const=${CONST_VERSION} stable_tag=${STABLE_TAG} expected=${VERSION}"
+            exit 1
+          fi
+
+          echo "✅ Version ${VERSION} stamped successfully."
 
       # -------------------------------------------------------
       # 4. Create WordPress-friendly ZIP
