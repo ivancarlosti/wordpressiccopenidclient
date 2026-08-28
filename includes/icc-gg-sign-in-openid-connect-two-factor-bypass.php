@@ -61,15 +61,16 @@ class ICC_GG_Sign_In_OpenID_Connect_Two_Factor_Bypass {
 	 * @return void
 	 */
 	public static function suppress( $user ) {
-		$slug = self::get_target_plugin_slug();
-		if ( empty( $slug ) ) {
+		$slugs = self::get_target_plugin_slugs();
+		if ( empty( $slugs ) ) {
 			return;
 		}
 
-		self::remove_plugin_callbacks(
-			array( 'wp_login', 'authenticate', 'login_redirect' ),
-			$slug
-		);
+		$hooks = array( 'wp_login', 'authenticate', 'login_redirect' );
+
+		foreach ( $slugs as $slug ) {
+			self::remove_plugin_callbacks( $hooks, $slug );
+		}
 	}
 
 	/**
@@ -92,19 +93,23 @@ class ICC_GG_Sign_In_OpenID_Connect_Two_Factor_Bypass {
 	}
 
 	/**
-	 * Map the configured bypass setting value to a plugin directory slug.
+	 * Map the configured bypass setting value to plugin directory slugs.
 	 *
-	 * @return string The target plugin directory slug, or empty string when disabled.
+	 * Both the free (admin-site-enhancements) and Pro
+	 * (admin-site-enhancements-pro) editions are supported because ASE Pro
+	 * ships its two-factor module in a differently named directory.
+	 *
+	 * @return array<string> The target plugin directory slugs, or empty array when disabled.
 	 */
-	private static function get_target_plugin_slug() {
+	private static function get_target_plugin_slugs() {
 		$bypass = isset( self::$settings ) ? self::$settings->two_factor_bypass : 'none';
 
 		$map = array(
-			'ase'    => 'admin-site-enhancements',
-			'wp_2fa' => 'wp-2fa',
+			'ase'    => array( 'admin-site-enhancements-pro', 'admin-site-enhancements' ),
+			'wp_2fa' => array( 'wp-2fa' ),
 		);
 
-		return isset( $map[ $bypass ] ) ? $map[ $bypass ] : '';
+		return isset( $map[ $bypass ] ) ? $map[ $bypass ] : array();
 	}
 
 	/**
