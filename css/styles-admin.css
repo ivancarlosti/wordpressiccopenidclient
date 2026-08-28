@@ -70,3 +70,18 @@
 	color: #d63638;
 	font-weight: bold;
 }
+
+/* Login Button Logo media field */
+.oidc-logo-preview {
+	margin-top: 10px;
+}
+
+.oidc-logo-preview img.oidc-logo-preview-img {
+	max-width: 150px;
+	height: auto;
+	display: block;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	padding: 4px;
+	background: #fff;
+}

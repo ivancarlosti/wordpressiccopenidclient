@@ -38,6 +38,7 @@ Notes
   - icc_gg_sign_in_openid_connect_settings_fields     - modify the fields provided on the settings page
   - icc_gg_sign_in_openid_connect_settings            - modify settings values early in plugin bootstrap.
   - icc_gg_sign_in_openid_connect_login_button_text   - modify the login button text
+  - icc_gg_sign_in_openid_connect_login_button_logo_id - modify the login button logo attachment ID
   - icc_gg_sign_in_openid_connect_cookie_redirect_url - modify the redirect url stored as a cookie
   - icc_gg_sign_in_openid_connect_user_login_test     - (bool) should the user be logged in based on their claim
   - icc_gg_sign_in_openid_connect_user_creation_test  - (bool) should the user be created based on their claim
@@ -445,6 +446,7 @@ class ICC_GG_Sign_In_OpenID_Connect {
 				// OAuth client settings.
 				'login_type'           => defined( 'OIDC_LOGIN_TYPE' ) ? OIDC_LOGIN_TYPE : 'button',
 				'login_button_text'    => '',
+				'login_button_logo'    => 0,
 				'client_id'            => defined( 'OIDC_CLIENT_ID' ) ? OIDC_CLIENT_ID : '',
 				'client_secret'        => defined( 'OIDC_CLIENT_SECRET' ) ? OIDC_CLIENT_SECRET : '',
 				'scope'                => defined( 'OIDC_CLIENT_SCOPE' ) ? OIDC_CLIENT_SCOPE : '',

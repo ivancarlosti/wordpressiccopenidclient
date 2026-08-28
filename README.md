@@ -19,6 +19,8 @@ A WordPress plugin that provides SSO (Single Sign-On) authentication against an 
 
 - **Auto Login (SSO)** — Automatically redirect users to the Identity Provider for authentication
 - **Login Button** — Add a "Login with OpenID Connect" button to the WordPress login form
+- **Button-Only Login Mode** — Show the OpenID Connect button while hiding the WordPress username/password form
+- **Login Button Logo** — Upload a logo from the WordPress media library to display before the button text
 - **JWT Signature Verification** — JWKS-based JWT validation to prevent token forgery
 - **User Auto-Creation** — Automatically create WordPress users from IDP claims
 - **Link Existing Users** — Link existing WordPress accounts to IDP identities
@@ -62,6 +64,9 @@ Supported IDPs:
 
 | Setting | Description |
 |---|---|
+| **Login Type** | Button on the login form, auto SSO redirect, or button-only (no password form) |
+| **Login Button Text** | Custom text for the OpenID Connect login button |
+| **Login Button Logo** | Optional logo from the media library shown before the button text |
 | **Client ID** | The ID your client is recognized as by the Identity Provider |
 | **Client Secret** | The secret key the IDP expects from your client |
 | **Scope** | Space-separated list of scopes (e.g., `openid profile email`) |
@@ -128,6 +133,7 @@ The plugin provides many hooks for customization. See the main plugin file for t
 - `icc_gg_sign_in_openid_connect_alter_user_claim` — Modify user claim data before user creation
 - `icc_gg_sign_in_openid_connect_alter_user_data` — Modify user data before insertion
 - `icc_gg_sign_in_openid_connect_login_button_text` — Customize the login button text
+- `icc_gg_sign_in_openid_connect_login_button_logo_id` — Customize the login button logo attachment ID
 - `icc_gg_sign_in_openid_connect_user_logged_in` — Action fired after successful login
 
 ## Security

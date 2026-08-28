@@ -27,6 +27,7 @@
  *
  * @property string $login_type           How the client (login form) should provide login options.
  * @property string $login_button_text    Customizable text for the OpenID Connect login button.
+ * @property int    $login_button_logo    The WordPress media attachment ID for the logo shown before the login button text.
  * @property string $client_id            The ID the client will be recognized as when connecting the to Identity provider server.
  * @property string $client_secret        The secret key the IDP server expects from the client.
  * @property string $scope                The list of scopes this client should access.

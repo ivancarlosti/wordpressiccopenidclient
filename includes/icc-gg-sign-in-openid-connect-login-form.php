@@ -83,6 +83,11 @@ class ICC_GG_Sign_In_OpenID_Connect_Login_Form {
 		// Enqueue scripts for the login page.
 		add_action( 'login_enqueue_scripts', array( $login_form, 'enqueue_login_scripts' ) );
 
+		// Remove the standard WordPress login/password form when configured to show only the OIDC button.
+		if ( 'button_only' === $login_form->settings->login_type ) {
+			$login_form->should_remove_form = true;
+		}
+
 		$login_form->handle_redirect_login_type_auto();
 	}
 
@@ -221,13 +226,14 @@ class ICC_GG_Sign_In_OpenID_Connect_Login_Form {
 
 		$atts = shortcode_atts(
 			array(
-				'button_text' => $default_button_text,
+				'button_text'    => $default_button_text,
+				'logo'           => ! empty( $this->settings->login_button_logo ) ? $this->settings->login_button_logo : 0,
 				'endpoint_login' => $this->settings->endpoint_login,
-				'scope' => $this->settings->scope,
-				'client_id' => $this->settings->client_id,
-				'redirect_uri' => $this->client->get_redirect_uri(),
-				'redirect_to' => $this->client_wrapper->get_redirect_to(),
-				'acr_values' => $this->settings->acr_values,
+				'scope'          => $this->settings->scope,
+				'client_id'      => $this->settings->client_id,
+				'redirect_uri'   => $this->client->get_redirect_uri(),
+				'redirect_to'    => $this->client_wrapper->get_redirect_to(),
+				'acr_values'     => $this->settings->acr_values,
 			),
 			$atts,
 			'icc_gg_sign_in_openid_connect_login_button'
@@ -236,22 +242,39 @@ class ICC_GG_Sign_In_OpenID_Connect_Login_Form {
 		$text = apply_filters( 'icc_gg_sign_in_openid_connect_login_button_text', $atts['button_text'] );
 		$text = esc_html( $text );
 
+		$logo_id   = absint( apply_filters( 'icc_gg_sign_in_openid_connect_login_button_logo_id', $atts['logo'] ) );
+		$logo_html = '';
+		if ( $logo_id ) {
+			$logo_html = wp_get_attachment_image(
+				$logo_id,
+				'thumbnail',
+				false,
+				array(
+					'class' => 'oidc-login-button-logo',
+					'alt'   => '',
+					'style' => 'height:1.25em;width:auto;vertical-align:middle;margin-right:6px;',
+				)
+			);
+		}
+
 		$href = $this->client_wrapper->get_authentication_url(
 			array(
 				'endpoint_login' => $atts['endpoint_login'],
-				'scope' => $atts['scope'],
-				'client_id' => $atts['client_id'],
-				'redirect_uri' => $atts['redirect_uri'],
-				'redirect_to' => $atts['redirect_to'],
-				'acr_values' => $atts['acr_values'],
+				'scope'          => $atts['scope'],
+				'client_id'      => $atts['client_id'],
+				'redirect_uri'   => $atts['redirect_uri'],
+				'redirect_to'    => $atts['redirect_to'],
+				'acr_values'     => $atts['acr_values'],
 			)
 		);
 		$href = esc_url( $href );
 
+		$button_content = trim( $logo_html . ' ' . $text );
+
 		$login_button = sprintf(
 			'<div class="icc-gg-sign-in-openid-connect-login-button" style="margin: 1em 0; text-align: center;"><a class="button button-large" href="%1$s">%2$s</a></div>',
 			$href,
-			$text
+			$button_content
 		);
 
 		return $login_button;

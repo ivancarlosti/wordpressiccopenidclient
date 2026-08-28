@@ -20,6 +20,8 @@ After consent has been obtained from the Identity Provider, an existing user is 
 
 * **Auto Login (SSO)** — Automatically redirect users to the Identity Provider for authentication without visiting the WordPress login page.
 * **Login Button** — Add a customizable "Login with OpenID Connect" button to the WordPress login form for opt-in authentication.
+* **Button-Only Login Mode** — Show the OpenID Connect button while hiding the WordPress username/password form.
+* **Login Button Logo** — Upload a logo from the WordPress media library to display before the button text.
 * **JWT Signature Verification** — JWKS-based JWT validation to prevent token forgery and ensure token authenticity.
 * **User Auto-Creation** — Automatically create WordPress users from IDP claims when they log in for the first time.
 * **Link Existing Users** — Match IDP identities to existing WordPress accounts by email address.

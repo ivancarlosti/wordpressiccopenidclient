@@ -202,6 +202,10 @@ class ICC_GG_Sign_In_OpenID_Connect_Settings_Page {
 					$callback = 'do_checkbox';
 					break;
 
+				case 'media':
+					$callback = 'do_media_field';
+					break;
+
 				case 'select':
 					$callback = 'do_select';
 					break;
@@ -246,8 +250,9 @@ class ICC_GG_Sign_In_OpenID_Connect_Settings_Page {
 				'description' => __( 'Select how the client (login form) should provide login options.', 'icc-gg-sign-in-openid-connect' ),
 				'type'        => 'select',
 				'options'     => array(
-					'button' => __( 'OpenID Connect button on login form', 'icc-gg-sign-in-openid-connect' ),
-					'auto'   => __( 'Auto Login - SSO', 'icc-gg-sign-in-openid-connect' ),
+					'button'      => __( 'OpenID Connect button on login form', 'icc-gg-sign-in-openid-connect' ),
+					'button_only' => __( 'OpenID Connect button only (no password form)', 'icc-gg-sign-in-openid-connect' ),
+					'auto'        => __( 'Auto Login - SSO', 'icc-gg-sign-in-openid-connect' ),
 				),
 				'disabled'    => defined( 'OIDC_LOGIN_TYPE' ),
 				'section'     => 'client_settings',
@@ -257,6 +262,12 @@ class ICC_GG_Sign_In_OpenID_Connect_Settings_Page {
 				'description' => __( 'Customize the text shown on the OpenID Connect login button. Leave empty to use the default text.', 'icc-gg-sign-in-openid-connect' ),
 				'example'     => 'Login with Single Sign-On',
 				'type'        => 'text',
+				'section'     => 'client_settings',
+			),
+			'login_button_logo' => array(
+				'title'       => __( 'Login Button Logo', 'icc-gg-sign-in-openid-connect' ),
+				'description' => __( 'Optional logo displayed before the text on the OpenID Connect login button. Upload or select an image from the WordPress media library.', 'icc-gg-sign-in-openid-connect' ),
+				'type'        => 'media',
 				'section'     => 'client_settings',
 			),
 			'client_id'         => array(
@@ -510,6 +521,10 @@ class ICC_GG_Sign_In_OpenID_Connect_Settings_Page {
 						}
 						break;
 
+					case 'media':
+						$options[ $key ] = absint( $input[ $key ] );
+						break;
+
 					case 'text':
 					default:
 						$value = trim( $input[ $key ] );
@@ -524,7 +539,7 @@ class ICC_GG_Sign_In_OpenID_Connect_Settings_Page {
 				}
 			} else {
 				// Unchecked checkboxes must store 0.
-				$options[ $key ] = ( 'checkbox' === $field['type'] ) ? 0 : '';
+				$options[ $key ] = ( 'checkbox' === $field['type'] || 'media' === $field['type'] ) ? 0 : '';
 			}
 		}
 
@@ -541,6 +556,17 @@ class ICC_GG_Sign_In_OpenID_Connect_Settings_Page {
 		$this->handle_discovery_import();
 
 		wp_enqueue_style( 'icc-gg-sign-in-openid-connect-admin', plugin_dir_url( __DIR__ ) . 'css/styles-admin.css', array(), ICC_GG_Sign_In_OpenID_Connect::VERSION, 'all' );
+
+		wp_enqueue_media();
+		wp_enqueue_script( 'icc-gg-sign-in-openid-connect-admin', plugin_dir_url( __DIR__ ) . 'js/scripts-admin.js', array( 'jquery' ), ICC_GG_Sign_In_OpenID_Connect::VERSION, true );
+		wp_localize_script(
+			'icc-gg-sign-in-openid-connect-admin',
+			'iccGgSignInOpenIdConnectAdmin',
+			array(
+				'chooseLogoTitle' => __( 'Choose Login Button Logo', 'icc-gg-sign-in-openid-connect' ),
+				'useThisImage'    => __( 'Use this image', 'icc-gg-sign-in-openid-connect' ),
+			)
+		);
 
 		$redirect_uri = admin_url( 'admin-ajax.php?action=icc-gg-sign-in-openid-connect-authorize' );
 
@@ -614,6 +640,32 @@ class ICC_GG_Sign_In_OpenID_Connect_Settings_Page {
 			name="<?php print esc_attr( $field['name'] ); ?>"
 			<?php echo ( ! empty( $field['disabled'] ) && boolval( $field['disabled'] ) === true ) ? ' disabled' : ''; ?>
 			value="<?php print esc_attr( $this->settings->{ $field['key'] } ); ?>">
+		<?php
+		$this->do_field_description( $field );
+	}
+
+	/**
+	 * Output a WordPress media upload field.
+	 *
+	 * @param array $field The settings field definition array.
+	 *
+	 * @return void
+	 */
+	public function do_media_field( $field ) {
+		$logo_id = absint( $this->settings->{ $field['key'] } );
+		$preview = $logo_id ? wp_get_attachment_image( $logo_id, 'thumbnail', false, array( 'class' => 'oidc-logo-preview-img' ) ) : '';
+		?>
+		<input type="hidden"
+			id="<?php print esc_attr( $field['key'] ); ?>"
+			name="<?php print esc_attr( $field['name'] ); ?>"
+			value="<?php print esc_attr( strval( $logo_id ) ); ?>">
+		<button type="button" class="button oidc-media-upload" data-target="<?php print esc_attr( $field['key'] ); ?>">
+			<?php esc_html_e( 'Choose Logo', 'icc-gg-sign-in-openid-connect' ); ?>
+		</button>
+		<button type="button" class="button oidc-media-remove" data-target="<?php print esc_attr( $field['key'] ); ?>"<?php echo $logo_id ? '' : ' style="display:none;"'; ?>>
+			<?php esc_html_e( 'Remove Logo', 'icc-gg-sign-in-openid-connect' ); ?>
+		</button>
+		<div id="oidc-logo-preview" class="oidc-logo-preview"><?php print wp_kses_post( $preview ); ?></div>
 		<?php
 		$this->do_field_description( $field );
 	}
