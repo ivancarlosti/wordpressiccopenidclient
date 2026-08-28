@@ -176,6 +176,9 @@ class ICC_GG_Sign_In_OpenID_Connect {
 
 		ICC_GG_Sign_In_OpenID_Connect_Login_Form::register( $this->settings, $this->client_wrapper, $this->client );
 
+		// Register the two-factor authentication bypass integration.
+		ICC_GG_Sign_In_OpenID_Connect_Two_Factor_Bypass::register( $this->settings );
+
 		// Add a shortcode to get the auth URL.
 		add_shortcode( 'icc_gg_sign_in_openid_connect_auth_url', array( $this, 'shortcode_auth_url' ) );
 
@@ -480,6 +483,7 @@ class ICC_GG_Sign_In_OpenID_Connect {
 				'redirect_on_logout'       => defined( 'OIDC_REDIRECT_ON_LOGOUT' ) ? intval( OIDC_REDIRECT_ON_LOGOUT ) : 1,
 				'enable_logging'           => defined( 'OIDC_ENABLE_LOGGING' ) ? intval( OIDC_ENABLE_LOGGING ) : 0,
 				'log_limit'                => defined( 'OIDC_LOG_LIMIT' ) ? intval( OIDC_LOG_LIMIT ) : 1000,
+				'two_factor_bypass'        => defined( 'OIDC_2FA_BYPASS' ) ? OIDC_2FA_BYPASS : 'none',
 			)
 		);
 

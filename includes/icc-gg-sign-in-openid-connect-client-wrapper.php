@@ -845,10 +845,16 @@ class ICC_GG_Sign_In_OpenID_Connect_Client_Wrapper {
 		// Save the refresh token in the session.
 		$this->save_refresh_token( $manager, $token, $token_response );
 
+		// Allow integrations to temporarily alter the login flow (e.g. skip a local 2FA prompt).
+		do_action( 'icc_gg_sign_in_openid_connect_before_login', $user );
+
 		// you did great, have a cookie!
 		wp_set_auth_cookie( $user->ID, $remember_me, '', $token );
 		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress core action, intentionally invoked.
 		do_action( 'wp_login', $user->user_login, $user );
+
+		// Allow integrations to restore anything altered before the login completed.
+		do_action( 'icc_gg_sign_in_openid_connect_after_login', $user );
 	}
 
 	/**

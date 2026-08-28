@@ -471,6 +471,23 @@ class ICC_GG_Sign_In_OpenID_Connect_Settings_Page {
 				'disabled'    => defined( 'OIDC_REDIRECT_ON_LOGOUT' ),
 				'section'     => 'user_settings',
 			),
+			'two_factor_bypass'   => array(
+				'title'       => __( 'Bypass local 2FA on SSO login', 'icc-gg-sign-in-openid-connect' ),
+				'description' => sprintf(
+					/* translators: %1$s and %2$s wrap a warning message in strong tags. */
+					__( 'Skip the second-factor prompt from supported 2FA plugins when a user logs in via OpenID Connect. %1$sOnly enable this when multi-factor authentication is enforced at the identity provider.%2$s', 'icc-gg-sign-in-openid-connect' ),
+					'<br><strong class="oidc-warning">',
+					'</strong>'
+				),
+				'type'        => 'select',
+				'options'     => array(
+					'none'   => __( 'None (do not bypass)', 'icc-gg-sign-in-openid-connect' ),
+					'ase'    => __( 'Admin and Site Enhancements (ASE)', 'icc-gg-sign-in-openid-connect' ),
+					'wp_2fa' => __( 'WP 2FA - Two-factor authentication (Melapress)', 'icc-gg-sign-in-openid-connect' ),
+				),
+				'disabled'    => defined( 'OIDC_2FA_BYPASS' ),
+				'section'     => 'user_settings',
+			),
 			'enable_logging'    => array(
 				'title'       => __( 'Enable Logging', 'icc-gg-sign-in-openid-connect' ),
 				'description' => __( 'Very simple log messages for debugging purposes.', 'icc-gg-sign-in-openid-connect' ),

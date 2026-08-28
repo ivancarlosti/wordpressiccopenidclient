@@ -112,6 +112,7 @@ class ICC_GG_Sign_In_OpenID_Connect_Option_Settings {
 		'acr_values'                => 'OIDC_ACR_VALUES',
 		'enable_logging'            => 'OIDC_ENABLE_LOGGING',
 		'log_limit'                 => 'OIDC_LOG_LIMIT',
+		'two_factor_bypass'         => 'OIDC_2FA_BYPASS',
 	);
 
 	/**
