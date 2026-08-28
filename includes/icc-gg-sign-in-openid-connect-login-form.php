@@ -296,7 +296,7 @@ class ICC_GG_Sign_In_OpenID_Connect_Login_Form {
 		wp_enqueue_script( 'icc-gg-sign-in-openid-connect-login-form' );
 		wp_add_inline_script(
 			'icc-gg-sign-in-openid-connect-login-form',
-			'(function(){var f=document.getElementById("user_login").form;f.parentNode.removeChild(f);})();'
+			'(function(){var u=document.getElementById("user_login");if(u&&u.form){var f=u.form;if(f.parentNode){f.parentNode.removeChild(f);}}var n=document.getElementById("nav");if(n&&n.parentNode){n.parentNode.removeChild(n);}})();'
 		);
 	}
 }
