@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   deploy:
-    name: 📦 Package & Deploy to WordPress.org
+    name: 📦 Package WordPress ZIP
     runs-on: ubuntu-latest
 
     steps:
@@ -44,14 +44,12 @@ jobs:
           fi
 
           PLUGIN_SLUG="${PLUGIN_FILE%.php}"
-          SVN_URL="https://plugins.svn.wordpress.org/${PLUGIN_SLUG}"
           ZIP_NAME="${PLUGIN_SLUG}.zip"
 
           echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
           echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
           echo "plugin_file=${PLUGIN_FILE}" >> "$GITHUB_OUTPUT"
           echo "plugin_slug=${PLUGIN_SLUG}" >> "$GITHUB_OUTPUT"
-          echo "svn_url=${SVN_URL}" >> "$GITHUB_OUTPUT"
           echo "zip_name=${ZIP_NAME}" >> "$GITHUB_OUTPUT"
 
       # -------------------------------------------------------
@@ -175,8 +173,6 @@ jobs:
           echo "WordPress ZIP created: ${{ steps.version.outputs.zip_name }}"
           ls -lh "${GITHUB_WORKSPACE}/${{ steps.version.outputs.zip_name }}"
 
-          # Persist build directory path for SVN deploy step
-          echo "BUILD_DIR=${BUILD_DIR}" >> "${GITHUB_ENV}"
 
       # -------------------------------------------------------
       # 5. Upload WordPress ZIP to GitHub Release
@@ -189,80 +185,3 @@ jobs:
             "${{ steps.version.outputs.zip_name }}" --clobber
 
           echo "WordPress ZIP uploaded to release ${{ steps.version.outputs.tag }}"
-
-      # -------------------------------------------------------
-      # 6. Deploy to WordPress.org SVN
-      #     Requires WPORG_SVN_USERNAME and WPORG_SVN_PASSWORD secrets
-      # -------------------------------------------------------
-      - name: 🔍 Check SVN credentials
-        id: svn_check
-        run: |
-          if [ -n "${{ secrets.WPORG_SVN_USERNAME }}" ] && [ -n "${{ secrets.WPORG_SVN_PASSWORD }}" ]; then
-            echo "SVN credentials found — deploying to WordPress.org."
-            echo "enabled=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "⚠️ SVN credentials not configured. Skipping WordPress.org deployment."
-            echo "enabled=false" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: 🚀 Deploy to WordPress.org SVN
-        if: steps.svn_check.outputs.enabled == 'true'
-        env:
-          SVN_USERNAME: ${{ secrets.WPORG_SVN_USERNAME }}
-          SVN_PASSWORD: ${{ secrets.WPORG_SVN_PASSWORD }}
-        run: |
-          VERSION="${{ steps.version.outputs.version }}"
-          SVN_DIR="/tmp/wp-svn"
-
-          echo "Deploying version ${VERSION} to WordPress.org SVN..."
-
-          # Checkout only trunk and tags to keep it fast
-          svn checkout "${{ steps.version.outputs.svn_url }}" "${SVN_DIR}" --depth empty --non-interactive --no-auth-cache \
-            --username "${SVN_USERNAME}" --password "${SVN_PASSWORD}"
-
-          cd "${SVN_DIR}"
-
-          # Get trunk and tags directories
-          svn update trunk --set-depth infinity --non-interactive --no-auth-cache \
-            --username "${SVN_USERNAME}" --password "${SVN_PASSWORD}"
-
-          # Sync plugin files to trunk (delete removed files, add new ones)
-          echo "Syncing files to trunk/..."
-          rsync -av --delete "${BUILD_DIR}/" trunk/ \
-            --exclude='.svn' \
-            --exclude='.git'
-
-          # Remove files from SVN that no longer exist in the build
-          svn status trunk/ | grep '^!' | awk '{print $2}' | while read -r file; do
-            svn rm --non-interactive --no-auth-cache \
-              --username "${SVN_USERNAME}" --password "${SVN_PASSWORD}" "$file"
-          done
-
-          # Add new files to SVN (--force handles directories recursively)
-          svn status trunk/ | grep '^?' | awk '{print $2}' | while read -r file; do
-            svn add --force --non-interactive --no-auth-cache \
-              --username "${SVN_USERNAME}" --password "${SVN_PASSWORD}" "$file"
-          done
-
-          # Copy trunk to tags/{version} for the stable release
-          echo "Tagging release ${VERSION}..."
-          svn update tags --set-depth infinity --non-interactive --no-auth-cache \
-            --username "${SVN_USERNAME}" --password "${SVN_PASSWORD}"
-
-          # Remove existing tag directory if it exists (re-tagging)
-          if [ -d "tags/${VERSION}" ]; then
-            svn rm "tags/${VERSION}" --non-interactive --no-auth-cache \
-              --username "${SVN_USERNAME}" --password "${SVN_PASSWORD}"
-          fi
-
-          # Copy trunk to the new tag
-          svn copy trunk/ "tags/${VERSION}" --non-interactive --no-auth-cache \
-            --username "${SVN_USERNAME}" --password "${SVN_PASSWORD}"
-
-          # Commit everything
-          echo "Committing to WordPress.org SVN..."
-          svn commit -m "Release version ${VERSION}" \
-            --non-interactive --no-auth-cache \
-            --username "${SVN_USERNAME}" --password "${SVN_PASSWORD}"
-
-          echo "✅ Successfully deployed version ${VERSION} to WordPress.org SVN."
