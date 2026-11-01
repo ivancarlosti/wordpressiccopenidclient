@@ -135,7 +135,7 @@ jobs:
           # doubles as a backup.
           zip -r "${{ steps.version.outputs.zip_name }}" . \
             -x ".git/*" ".github/*" "docker/*" ".dockerignore" \
-               "CNAME" "Dockerfile" "README.md" "LICENSE"
+               "CNAME" "Dockerfile" "README.md"
 
       - name: 📤 Upload ZIP to GitHub Release
         if: steps.rebuild.outputs.proceed == 'true' && github.event_name != 'schedule'

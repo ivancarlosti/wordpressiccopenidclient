@@ -149,7 +149,8 @@ jobs:
           BUILD_DIR="/tmp/wp-build/${{ steps.version.outputs.plugin_slug }}"
           mkdir -p "${BUILD_DIR}"
 
-          # Copy plugin files to build directory, excluding dev/dot files
+          # Copy plugin files to build directory, excluding dev/dot files and the
+          # dev tooling bundled inside upstream libraries (test rigs, bin scripts).
           rsync -av . "${BUILD_DIR}/" \
             --exclude='.git' \
             --exclude='.github' \
@@ -161,9 +162,14 @@ jobs:
             --exclude='Dockerfile' \
             --exclude='CNAME' \
             --exclude='README.md' \
-            --exclude='LICENSE' \
+            --exclude='/LICENSE' \
             --exclude='manifest.json' \
             --exclude='composer.lock' \
+            --exclude='dependencies/*/*/testenv' \
+            --exclude='dependencies/*/*/bin' \
+            --exclude='dependencies/*/*/phpunit_local.sh' \
+            --exclude='dependencies/*/*/.editorconfig' \
+            --exclude='dependencies/*/*/*.markdown' \
             --exclude='*.zip'
 
           # Create the zip with plugin slug as root folder
