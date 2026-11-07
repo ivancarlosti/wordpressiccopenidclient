@@ -637,6 +637,37 @@ class ICC_GG_Sign_In_OpenID_Connect_Settings_Page {
 					github.com/ivancarlosti/wordpressiccopenidclient
 				</a><br>
 				<?php echo esc_html( sprintf( 'v%s', ICC_GG_Sign_In_OpenID_Connect::VERSION ) ); ?>
+				<?php if ( current_user_can( 'update_plugins' ) ) : ?>
+					&middot;
+					<a href="<?php echo esc_url( ICC_GG_Sign_In_OpenID_Connect_Github_Updater::check_url() ); ?>">
+						<?php esc_html_e( 'Check for updates', 'icc-gg-sign-in-openid-connect' ); ?>
+					</a>
+				<?php endif; ?>
+				<?php $cached_update = ICC_GG_Sign_In_OpenID_Connect_Github_Updater::get_cached_update(); ?>
+				<?php if ( $cached_update ) : ?>
+					<br>
+					<strong>
+						<?php
+						printf(
+							// translators: %s: New version number.
+							esc_html__( 'Update available: v%s', 'icc-gg-sign-in-openid-connect' ),
+							esc_html( $cached_update['version'] )
+						);
+						?>
+					</strong>
+					<?php if ( current_user_can( 'update_plugins' ) ) : ?>
+						&middot;
+						<a href="<?php echo esc_url( ICC_GG_Sign_In_OpenID_Connect_Github_Updater::update_url() ); ?>">
+							<?php esc_html_e( 'Update now', 'icc-gg-sign-in-openid-connect' ); ?>
+						</a>
+					<?php endif; ?>
+					<?php if ( ! empty( $cached_update['url'] ) ) : ?>
+						&middot;
+						<a href="<?php echo esc_url( $cached_update['url'] ); ?>" target="_blank" rel="noopener noreferrer">
+							<?php esc_html_e( 'Release notes', 'icc-gg-sign-in-openid-connect' ); ?>
+						</a>
+					<?php endif; ?>
+				<?php endif; ?>
 			</p>
 		</div>
 		<?php

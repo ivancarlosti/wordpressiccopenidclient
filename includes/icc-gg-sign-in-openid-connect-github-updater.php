@@ -56,6 +56,24 @@ if ( ! class_exists( 'ICC_GG_Sign_In_OpenID_Connect_Github_Updater' ) ) {
 		const CACHE_DURATION = 43200;
 
 		/**
+		 * Plugin slug, which is also the root folder inside the WordPress ZIP
+		 * asset attached to every release.
+		 *
+		 * @var string
+		 */
+		const PLUGIN_SLUG = 'icc-gg-sign-in-openid-connect';
+
+		/**
+		 * Transient key prefix used to hand the result of a manual update check
+		 * to the admin notice shown on the next page load.
+		 *
+		 * The current user ID is appended to keep the notice per-user.
+		 *
+		 * @var string
+		 */
+		const RESULT_CACHE_KEY = 'icc_gg_sign_in_openid_connect_update_check';
+
+		/**
 		 * Plugin basename, e.g. icc-gg-sign-in-openid-connect/icc-gg-sign-in-openid-connect.php.
 		 *
 		 * @var string
@@ -120,7 +138,7 @@ if ( ! class_exists( 'ICC_GG_Sign_In_OpenID_Connect_Github_Updater' ) ) {
 				$transient = new stdClass();
 			}
 
-			$release = $this->get_latest_release();
+			$release = self::get_latest_release();
 
 			if ( ! $release ) {
 				/*
@@ -142,7 +160,7 @@ if ( ! class_exists( 'ICC_GG_Sign_In_OpenID_Connect_Github_Updater' ) ) {
 				return $transient;
 			}
 
-			$new_version = $this->normalize_version( $release->tag_name );
+			$new_version = self::normalize_version( $release->tag_name );
 			$item        = $this->build_item( $new_version, $this->get_package_url( $release ), isset( $release->html_url ) ? $release->html_url : '' );
 
 			if ( version_compare( $this->current_version, $new_version, '<' ) ) {
@@ -207,7 +225,7 @@ if ( ! class_exists( 'ICC_GG_Sign_In_OpenID_Connect_Github_Updater' ) ) {
 				return $data;
 			}
 
-			$release = $this->get_latest_release();
+			$release = self::get_latest_release();
 			if ( ! $release ) {
 				return $data;
 			}
@@ -226,7 +244,7 @@ if ( ! class_exists( 'ICC_GG_Sign_In_OpenID_Connect_Github_Updater' ) ) {
 			return (object) array(
 				'name'          => isset( $plugin_data['Name'] ) ? $plugin_data['Name'] : $this->plugin_slug,
 				'slug'          => $this->plugin_slug,
-				'version'       => $this->normalize_version( $release->tag_name ),
+				'version'       => self::normalize_version( $release->tag_name ),
 				'author'        => isset( $plugin_data['Author'] ) ? $plugin_data['Author'] : '',
 				'homepage'      => isset( $release->html_url ) ? $release->html_url : '',
 				'download_link' => $this->get_package_url( $release ),
@@ -237,15 +255,18 @@ if ( ! class_exists( 'ICC_GG_Sign_In_OpenID_Connect_Github_Updater' ) ) {
 		/**
 		 * Fetch the latest GitHub release, using a cached copy when available.
 		 *
+		 * Static so the release can be looked up on demand from the Plugins
+		 * screen and the settings page without instantiating the updater.
+		 *
 		 * @return object|false Release object on success, false on failure.
 		 */
-		private function get_latest_release() {
+		private static function get_latest_release() {
 			$cached = get_site_transient( self::CACHE_KEY );
 			if ( false !== $cached ) {
 				return $cached;
 			}
 
-			if ( $this->request_recently_failed() ) {
+			if ( self::request_recently_failed() ) {
 				return false;
 			}
 
@@ -255,20 +276,20 @@ if ( ! class_exists( 'ICC_GG_Sign_In_OpenID_Connect_Github_Updater' ) ) {
 					'timeout' => 15,
 					'headers' => array(
 						'Accept'     => 'application/vnd.github.v3+json',
-						'User-Agent' => 'icc-gg-sign-in-openid-connect/' . $this->current_version,
+						'User-Agent' => self::PLUGIN_SLUG . '/' . ICC_GG_Sign_In_OpenID_Connect::VERSION,
 					),
 				)
 			);
 
 			if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
-				$this->log_failed_request();
+				self::log_failed_request();
 				return false;
 			}
 
 			$release = json_decode( wp_remote_retrieve_body( $response ) );
 
 			if ( ! is_object( $release ) || empty( $release->tag_name ) ) {
-				$this->log_failed_request();
+				self::log_failed_request();
 				return false;
 			}
 
@@ -280,18 +301,43 @@ if ( ! class_exists( 'ICC_GG_Sign_In_OpenID_Connect_Github_Updater' ) ) {
 		/**
 		 * Resolve the direct ZIP download URL for a release.
 		 *
-		 * Prefers a `.zip` release asset whose root is the plugin folder.
-		 * Falls back to the GitHub archive ZIP when no zip asset exists.
+		 * Prefers the `<slug>.zip` asset, because that is the only archive
+		 * whose root folder is the plugin folder and therefore the only one
+		 * WordPress can install: the generic `<repo>-<version>.zip` produced by
+		 * the CI workflow unpacks several top level entries and fails with
+		 * "The package contains more than one folder." Any other `.zip` asset
+		 * is used as a fallback, then the GitHub archive ZIP.
 		 *
 		 * @param object $release The GitHub release object.
 		 * @return string
 		 */
 		private function get_package_url( $release ) {
 			if ( ! empty( $release->assets ) && is_array( $release->assets ) ) {
+				$preferred = strtolower( self::PLUGIN_SLUG ) . '.zip';
+				$fallback  = '';
+
 				foreach ( $release->assets as $asset ) {
-					if ( ! empty( $asset->name ) && ! empty( $asset->browser_download_url ) && '.zip' === substr( $asset->name, -4 ) ) {
+					if ( empty( $asset->name ) || empty( $asset->browser_download_url ) ) {
+						continue;
+					}
+
+					$name = strtolower( $asset->name );
+
+					if ( '.zip' !== substr( $name, -4 ) ) {
+						continue;
+					}
+
+					if ( $preferred === $name ) {
 						return $asset->browser_download_url;
 					}
+
+					if ( '' === $fallback ) {
+						$fallback = $asset->browser_download_url;
+					}
+				}
+
+				if ( '' !== $fallback ) {
+					return $fallback;
 				}
 			}
 
@@ -309,7 +355,7 @@ if ( ! class_exists( 'ICC_GG_Sign_In_OpenID_Connect_Github_Updater' ) ) {
 		 * @param string $version The tag or version string.
 		 * @return string
 		 */
-		private function normalize_version( $version ) {
+		private static function normalize_version( $version ) {
 			return ltrim( (string) $version, 'vV' );
 		}
 
@@ -318,7 +364,7 @@ if ( ! class_exists( 'ICC_GG_Sign_In_OpenID_Connect_Github_Updater' ) ) {
 		 *
 		 * @return bool
 		 */
-		private function request_recently_failed() {
+		private static function request_recently_failed() {
 			$failed = get_site_transient( self::FAILED_CACHE_KEY );
 
 			return false !== $failed;
@@ -329,8 +375,118 @@ if ( ! class_exists( 'ICC_GG_Sign_In_OpenID_Connect_Github_Updater' ) ) {
 		 *
 		 * @return void
 		 */
-		private function log_failed_request() {
+		private static function log_failed_request() {
 			set_site_transient( self::FAILED_CACHE_KEY, time(), HOUR_IN_SECONDS );
+		}
+
+		/**
+		 * Delete the cached GitHub release data so the next lookup is a real
+		 * request to the API.
+		 *
+		 * The failure marker is cleared as well, otherwise a single failed
+		 * request would keep blocking lookups for the following hour.
+		 *
+		 * @return void
+		 */
+		public static function flush_cache() {
+			delete_site_transient( self::CACHE_KEY );
+			delete_site_transient( self::FAILED_CACHE_KEY );
+		}
+
+		/**
+		 * Force a fresh GitHub Releases lookup and refresh the WordPress update
+		 * transient, so the Plugins screen reflects the result right away.
+		 *
+		 * @return array{state:string,version:string,installed:string,url:string}
+		 */
+		public static function check_for_updates() {
+			self::flush_cache();
+
+			$release = self::get_latest_release();
+
+			/*
+			 * Re-save the update transient: the `pre_set` filter injects the
+			 * freshly fetched release, which makes WordPress render its native
+			 * "There is a new version available" row immediately instead of
+			 * waiting for the throttled `wp_update_plugins()` request.
+			 */
+			$transient = get_site_transient( 'update_plugins' );
+
+			if ( is_object( $transient ) ) {
+				set_site_transient( 'update_plugins', $transient );
+			}
+
+			if ( ! is_object( $release ) || empty( $release->tag_name ) ) {
+				return array(
+					'state'     => 'error',
+					'version'   => '',
+					'installed' => ICC_GG_Sign_In_OpenID_Connect::VERSION,
+					'url'       => '',
+				);
+			}
+
+			$version = self::normalize_version( $release->tag_name );
+
+			return array(
+				'state'     => version_compare( ICC_GG_Sign_In_OpenID_Connect::VERSION, $version, '<' ) ? 'update' : 'current',
+				'version'   => $version,
+				'installed' => ICC_GG_Sign_In_OpenID_Connect::VERSION,
+				'url'       => isset( $release->html_url ) ? $release->html_url : '',
+			);
+		}
+
+		/**
+		 * Return the cached release when it is newer than the installed
+		 * version, without performing an HTTP request.
+		 *
+		 * @return array{version:string,url:string}|null
+		 */
+		public static function get_cached_update() {
+			$release = get_site_transient( self::CACHE_KEY );
+
+			if ( ! is_object( $release ) || empty( $release->tag_name ) ) {
+				return null;
+			}
+
+			$version = self::normalize_version( $release->tag_name );
+
+			if ( ! version_compare( ICC_GG_Sign_In_OpenID_Connect::VERSION, $version, '<' ) ) {
+				return null;
+			}
+
+			return array(
+				'version' => $version,
+				'url'     => isset( $release->html_url ) ? $release->html_url : '',
+			);
+		}
+
+		/**
+		 * URL that performs a forced update check.
+		 *
+		 * @return string
+		 */
+		public static function check_url() {
+			return wp_nonce_url(
+				self_admin_url( 'admin-post.php?action=icc_gg_sign_in_openid_connect_check_updates' ),
+				'icc_gg_sign_in_openid_connect_check_updates'
+			);
+		}
+
+		/**
+		 * URL that starts the native WordPress plugin upgrade.
+		 *
+		 * @return string
+		 */
+		public static function update_url() {
+			return wp_nonce_url(
+				self_admin_url(
+					sprintf(
+						'update.php?action=upgrade-plugin&plugin=%s',
+						rawurlencode( ICC_GG_SIGN_IN_OPENID_CONNECT_BASENAME )
+					)
+				),
+				'upgrade-plugin_' . ICC_GG_SIGN_IN_OPENID_CONNECT_BASENAME
+			);
 		}
 	}
 }

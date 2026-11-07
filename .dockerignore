@@ -1,0 +1,11 @@
+docs
+plans
+docker
+.github
+
+.git
+.gitignore
+node_modules
+*.log
+Dockerfile
+docker-compose.yml

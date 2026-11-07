@@ -76,7 +76,7 @@ Notes
 /*
  * Hard requirement: PHP 8.2+.
  *
- * Kept in sync with the "Requires PHP" plugin header, readme.txt and
+ * Kept in sync with the "Requires PHP" plugin header and
  * composer.json. WordPress validates the header on install and activation, but
  * a site can still auto-update the plugin while running an older PHP version,
  * so the plugin disables itself and explains why instead of failing later.
@@ -135,6 +135,16 @@ if ( version_compare( PHP_VERSION, ICC_GG_SIGN_IN_OPENID_CONNECT_MIN_PHP, '<' ) 
 
 	return;
 }
+
+/**
+ * Plugin basename, e.g. icc-gg-sign-in-openid-connect/icc-gg-sign-in-openid-connect.php.
+ *
+ * Computed once here because `plugin_basename()` reflects the folder the
+ * plugin is actually installed in, which is not necessarily the plugin slug
+ * (a git clone lands in `wordpressiccopenidclient/`). The GitHub updater needs
+ * it to build the native WordPress upgrade URL.
+ */
+define( 'ICC_GG_SIGN_IN_OPENID_CONNECT_BASENAME', plugin_basename( __FILE__ ) );
 
 /**
  * ICC_GG_Sign_In_OpenID_Connect class.
@@ -583,7 +593,7 @@ register_deactivation_hook( __FILE__, array( 'ICC_GG_Sign_In_OpenID_Connect', 'd
 // Provide publicly accessible plugin helper functions.
 require_once 'includes/functions.php';
 
-add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'icc_gg_sign_in_openid_connect_add_settings_link' );
+add_filter( 'plugin_action_links_' . ICC_GG_SIGN_IN_OPENID_CONNECT_BASENAME, 'icc_gg_sign_in_openid_connect_add_settings_link' );
 add_filter( 'plugin_row_meta', 'icc_gg_sign_in_openid_connect_add_plugin_row_meta', 10, 2 );
 
 /**
@@ -602,10 +612,14 @@ function icc_gg_sign_in_openid_connect_init_github_updater() {
 	}
 
 	new ICC_GG_Sign_In_OpenID_Connect_Github_Updater(
-		plugin_basename( __FILE__ ),
+		ICC_GG_SIGN_IN_OPENID_CONNECT_BASENAME,
 		ICC_GG_Sign_In_OpenID_Connect::VERSION
 	);
 }
 add_action( 'init', 'icc_gg_sign_in_openid_connect_init_github_updater' );
+
+// Report the outcome of a manual "Check for updates" click on the Plugins screen.
+add_action( 'admin_post_icc_gg_sign_in_openid_connect_check_updates', 'icc_gg_sign_in_openid_connect_handle_check_updates' );
+add_action( 'admin_notices', 'icc_gg_sign_in_openid_connect_show_update_check_notice' );
 
 } // End if ( ! class_exists( 'ICC_GG_Sign_In_OpenID_Connect' ) )

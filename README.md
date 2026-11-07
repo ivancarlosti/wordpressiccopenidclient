@@ -42,6 +42,17 @@ A WordPress plugin that provides SSO (Single Sign-On) authentication against an 
 2. Activate the plugin through the WordPress admin panel
 3. Go to **Settings > OpenID Connect** to configure
 
+## Updating
+
+The plugin updates itself from [GitHub Releases](https://github.com/ivancarlosti/wordpressiccopenidclient/releases):
+
+1. Open **Plugins → Installed Plugins** and click **Check for updates** in the plugin row (the same link is in the settings page footer). It performs a real, forced request to the GitHub API — the 12 hour release cache is bypassed, so the answer is fresh.
+2. The result is reported in a notice: a newer release offers **Update now** (the native WordPress upgrader) plus a link to the release notes, otherwise the plugin confirms you are already running the latest version.
+3. Nothing else changes: updates also show up in **Dashboard → Updates**, work with `wp plugin update icc-gg-sign-in-openid-connect` and can be applied automatically by WordPress cron.
+4. Use the `icc-gg-sign-in-openid-connect.zip` asset when updating by hand — its root folder is the plugin folder, so it replaces the current copy. The other archives attached to a release (`wordpressiccopenidclient-<version>.zip`, the generated source archive) unpack several top level entries and fail with *"The package contains more than one folder."*
+
+When GitHub cannot be reached the last known answer is kept, retries are throttled for one hour, and the updater never breaks the Plugins screen. See [`docs/updates.md`](docs/updates.md) for the full flow.
+
 ## Quick Setup
 
 Use the **Discovery Document Import** feature on the settings page:
