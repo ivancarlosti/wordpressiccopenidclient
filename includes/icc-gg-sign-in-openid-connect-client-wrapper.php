@@ -164,7 +164,7 @@ class ICC_GG_Sign_In_OpenID_Connect_Client_Wrapper {
 
 		// Honor Core WordPress & other plugin redirects.
 		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Login redirect flow; nonces not applicable.
-		if ( isset( $_REQUEST['redirect_to'] ) ) {
+		if ( isset( $_REQUEST['redirect_to'] ) && is_string( $_REQUEST['redirect_to'] ) ) {
 			$redirect_url = esc_url_raw( sanitize_text_field( wp_unslash( $_REQUEST['redirect_to'] ) ) );
 		}
 		// phpcs:enable WordPress.Security.NonceVerification.Recommended

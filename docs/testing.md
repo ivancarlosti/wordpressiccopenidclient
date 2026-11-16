@@ -16,6 +16,21 @@ offered for activation ("The plugin does not have a valid header"):
 sh tests/validate-plugin-layout.sh
 ```
 
+## Redirect target (`redirect_to`) regression
+
+`get_redirect_to()` must ignore a non-string `redirect_to` request value (for example
+`?redirect_to[]=`) instead of passing it to `esc_url_raw()`, and must fall back to the
+dashboard/home URL. It must never return a non-string value.
+
+The check runs without WordPress by stubbing the core functions the method uses:
+
+```bash
+php tests/get-redirect-to.php
+```
+
+Expected output ends with `All redirect_to assertions passed.`. A non-zero exit code means the
+fallback or the string handling regressed.
+
 ## Release ZIP check
 
 The only asset WordPress can install is `icc-gg-sign-in-openid-connect.zip`, whose single root folder
