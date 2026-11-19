@@ -230,7 +230,8 @@ class ICC_GG_Sign_In_OpenID_Connect_JWT_Validator {
 			if ( rtrim( $decoded_jwt->iss, '/' ) !== rtrim( $this->issuer, '/' ) ) {
 				$this->logger->log(
 					sprintf(
-						'Issuer mismatch - Expected: "%s", Received: "%s". Configure the correct issuer in Settings > ICC.gg Sign-In for OpenID Connect > Issuer field, or via the OIDC_ISSUER constant.',
+						/* translators: 1: expected issuer URL, 2: issuer URL received in the token. */
+						__( 'Issuer mismatch - Expected: "%1$s", Received: "%2$s". Configure the correct issuer in Settings > ICC.gg Sign-In for OpenID Connect > Issuer field, or via the OIDC_ISSUER constant.', 'icc-gg-sign-in-openid-connect' ),
 						$this->issuer,
 						$decoded_jwt->iss
 					),

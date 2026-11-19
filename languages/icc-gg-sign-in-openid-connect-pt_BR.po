@@ -1,0 +1,1036 @@
+# Copyright (C) 2026 ICC.gg
+# This file is distributed under the same license as the ICC.gg Sign-In for OpenID Connect package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ICC.gg Sign-In for OpenID Connect 3.1.5\n"
+"Report-Msgid-Bugs-To: https://github.com/ICC-gg/wordpressiccopenidclient/issues\n"
+"POT-Creation-Date: 2026-11-19 12:00+0000\n"
+"PO-Revision-Date: 2026-11-19 12:00+0000\n"
+"Last-Translator: ICC.gg <support@icc.gg>\n"
+"Language-Team: ICC.gg <support@icc.gg>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Domain: icc-gg-sign-in-openid-connect\n"
+
+#. translators: 1: plugin name, 2: required PHP version, 3: current PHP version.
+#: icc-gg-sign-in-openid-connect.php:107
+#, php-format
+msgid ""
+"%1$s requires PHP %2$s or later. This site runs PHP %3$s, so the plugin has "
+"been deactivated."
+msgstr ""
+"O %1$s requer PHP %2$s ou superior. Este site executa PHP %3$s, portanto o "
+"plugin foi desativado."
+
+#: icc-gg-sign-in-openid-connect.php:463
+msgid "Private site"
+msgstr "Site privado"
+
+#: icc-gg-sign-in-openid-connect.php:493
+msgid "ICC.gg Sign-In for OpenID Connect - Security Configuration Required"
+msgstr "ICC.gg Sign-In for OpenID Connect - Configuração de segurança necessária"
+
+#. translators: %s is a link to the settings page
+#: icc-gg-sign-in-openid-connect.php:500
+#, php-format
+msgid ""
+"Your OpenID Connect authentication is using an insecure fallback method. "
+"You must configure the <strong>JWKS endpoint</strong> in <a "
+"href=\"%s\">plugin settings</a> as soon as possible."
+msgstr ""
+"Sua autenticação OpenID Connect está usando um método alternativo "
+"inseguro. Configure o <strong>endpoint JWKS</strong> nas <a "
+"href=\"%s\">configurações do plugin</a> o quanto antes."
+
+#: icc-gg-sign-in-openid-connect.php:507
+msgid ""
+"The current insecure fallback will be removed in version 3.12.0. After that "
+"update, authentication will fail until the JWKS endpoint is configured."
+msgstr ""
+"O método alternativo inseguro atual será removido na versão 3.12.0. "
+"Após essa atualização, a autenticação falhará até que o endpoint "
+"JWKS seja configurado."
+
+#: icc-gg-sign-in-openid-connect.php:510
+msgid "Common JWKS endpoints:"
+msgstr "Endpoints JWKS comuns:"
+
+#: includes/functions.php:46
+msgid "Settings"
+msgstr "Configurações"
+
+#: includes/functions.php:73 includes/icc-gg-sign-in-openid-connect-settings-page.php:653
+msgid "Check for updates"
+msgstr "Verificar atualizações"
+
+#: includes/functions.php:80 includes/functions.php:167 includes/icc-gg-sign-in-openid-connect-settings-page.php:677
+msgid "Release notes"
+msgstr "Notas da versão"
+
+#: includes/functions.php:97
+msgid "Sorry, you are not allowed to check for plugin updates on this site."
+msgstr ""
+"Desculpe, você não tem permissão para verificar atualizações do plugin "
+"neste site."
+
+#: includes/functions.php:103
+msgid "The update checker is not available."
+msgstr "O verificador de atualizações não está disponível."
+
+#. translators: 1: New version number, 2: Installed version number.
+#: includes/functions.php:148
+#, php-format
+msgid ""
+"<strong>ICC.gg Sign-In for OpenID Connect %1$s is available.</strong> You "
+"are running version %2$s."
+msgstr ""
+"<strong>O ICC.gg Sign-In for OpenID Connect %1$s está "
+"disponível.</strong> Você está executando a versão %2$s."
+
+#: includes/functions.php:159 includes/icc-gg-sign-in-openid-connect-settings-page.php:671
+msgid "Update now"
+msgstr "Atualizar agora"
+
+#. translators: %s: Installed version number.
+#: includes/functions.php:186
+#, php-format
+msgid "ICC.gg Sign-In for OpenID Connect is up to date (version %s)."
+msgstr "O ICC.gg Sign-In for OpenID Connect está atualizado (versão %s)."
+
+#: includes/functions.php:197
+msgid "The update check could not reach GitHub. Please try again in a few minutes."
+msgstr ""
+"A verificação de atualizações não conseguiu acessar o GitHub. Tente "
+"novamente em alguns minutos."
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:248
+msgid "An unknown error occurred."
+msgstr "Ocorreu um erro desconhecido."
+
+#. translators: 1: error code returned by the identity provider, 2: error description returned by the identity provider.
+#: includes/icc-gg-sign-in-openid-connect-client.php:254
+#, php-format
+msgid "IDP error %1$s: %2$s"
+msgstr "Erro do provedor de identidade %1$s: %2$s"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:265
+msgid "No authentication code present in the request."
+msgstr "Nenhum código de autenticação presente na solicitação."
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:271
+msgid "Missing state."
+msgstr "Estado ausente."
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:275
+msgid "Invalid state."
+msgstr "Estado inválido."
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:290
+msgid "Missing authentication code."
+msgstr "Código de autenticação ausente."
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:335
+msgid "Request for authentication token failed."
+msgstr "A solicitação do token de autenticação falhou."
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:368
+msgid "Refresh token failed."
+msgstr "Falha ao atualizar o token."
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:383
+msgid "Missing token body."
+msgstr "Corpo do token ausente."
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:391
+msgid "Invalid token."
+msgstr "Token inválido."
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:452
+msgid "Request for userinfo failed."
+msgstr "A solicitação das informações do usuário falhou."
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:516
+msgid "Missing authentication state."
+msgstr "Estado de autenticação ausente."
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:537
+msgid "Invalid token response."
+msgstr "Resposta de token inválida."
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:553
+msgid "No identity token."
+msgstr "Nenhum token de identidade."
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:593
+msgid "Missing identity token."
+msgstr "Token de identidade ausente."
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:652
+msgid "Bad ID token claim."
+msgstr "Declaração do token de ID inválida."
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:657
+msgid "No subject identity."
+msgstr "Nenhuma identidade de assunto."
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:662 includes/icc-gg-sign-in-openid-connect-jwt-validator.php:184
+msgid "Token missing expiration claim."
+msgstr "O token não contém a declaração de expiração."
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:665
+msgid "Token has expired."
+msgstr "O token expirou."
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:670 includes/icc-gg-sign-in-openid-connect-jwt-validator.php:192
+msgid "Token missing issued at claim."
+msgstr "O token não contém a declaração de emissão (iat)."
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:675 includes/icc-gg-sign-in-openid-connect-jwt-validator.php:200
+msgid "Token missing audience claim."
+msgstr "O token não contém a declaração de público-alvo (aud)."
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:688 includes/icc-gg-sign-in-openid-connect-jwt-validator.php:217
+msgid "Token audience does not match client."
+msgstr "O público-alvo do token não corresponde ao cliente."
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:698 includes/icc-gg-sign-in-openid-connect-jwt-validator.php:226
+msgid "Token missing issuer claim."
+msgstr "O token não contém a declaração de emissor (iss)."
+
+#. translators: 1: expected issuer URL, 2: issuer URL received in the token.
+#: includes/icc-gg-sign-in-openid-connect-client.php:705 includes/icc-gg-sign-in-openid-connect-jwt-validator.php:234
+#, php-format
+msgid ""
+"Issuer mismatch - Expected: \"%1$s\", Received: \"%2$s\". Configure the correct "
+"issuer in Settings > ICC.gg Sign-In for OpenID Connect > Issuer field, or "
+"via the OIDC_ISSUER constant."
+msgstr ""
+"Incompatibilidade de emissor - Esperado: \"%1$s\", Recebido: \"%2$s\". "
+"Configure o emissor correto em Configurações > ICC.gg Sign-In for OpenID "
+"Connect > campo Issuer, ou pela constante OIDC_ISSUER."
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:714
+msgid ""
+"Token issuer does not match expected issuer. Configure the correct issuer "
+"in Settings > ICC.gg Sign-In for OpenID Connect > Issuer field, or via the "
+"OIDC_ISSUER constant."
+msgstr ""
+"O emissor do token não corresponde ao emissor esperado. Configure o "
+"emissor correto em Configurações > ICC.gg Sign-In for OpenID Connect > "
+"campo Issuer, ou pela constante OIDC_ISSUER."
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:724
+msgid "No matching acr values."
+msgstr "Nenhum valor de acr correspondente."
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:744
+msgid "Bad user claim."
+msgstr "Declaração de usuário inválida."
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:764
+msgid "Invalid user claim."
+msgstr "Declaração de usuário inválida."
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:769
+msgid "Error from the IDP."
+msgstr "Erro do provedor de identidade."
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:778
+msgid "Incorrect user claim."
+msgstr "Declaração de usuário incorreta."
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:785
+msgid "Unauthorized access."
+msgstr "Acesso não autorizado."
+
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:599
+msgid "User identity is not linked to an existing WordPress user."
+msgstr ""
+"A identidade do usuário não está vinculada a um usuário WordPress "
+"existente."
+
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:660
+msgid "Invalid user."
+msgstr "Usuário inválido."
+
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:692
+msgid "Unable to determine email address from user claim for domain validation."
+msgstr ""
+"Não foi possível determinar o endereço de e-mail a partir da "
+"declaração do usuário para validação de domínio."
+
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:706
+msgid "Unable to extract domain from email address."
+msgstr "Não foi possível extrair o domínio do endereço de e-mail."
+
+#. translators: %s is the email address or domain that was rejected
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:748
+#, php-format
+msgid ""
+"Email \"%s\" is not allowed for login. Check the allowed email or domain "
+"restrictions."
+msgstr ""
+"O e-mail \"%s\" não é permitido para login. Verifique as restrições de "
+"e-mail ou domínio permitidos."
+
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:949
+msgid "No appropriate username found."
+msgstr "Nenhum nome de usuário apropriado encontrado."
+
+#. translators: %1$s is the santitized version of the username from the IDP.
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:959
+#, php-format
+msgid "Username %1$s could not be sanitized."
+msgstr "Não foi possível sanitizar o nome de usuário %1$s."
+
+#. translators: %1$s is the configured User Claim nickname key.
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:981
+#, php-format
+msgid "No nickname found in user claim using key: %1$s."
+msgstr "Nenhum apelido encontrado na declaração do usuário usando a chave: %1$s."
+
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:1113
+msgid "User claim incomplete."
+msgstr "Declaração de usuário incompleta."
+
+#. translators: %s is the claim key that is missing from the user claim.
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:1117
+#, php-format
+msgid "Unable to find key: %s in user_claim"
+msgstr "Não foi possível encontrar a chave: %s em user_claim"
+
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:1120
+msgid "Verify OpenID Scope includes a scope with the attributes you need"
+msgstr "Verifique se o escopo OpenID inclui um escopo com os atributos necessários"
+
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:1220
+msgid "Bad user claim result."
+msgstr "Resultado inválido da declaração de usuário."
+
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:1286
+msgid "Can not authorize."
+msgstr "Não é possível autorizar."
+
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:1315
+msgid "Failed user creation."
+msgstr "Falha na criação do usuário."
+
+#: includes/icc-gg-sign-in-openid-connect-jwt-validator.php:127
+msgid "Failed to fetch JWKS from identity provider."
+msgstr "Falha ao obter o JWKS do provedor de identidade."
+
+#. translators: %d is the HTTP response code
+#: includes/icc-gg-sign-in-openid-connect-jwt-validator.php:138
+#, php-format
+msgid "JWKS endpoint returned HTTP %d"
+msgstr "O endpoint JWKS retornou HTTP %d"
+
+#: includes/icc-gg-sign-in-openid-connect-jwt-validator.php:152
+msgid "Invalid JWKS format received from identity provider."
+msgstr "Formato JWKS inválido recebido do provedor de identidade."
+
+#: includes/icc-gg-sign-in-openid-connect-jwt-validator.php:176
+msgid "Token missing subject claim."
+msgstr "O token não contém a declaração de assunto (sub)."
+
+#: includes/icc-gg-sign-in-openid-connect-jwt-validator.php:242
+msgid "Token issuer does not match expected issuer."
+msgstr "O emissor do token não corresponde ao emissor esperado."
+
+#: includes/icc-gg-sign-in-openid-connect-jwt-validator.php:316
+msgid "JWKS URI not configured. JWT signature verification requires JWKS endpoint."
+msgstr ""
+"URI do JWKS não configurada. A verificação de assinatura JWT requer o "
+"endpoint JWKS."
+
+#. translators: %s is the error message
+#: includes/icc-gg-sign-in-openid-connect-jwt-validator.php:347
+#, php-format
+msgid "JWT verification failed: %s"
+msgstr "Falha na verificação do JWT: %s"
+
+#: includes/icc-gg-sign-in-openid-connect-login-form.php:132
+msgid "Unknown error."
+msgstr "Erro desconhecido."
+
+#. translators: %1$s is the error code from the IDP.
+#: includes/icc-gg-sign-in-openid-connect-login-form.php:162
+#, php-format
+msgid "ERROR (%1$s)"
+msgstr "ERRO (%1$s)"
+
+#: includes/icc-gg-sign-in-openid-connect-login-form.php:200
+msgid ""
+"You may be logged in with a different account on the identity provider. "
+"Please logout from the identity provider first, then try again."
+msgstr ""
+"Talvez você esteja conectado com uma conta diferente no provedor de "
+"identidade. Saia do provedor de identidade primeiro e tente novamente."
+
+#: includes/icc-gg-sign-in-openid-connect-login-form.php:204
+msgid "Logout from Identity Provider"
+msgstr "Sair do provedor de identidade"
+
+#: includes/icc-gg-sign-in-openid-connect-login-form.php:225
+msgid "Login with OpenID Connect"
+msgstr "Entrar com OpenID Connect"
+
+#: includes/icc-gg-sign-in-openid-connect-option-logger.php:228
+msgid "Details"
+msgstr "Detalhes"
+
+#: includes/icc-gg-sign-in-openid-connect-option-logger.php:229
+msgid "Data"
+msgstr "Dados"
+
+#: includes/icc-gg-sign-in-openid-connect-option-logger.php:236
+msgid "Date"
+msgstr "Data"
+
+#: includes/icc-gg-sign-in-openid-connect-option-logger.php:240
+msgid "Type"
+msgstr "Tipo"
+
+#: includes/icc-gg-sign-in-openid-connect-option-logger.php:244
+msgid "User"
+msgstr "Usuário"
+
+#: includes/icc-gg-sign-in-openid-connect-option-logger.php:248
+msgid "URI "
+msgstr "URI "
+
+#: includes/icc-gg-sign-in-openid-connect-option-logger.php:252
+msgid "Response&nbsp;Time&nbsp;(sec)"
+msgstr "Tempo&nbsp;de&nbsp;resposta&nbsp;(s)"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:141
+msgid "ICC.gg Sign-In for OpenID Connect"
+msgstr "ICC.gg Sign-In for OpenID Connect"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:142
+msgid "OpenID Connect"
+msgstr "OpenID Connect"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:166
+msgid "Client Settings"
+msgstr "Configurações do cliente"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:173
+msgid "WordPress User Settings"
+msgstr "Configurações de usuário do WordPress"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:180
+msgid "Authorization Settings"
+msgstr "Configurações de autorização"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:187
+msgid "Log Settings"
+msgstr "Configurações de log"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:249
+msgid "Login Type"
+msgstr "Tipo de login"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:250
+msgid "Select how the client (login form) should provide login options."
+msgstr ""
+"Selecione como o cliente (formulário de login) deve oferecer as opções "
+"de login."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:253
+msgid "OpenID Connect button on login form"
+msgstr "Botão OpenID Connect no formulário de login"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:254
+msgid "OpenID Connect button only (no password form)"
+msgstr "Apenas botão OpenID Connect (sem formulário de senha)"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:255
+msgid "Auto Login - SSO"
+msgstr "Login automático - SSO"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:261
+msgid "Login Button Text"
+msgstr "Texto do botão de login"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:262
+msgid ""
+"Customize the text shown on the OpenID Connect login button. Leave empty to "
+"use the default text."
+msgstr ""
+"Personalize o texto exibido no botão de login do OpenID Connect. Deixe "
+"vazio para usar o texto padrão."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:263
+msgid "Login with Single Sign-On"
+msgstr "Entrar com Single Sign-On"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:268
+msgid "Login Button Logo"
+msgstr "Logotipo do botão de login"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:269
+msgid ""
+"Optional logo displayed before the text on the OpenID Connect login button. "
+"Upload or select an image from the WordPress media library."
+msgstr ""
+"Logotipo opcional exibido antes do texto no botão de login do OpenID "
+"Connect. Envie ou selecione uma imagem da biblioteca de mídia do WordPress."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:274
+msgid "Client ID"
+msgstr "ID do cliente"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:275
+msgid ""
+"The ID this client will be recognized as when connecting the to Identity "
+"provider server."
+msgstr ""
+"O ID pelo qual este cliente será reconhecido ao se conectar ao servidor "
+"provedor de identidade."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:282
+msgid "Client Secret Key"
+msgstr "Chave secreta do cliente"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:283
+msgid ""
+"Arbitrary secret key the server expects from this client. Can be anything, "
+"but should be very unique."
+msgstr ""
+"Chave secreta arbitrária que o servidor espera deste cliente. Pode ser "
+"qualquer coisa, mas deve ser muito exclusiva."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:289
+msgid "OpenID Scope"
+msgstr "Escopo OpenID"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:290
+msgid "Space separated list of scopes this client should access."
+msgstr "Lista de escopos separada por espaços que este cliente deve acessar."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:297
+msgid "Login Endpoint URL"
+msgstr "URL do endpoint de login"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:298
+msgid "Identify provider authorization endpoint."
+msgstr "Endpoint de autorização do provedor de identidade."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:305
+msgid "Userinfo Endpoint URL"
+msgstr "URL do endpoint de informações do usuário"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:306
+msgid "Identify provider User information endpoint."
+msgstr "Endpoint de informações do usuário do provedor de identidade."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:313
+msgid "Token Validation Endpoint URL"
+msgstr "URL do endpoint de validação de token"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:314
+msgid "Identify provider token endpoint."
+msgstr "Endpoint de token do provedor de identidade."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:321
+msgid "End Session Endpoint URL"
+msgstr "URL do endpoint de encerramento de sessão"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:322
+msgid "Identify provider logout endpoint."
+msgstr "Endpoint de logout do provedor de identidade."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:329
+msgid "JWKS URI"
+msgstr "URI do JWKS"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:330
+msgid ""
+"Identity provider JWKS (JSON Web Key Set) endpoint for JWT signature "
+"verification. Usually found at /.well-known/jwks.json"
+msgstr ""
+"Endpoint JWKS (JSON Web Key Set) do provedor de identidade para "
+"verificação de assinatura JWT. Geralmente encontrado em "
+"/.well-known/jwks.json"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:337
+msgid "Issuer"
+msgstr "Emissor"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:338
+msgid ""
+"Identity provider issuer URL for JWT validation. If not set, the issuer "
+"will be automatically derived from the Login Endpoint URL. Only configure "
+"this if your IDP uses a different issuer than the base URL of the login "
+"endpoint."
+msgstr ""
+"URL do emissor do provedor de identidade para validação JWT. Se não "
+"definido, o emissor será derivado automaticamente da URL do endpoint de "
+"login. Configure apenas se seu provedor usar um emissor diferente da URL "
+"base do endpoint de login."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:345
+msgid "JWKS Cache TTL (seconds)"
+msgstr "TTL do cache JWKS (segundos)"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:346
+msgid "Time in seconds to cache JWKS keys. Default: 3600 (1 hour)"
+msgstr ""
+"Tempo em segundos para armazenar em cache as chaves JWKS. Padrão: 3600 (1 "
+"hora)"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:352
+msgid "ACR values"
+msgstr "Valores ACR"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:353
+msgid "Use a specific defined authentication contract from the IDP - optional."
+msgstr ""
+"Use um contrato de autenticação específico definido pelo provedor de "
+"identidade - opcional."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:359
+msgid "Identity Key"
+msgstr "Chave de identidade"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:360
+msgid ""
+"Where in the user claim array to find the user's identification data. "
+"Possible standard values: preferred_username, name, or sub. If you're "
+"having trouble, use \"sub\"."
+msgstr ""
+"Onde, na matriz de declarações do usuário, encontrar os dados de "
+"identificação do usuário. Valores padrão possíveis: "
+"preferred_username, name ou sub. Se estiver com problemas, use \"sub\"."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:366
+msgid "HTTP Request Timeout"
+msgstr "Tempo limite de solicitação HTTP"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:367
+msgid "Set the timeout for requests made to the IDP. Default value is 5."
+msgstr ""
+"Defina o tempo limite para solicitações feitas ao provedor de identidade. "
+"O valor padrão é 5."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:373
+msgid "Enforce Privacy"
+msgstr "Impor privacidade"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:374
+msgid "Require users be logged in to see the site."
+msgstr "Exigir que os usuários estejam conectados para ver o site."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:380
+msgid "Alternate Redirect URI"
+msgstr "URI de redirecionamento alternativo"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:381
+msgid ""
+"Provide an alternative redirect route. Useful if your server is causing "
+"issues with the default admin-ajax method. You must flush rewrite rules "
+"after changing this setting. This can be done by saving the Permalinks "
+"settings page."
+msgstr ""
+"Forneça uma rota de redirecionamento alternativa. Útil se o seu servidor "
+"estiver causando problemas com o método admin-ajax padrão. Você deve "
+"liberar as regras de reescrita após alterar esta configuração. Isso pode "
+"ser feito salvando a página de configurações de Links Permanentes."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:386
+msgid "Nickname Key"
+msgstr "Chave de apelido"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:387
+msgid ""
+"Where in the user claim array to find the user's nickname. Possible "
+"standard values: preferred_username, name, or sub."
+msgstr ""
+"Onde, na matriz de declarações do usuário, encontrar o apelido do "
+"usuário. Valores padrão possíveis: preferred_username, name ou sub."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:393
+msgid "Email Formatting"
+msgstr "Formatação de e-mail"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:394
+msgid ""
+"String from which the user's email address is built. Specify \"{email}\" as "
+"long as the user claim contains an email claim."
+msgstr ""
+"String a partir da qual o endereço de e-mail do usuário é construído. "
+"Especifique \"{email}\" desde que a declaração do usuário contenha uma "
+"declaração de e-mail."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:400
+msgid "Display Name Formatting"
+msgstr "Formatação do nome de exibição"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:401
+msgid "String from which the user's display name is built."
+msgstr "String a partir da qual o nome de exibição do usuário é construído."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:407
+msgid "Identify with User Name"
+msgstr "Identificar pelo nome de usuário"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:408
+msgid ""
+"If checked, the user's identity will be determined by the user name instead "
+"of the email address."
+msgstr ""
+"Se marcado, a identidade do usuário será determinada pelo nome de "
+"usuário em vez do endereço de e-mail."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:413
+msgid "State time limit"
+msgstr "Limite de tempo do estado"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:414
+msgid "State valid time in seconds. Defaults to 180"
+msgstr "Tempo de validade do estado em segundos. Padrão: 180"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:419
+msgid "Enable Refresh Token"
+msgstr "Ativar token de atualização"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:420
+msgid ""
+"If checked, support refresh tokens used to obtain access tokens from "
+"supported IDPs."
+msgstr ""
+"Se marcado, oferece suporte a tokens de atualização usados para obter "
+"tokens de acesso de provedores de identidade compatíveis."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:425
+msgid "Disable SSL Verify"
+msgstr "Desativar verificação SSL"
+
+#. translators: %1$s HTML tags for layout/styles (strong tag start with warning class), %2$s closing HTML tag for styles.
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:427
+#, php-format
+msgid ""
+"Do not require SSL verification during authorization. %1$sOnly works in "
+"local development (WP_DEBUG=true, WP_ENVIRONMENT_TYPE=local).%2$s This "
+"setting is automatically disabled in production. If you need this in "
+"production, fix your SSL certificates instead."
+msgstr ""
+"Não exigir verificação SSL durante a autorização. %1$sFunciona apenas "
+"em desenvolvimento local (WP_DEBUG=true, WP_ENVIRONMENT_TYPE=local).%2$s "
+"Esta configuração é desativada automaticamente em produção. Se você "
+"precisa disso em produção, corrija seus certificados SSL."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:432
+msgid "Allow Internal IDP"
+msgstr "Permitir provedor de identidade interno"
+
+#. translators: %1$s HTML tags for layout/styles (strong tag start with warning class), %2$s closing HTML tag for styles.
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:434
+#, php-format
+msgid ""
+"Allow HTTP requests to internal/private network endpoints (localhost, "
+"127.0.0.1, 10.x.x.x, 192.168.x.x, 172.16-31.x.x). %1$sOnly enable this for "
+"local development or corporate internal identity providers. Disabling SSRF "
+"protection can expose your server to security risks.%2$s"
+msgstr ""
+"Permitir solicitações HTTP para endpoints de rede internos/privados "
+"(localhost, 127.0.0.1, 10.x.x.x, 192.168.x.x, 172.16-31.x.x). %1$sAtive "
+"apenas para desenvolvimento local ou provedores de identidade corporativos "
+"internos. Desativar a proteção SSRF pode expor seu servidor a riscos de "
+"segurança.%2$s"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:439
+msgid "Link Existing Users"
+msgstr "Vincular usuários existentes"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:440
+msgid ""
+"If a WordPress account already exists with the same identity as a "
+"newly-authenticated user over OpenID Connect, login as that user instead of "
+"generating an error."
+msgstr ""
+"Se já existir uma conta WordPress com a mesma identidade de um usuário "
+"recém-autenticado via OpenID Connect, faça login como esse usuário em "
+"vez de gerar um erro."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:446
+msgid "Create user if does not exist"
+msgstr "Criar usuário se não existir"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:447
+msgid ""
+"If the user identity is not linked to an existing WordPress user, it is "
+"created. If this setting is not enabled, and if the user authenticates with "
+"an account which is not linked to an existing WordPress user, then the "
+"authentication will fail."
+msgstr ""
+"Se a identidade do usuário não estiver vinculada a um usuário WordPress "
+"existente, ela será criada. Se esta configuração não estiver ativada e "
+"o usuário se autenticar com uma conta que não esteja vinculada a um "
+"usuário WordPress existente, a autenticação falhará."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:453
+msgid "Email Domain Restriction"
+msgstr "Restrição de domínio de e-mail"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:454
+msgid ""
+"Restrict login to specific email domains or full email addresses. Enter "
+"domains (e.g. \"company.com\") or full emails (e.g. \"specificuser@gmail.com\") "
+"separated by spaces. Leave empty to allow all."
+msgstr ""
+"Restrinja o login a domínios de e-mail específicos ou endereços de "
+"e-mail completos. Insira domínios (por exemplo, \"company.com\") ou e-mails "
+"completos (por exemplo, \"specificuser@gmail.com\") separados por espaços. "
+"Deixe vazio para permitir todos."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:461
+msgid "Redirect Back to Origin Page"
+msgstr "Redirecionar de volta à página de origem"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:462
+msgid ""
+"After a successful OpenID Connect authentication, this will redirect the "
+"user back to the page on which they clicked the OpenID Connect login "
+"button. This will cause the login process to proceed in a traditional "
+"WordPress fashion. For example, users logging in through the default "
+"wp-login.php page would end up on the WordPress Dashboard and users logging "
+"in through the WooCommerce \"My Account\" page would end up on their account "
+"page."
+msgstr ""
+"Após uma autenticação OpenID Connect bem-sucedida, o usuário será "
+"redirecionado de volta à página onde clicou no botão de login do OpenID "
+"Connect. Isso fará com que o processo de login prossiga da forma "
+"tradicional do WordPress. Por exemplo, usuários que fazem login pela "
+"página padrão wp-login.php terminariam no Painel do WordPress, e "
+"usuários que fazem login pela página \"Minha conta\" do WooCommerce "
+"terminariam na página da conta."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:468
+msgid "Redirect to the login screen when session is expired"
+msgstr "Redirecionar para a tela de login quando a sessão expirar"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:469
+msgid ""
+"When enabled, this will automatically redirect the user back to the "
+"WordPress login page if their access token has expired."
+msgstr ""
+"Quando ativado, redireciona automaticamente o usuário de volta à página "
+"de login do WordPress se o token de acesso expirar."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:475
+msgid "Bypass local 2FA on SSO login"
+msgstr "Ignorar 2FA local no login SSO"
+
+#. translators: %1$s and %2$s wrap a warning message in strong tags.
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:478
+#, php-format
+msgid ""
+"Skip the second-factor prompt from supported 2FA plugins when a user logs "
+"in via OpenID Connect. %1$sOnly enable this when multi-factor "
+"authentication is enforced at the identity provider.%2$s"
+msgstr ""
+"Pule a solicitação de segundo fator de plugins 2FA compatíveis quando um "
+"usuário fizer login via OpenID Connect. %1$sAtive isto somente quando a "
+"autenticação multifator for imposta no provedor de identidade.%2$s"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:484
+msgid "None (do not bypass)"
+msgstr "Nenhum (não ignorar)"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:485
+msgid "Admin and Site Enhancements (ASE)"
+msgstr "Admin and Site Enhancements (ASE)"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:486
+msgid "WP 2FA - Two-factor authentication (Melapress)"
+msgstr "WP 2FA - Two-factor authentication (Melapress)"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:492
+msgid "Enable Logging"
+msgstr "Ativar registro"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:493
+msgid "Very simple log messages for debugging purposes."
+msgstr "Mensagens de log muito simples para fins de depuração."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:499
+msgid "Log Limit"
+msgstr "Limite de log"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:500
+msgid ""
+"Number of items to keep in the log. These logs are stored as an option in "
+"the database, so space is limited."
+msgstr ""
+"Número de itens a manter no log. Esses logs são armazenados como uma "
+"opção no banco de dados, portanto o espaço é limitado."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:593
+msgid "Choose Login Button Logo"
+msgstr "Escolher logotipo do botão de login"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:594
+msgid "Use this image"
+msgstr "Usar esta imagem"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:620
+msgid "Notes"
+msgstr "Notas"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:623
+msgid "Redirect URI"
+msgstr "URI de redirecionamento"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:627
+msgid "Login Button Shortcode"
+msgstr "Shortcode do botão de login"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:631
+msgid "Authentication URL Shortcode"
+msgstr "Shortcode da URL de autenticação"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:636
+msgid "Logs"
+msgstr "Logs"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:645
+msgid "ICC.gg Sign-In for OpenID Connect - OpenID Connect SSO Plugin for WordPress"
+msgstr "ICC.gg Sign-In for OpenID Connect - Plugin SSO OpenID Connect para WordPress"
+
+#. translators: %s: New version number.
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:663
+#, php-format
+msgid "Update available: v%s"
+msgstr "Atualização disponível: v%s"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:721
+msgid "Choose Logo"
+msgstr "Escolher logotipo"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:724
+msgid "Remove Logo"
+msgstr "Remover logotipo"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:791
+msgid "Example"
+msgstr "Exemplo"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:804
+msgid "Enter your OpenID Connect identity provider settings."
+msgstr "Insira as configurações do seu provedor de identidade OpenID Connect."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:813
+msgid "Modify the interaction between OpenID Connect and WordPress users."
+msgstr "Modifique a interação entre o OpenID Connect e os usuários do WordPress."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:822
+msgid "Control the authorization mechanics of the site."
+msgstr "Controle a mecânica de autorização do site."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:831
+msgid ""
+"Log information about login attempts through ICC.gg Sign-In for OpenID "
+"Connect."
+msgstr ""
+"Registre informações sobre tentativas de login via ICC.gg Sign-In for "
+"OpenID Connect."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:846
+msgid "Please enter a discovery URL."
+msgstr "Insira uma URL de descoberta."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:855
+msgid "Invalid discovery URL format."
+msgstr "Formato de URL de descoberta inválido."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:866
+msgid "Discovery URL must use HTTPS in production environments."
+msgstr "A URL de descoberta deve usar HTTPS em ambientes de produção."
+
+#. translators: %s: error message
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:886
+#, php-format
+msgid "Failed to fetch discovery document: %s"
+msgstr "Falha ao obter o documento de descoberta: %s"
+
+#. translators: %d: HTTP status code
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:898
+#, php-format
+msgid "Discovery document request returned HTTP %d."
+msgstr "A solicitação do documento de descoberta retornou HTTP %d."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:911
+msgid "Discovery document is not valid JSON."
+msgstr "O documento de descoberta não é um JSON válido."
+
+#. translators: %s: comma-separated list of missing fields
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:930
+#, php-format
+msgid "Discovery document is missing required fields: %s"
+msgstr "O documento de descoberta está sem campos obrigatórios: %s"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:995
+msgid "Security check failed. Please try again."
+msgstr "Falha na verificação de segurança. Tente novamente."
+
+#. translators: 1: discovery document URL, 2: comma-separated list of populated settings fields.
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:1026
+#, php-format
+msgid "Configuration loaded from discovery URL: %1$s. Populated fields: %2$s"
+msgstr ""
+"Configuração carregada da URL de descoberta: %1$s. Campos preenchidos: "
+"%2$s"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:1041
+#, php-format
+msgid ""
+"Configuration loaded successfully! %d field was populated. Review the "
+"settings below and click \"Save Changes\" to apply."
+msgid_plural ""
+"Configuration loaded successfully! %d fields were populated. Review the "
+"settings below and click \"Save Changes\" to apply."
+msgstr[0] ""
+"Configuração carregada com sucesso! %d campo foi preenchido. Revise as "
+"configurações abaixo e clique em \"Salvar alterações\" para aplicar."
+msgstr[1] ""
+"Configuração carregada com sucesso! %d campos foram preenchidos. Revise "
+"as configurações abaixo e clique em \"Salvar alterações\" para aplicar."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:1067
+msgid "Quick Setup: Import from Discovery Document"
+msgstr "Configuração rápida: importar do documento de descoberta"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:1071
+msgid ""
+"Auto-populate endpoint settings from your identity provider's OpenID "
+"Connect discovery document. After loading, review the populated fields "
+"below and click \"Save Changes\" to apply."
+msgstr ""
+"Preencha automaticamente as configurações de endpoint a partir do "
+"documento de descoberta OpenID Connect do seu provedor de identidade. Após "
+"carregar, revise os campos preenchidos abaixo e clique em \"Salvar "
+"alterações\" para aplicar."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:1079
+msgid "Discovery URL"
+msgstr "URL de descoberta"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:1091
+msgid "Enter your identity provider's OpenID Connect discovery endpoint URL."
+msgstr ""
+"Insira a URL do endpoint de descoberta OpenID Connect do seu provedor de "
+"identidade."
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:1093
+msgid "Examples:"
+msgstr "Exemplos:"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:1104
+msgid "Load Configuration"
+msgstr "Carregar configuração"

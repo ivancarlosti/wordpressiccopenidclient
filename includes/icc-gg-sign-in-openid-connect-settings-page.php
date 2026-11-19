@@ -260,7 +260,7 @@ class ICC_GG_Sign_In_OpenID_Connect_Settings_Page {
 			'login_button_text' => array(
 				'title'       => __( 'Login Button Text', 'icc-gg-sign-in-openid-connect' ),
 				'description' => __( 'Customize the text shown on the OpenID Connect login button. Leave empty to use the default text.', 'icc-gg-sign-in-openid-connect' ),
-				'example'     => 'Login with Single Sign-On',
+				'example'     => __( 'Login with Single Sign-On', 'icc-gg-sign-in-openid-connect' ),
 				'type'        => 'text',
 				'section'     => 'client_settings',
 			),
@@ -572,10 +572,20 @@ class ICC_GG_Sign_In_OpenID_Connect_Settings_Page {
 		// Handle discovery form submission before any output.
 		$this->handle_discovery_import();
 
-		wp_enqueue_style( 'icc-gg-sign-in-openid-connect-admin', plugin_dir_url( __DIR__ ) . 'css/styles-admin.css', array(), ICC_GG_Sign_In_OpenID_Connect::VERSION, 'all' );
+		wp_enqueue_style( 'icc-gg-sign-in-openid-connect-admin', ICC_GG_SIGN_IN_OPENID_CONNECT_PLUGIN_DIR . 'css/styles-admin.css', array(), ICC_GG_Sign_In_OpenID_Connect::VERSION, 'all' );
+
+		if ( function_exists( 'icc_gg_sign_in_openid_connect_is_rtl_locale' ) && icc_gg_sign_in_openid_connect_is_rtl_locale() ) {
+			wp_enqueue_style(
+				'icc-gg-sign-in-openid-connect-admin-rtl',
+				ICC_GG_SIGN_IN_OPENID_CONNECT_PLUGIN_DIR . 'css/styles-admin-rtl.css',
+				array( 'icc-gg-sign-in-openid-connect-admin' ),
+				ICC_GG_Sign_In_OpenID_Connect::VERSION,
+				'all'
+			);
+		}
 
 		wp_enqueue_media();
-		wp_enqueue_script( 'icc-gg-sign-in-openid-connect-admin', plugin_dir_url( __DIR__ ) . 'js/scripts-admin.js', array( 'jquery' ), ICC_GG_Sign_In_OpenID_Connect::VERSION, true );
+		wp_enqueue_script( 'icc-gg-sign-in-openid-connect-admin', ICC_GG_SIGN_IN_OPENID_CONNECT_PLUGIN_DIR . 'js/scripts-admin.js', array( 'jquery' ), ICC_GG_Sign_In_OpenID_Connect::VERSION, true );
 		wp_localize_script(
 			'icc-gg-sign-in-openid-connect-admin',
 			'iccGgSignInOpenIdConnectAdmin',
@@ -1012,7 +1022,8 @@ class ICC_GG_Sign_In_OpenID_Connect_Settings_Page {
 		// Log the import.
 		$this->logger->log(
 			sprintf(
-				'Configuration loaded from discovery URL: %s. Populated fields: %s',
+				/* translators: 1: discovery document URL, 2: comma-separated list of populated settings fields. */
+				__( 'Configuration loaded from discovery URL: %1$s. Populated fields: %2$s', 'icc-gg-sign-in-openid-connect' ),
 				$discovery_url,
 				implode( ', ', $populated_fields )
 			),

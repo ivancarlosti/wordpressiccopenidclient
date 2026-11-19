@@ -1112,8 +1112,12 @@ class ICC_GG_Sign_In_OpenID_Connect_Client_Wrapper {
 							'incomplete-user-claim',
 							__( 'User claim incomplete.', 'icc-gg-sign-in-openid-connect' ),
 							array(
-								'message'    => 'Unable to find key: ' . $key . ' in user_claim',
-								'hint'       => 'Verify OpenID Scope includes a scope with the attributes you need',
+								'message'    => sprintf(
+									/* translators: %s is the claim key that is missing from the user claim. */
+									__( 'Unable to find key: %s in user_claim', 'icc-gg-sign-in-openid-connect' ),
+									$key
+								),
+								'hint'       => __( 'Verify OpenID Scope includes a scope with the attributes you need', 'icc-gg-sign-in-openid-connect' ),
 								'user_claim' => $user_claim,
 								'format'     => $format,
 							)

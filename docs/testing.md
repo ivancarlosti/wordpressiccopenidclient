@@ -31,6 +31,35 @@ php tests/get-redirect-to.php
 Expected output ends with `All redirect_to assertions passed.`. A non-zero exit code means the
 fallback or the string handling regressed.
 
+## Translations and RTL
+
+The bundled catalogs in `languages/` are compiled and validated without WordPress:
+
+```bash
+sh tests/build-translations.sh --check-pot
+```
+
+The script compiles every `.po` with `msgfmt --check --check-format`, fails on `fuzzy`, `untranslated`
+or `obsolete` entries, fails when a catalog is missing an entry the `.pot` has and, with
+`--check-pot`, re-extracts the strings with `xgettext` and fails when the committed template is stale.
+It ends with `✅ All translation catalogs compiled.`
+
+Two smaller harnesses run on their own and are also invoked by the script:
+
+```bash
+php tests/check-translations.php    # parses the compiled .mo files
+php tests/check-i18n-bootstrap.php  # loads the plugin and checks the i18n wiring
+```
+
+`check-translations.php` only needs PHP (`msgfmt` is used when installed) and verifies, per locale,
+that the catalog compiles, that no `msgstr` is empty, that placeholders and HTML markup survive
+translation and that **Settings** really is translated. `check-i18n-bootstrap.php` stubs the
+WordPress functions the plugin calls while loading, then asserts the textdomain hook, the locale
+mapping (`pt-BR` → `pt_BR`, `en_GB` → `en_US`, `ar_SA` → `ar`, …), `is_rtl_locale()` and the
+direction/body-class filters.
+
+See [`i18n.md`](i18n.md) for the locale table, the loading logic and the translator rules.
+
 ## Release ZIP check
 
 The only asset WordPress can install is `icc-gg-sign-in-openid-connect.zip`, whose single root folder

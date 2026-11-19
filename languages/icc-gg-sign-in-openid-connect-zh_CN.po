@@ -1,0 +1,1004 @@
+# Copyright (C) 2026 ICC.gg
+# This file is distributed under the same license as the ICC.gg Sign-In for OpenID Connect package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ICC.gg Sign-In for OpenID Connect 3.1.5\n"
+"Report-Msgid-Bugs-To: https://github.com/ICC-gg/wordpressiccopenidclient/issues\n"
+"POT-Creation-Date: 2026-11-19 12:00+0000\n"
+"PO-Revision-Date: 2026-11-19 12:00+0000\n"
+"Last-Translator: ICC.gg <support@icc.gg>\n"
+"Language-Team: ICC.gg <support@icc.gg>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Domain: icc-gg-sign-in-openid-connect\n"
+
+#. translators: 1: plugin name, 2: required PHP version, 3: current PHP version.
+#: icc-gg-sign-in-openid-connect.php:107
+#, php-format
+msgid ""
+"%1$s requires PHP %2$s or later. This site runs PHP %3$s, so the plugin has "
+"been deactivated."
+msgstr ""
+"%1$s 需要 PHP %2$s 或更高版本。此站点运行 PHP "
+"%3$s，因此该插件已被停用。"
+
+#: icc-gg-sign-in-openid-connect.php:463
+msgid "Private site"
+msgstr "私有站点"
+
+#: icc-gg-sign-in-openid-connect.php:493
+msgid "ICC.gg Sign-In for OpenID Connect - Security Configuration Required"
+msgstr "ICC.gg Sign-In for OpenID Connect - 需要安全配置"
+
+#. translators: %s is a link to the settings page
+#: icc-gg-sign-in-openid-connect.php:500
+#, php-format
+msgid ""
+"Your OpenID Connect authentication is using an insecure fallback method. "
+"You must configure the <strong>JWKS endpoint</strong> in <a "
+"href=\"%s\">plugin settings</a> as soon as possible."
+msgstr ""
+"您的 OpenID Connect "
+"身份验证正在使用不安全的回退方法。请尽快在<a "
+"href=\"%s\">插件设置</a>中配置 <strong>JWKS 端点</strong>。"
+
+#: icc-gg-sign-in-openid-connect.php:507
+msgid ""
+"The current insecure fallback will be removed in version 3.12.0. After that "
+"update, authentication will fail until the JWKS endpoint is configured."
+msgstr ""
+"当前不安全的回退方法将在 3.12.0 "
+"版本中移除。该更新后，在配置 JWKS "
+"端点之前身份验证将失败。"
+
+#: icc-gg-sign-in-openid-connect.php:510
+msgid "Common JWKS endpoints:"
+msgstr "常见 JWKS 端点："
+
+#: includes/functions.php:46
+msgid "Settings"
+msgstr "设置"
+
+#: includes/functions.php:73 includes/icc-gg-sign-in-openid-connect-settings-page.php:653
+msgid "Check for updates"
+msgstr "检查更新"
+
+#: includes/functions.php:80 includes/functions.php:167 includes/icc-gg-sign-in-openid-connect-settings-page.php:677
+msgid "Release notes"
+msgstr "版本说明"
+
+#: includes/functions.php:97
+msgid "Sorry, you are not allowed to check for plugin updates on this site."
+msgstr "抱歉，您无权在此站点检查插件更新。"
+
+#: includes/functions.php:103
+msgid "The update checker is not available."
+msgstr "更新检查器不可用。"
+
+#. translators: 1: New version number, 2: Installed version number.
+#: includes/functions.php:148
+#, php-format
+msgid ""
+"<strong>ICC.gg Sign-In for OpenID Connect %1$s is available.</strong> You "
+"are running version %2$s."
+msgstr ""
+"<strong>ICC.gg Sign-In for OpenID Connect %1$s "
+"已可用。</strong>您正在运行版本 %2$s。"
+
+#: includes/functions.php:159 includes/icc-gg-sign-in-openid-connect-settings-page.php:671
+msgid "Update now"
+msgstr "立即更新"
+
+#. translators: %s: Installed version number.
+#: includes/functions.php:186
+#, php-format
+msgid "ICC.gg Sign-In for OpenID Connect is up to date (version %s)."
+msgstr "ICC.gg Sign-In for OpenID Connect 已是最新版本（版本 %s）。"
+
+#: includes/functions.php:197
+msgid "The update check could not reach GitHub. Please try again in a few minutes."
+msgstr "更新检查无法连接 GitHub。请几分钟后重试。"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:248
+msgid "An unknown error occurred."
+msgstr "发生未知错误。"
+
+#. translators: 1: error code returned by the identity provider, 2: error description returned by the identity provider.
+#: includes/icc-gg-sign-in-openid-connect-client.php:254
+#, php-format
+msgid "IDP error %1$s: %2$s"
+msgstr "身份提供程序错误 %1$s：%2$s"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:265
+msgid "No authentication code present in the request."
+msgstr "请求中没有身份验证代码。"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:271
+msgid "Missing state."
+msgstr "缺少状态。"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:275
+msgid "Invalid state."
+msgstr "状态无效。"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:290
+msgid "Missing authentication code."
+msgstr "缺少身份验证代码。"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:335
+msgid "Request for authentication token failed."
+msgstr "身份验证令牌请求失败。"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:368
+msgid "Refresh token failed."
+msgstr "刷新令牌失败。"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:383
+msgid "Missing token body."
+msgstr "缺少令牌主体。"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:391
+msgid "Invalid token."
+msgstr "令牌无效。"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:452
+msgid "Request for userinfo failed."
+msgstr "用户信息请求失败。"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:516
+msgid "Missing authentication state."
+msgstr "缺少身份验证状态。"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:537
+msgid "Invalid token response."
+msgstr "令牌响应无效。"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:553
+msgid "No identity token."
+msgstr "没有身份令牌。"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:593
+msgid "Missing identity token."
+msgstr "缺少身份令牌。"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:652
+msgid "Bad ID token claim."
+msgstr "ID 令牌声明无效。"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:657
+msgid "No subject identity."
+msgstr "没有主体标识。"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:662 includes/icc-gg-sign-in-openid-connect-jwt-validator.php:184
+msgid "Token missing expiration claim."
+msgstr "令牌缺少过期声明。"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:665
+msgid "Token has expired."
+msgstr "令牌已过期。"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:670 includes/icc-gg-sign-in-openid-connect-jwt-validator.php:192
+msgid "Token missing issued at claim."
+msgstr "令牌缺少签发时间声明。"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:675 includes/icc-gg-sign-in-openid-connect-jwt-validator.php:200
+msgid "Token missing audience claim."
+msgstr "令牌缺少受众声明。"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:688 includes/icc-gg-sign-in-openid-connect-jwt-validator.php:217
+msgid "Token audience does not match client."
+msgstr "令牌受众与客户端不匹配。"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:698 includes/icc-gg-sign-in-openid-connect-jwt-validator.php:226
+msgid "Token missing issuer claim."
+msgstr "令牌缺少签发者声明。"
+
+#. translators: 1: expected issuer URL, 2: issuer URL received in the token.
+#: includes/icc-gg-sign-in-openid-connect-client.php:705 includes/icc-gg-sign-in-openid-connect-jwt-validator.php:234
+#, php-format
+msgid ""
+"Issuer mismatch - Expected: \"%1$s\", Received: \"%2$s\". Configure the correct "
+"issuer in Settings > ICC.gg Sign-In for OpenID Connect > Issuer field, or "
+"via the OIDC_ISSUER constant."
+msgstr ""
+"签发者不匹配 - 预期：\"%1$s\"，实际：\"%2$s\"。请在“设置 > "
+"ICC.gg Sign-In for OpenID Connect > "
+"Issuer”字段中配置正确的签发者，或通过 OIDC_ISSUER "
+"常量配置。"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:714
+msgid ""
+"Token issuer does not match expected issuer. Configure the correct issuer "
+"in Settings > ICC.gg Sign-In for OpenID Connect > Issuer field, or via the "
+"OIDC_ISSUER constant."
+msgstr ""
+"令牌签发者与预期签发者不匹配。请在“设置 > ICC.gg "
+"Sign-In for OpenID Connect > "
+"Issuer”字段中配置正确的签发者，或通过 OIDC_ISSUER "
+"常量配置。"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:724
+msgid "No matching acr values."
+msgstr "没有匹配的 acr 值。"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:744
+msgid "Bad user claim."
+msgstr "用户声明无效。"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:764
+msgid "Invalid user claim."
+msgstr "用户声明无效。"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:769
+msgid "Error from the IDP."
+msgstr "来自 IdP 的错误。"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:778
+msgid "Incorrect user claim."
+msgstr "用户声明不正确。"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:785
+msgid "Unauthorized access."
+msgstr "未授权访问。"
+
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:599
+msgid "User identity is not linked to an existing WordPress user."
+msgstr "用户身份未关联到现有的 WordPress 用户。"
+
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:660
+msgid "Invalid user."
+msgstr "用户无效。"
+
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:692
+msgid "Unable to determine email address from user claim for domain validation."
+msgstr "无法从用户声明中确定用于域验证的电子邮件地址。"
+
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:706
+msgid "Unable to extract domain from email address."
+msgstr "无法从电子邮件地址中提取域。"
+
+#. translators: %s is the email address or domain that was rejected
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:748
+#, php-format
+msgid ""
+"Email \"%s\" is not allowed for login. Check the allowed email or domain "
+"restrictions."
+msgstr ""
+"不允许使用电子邮件“%s”登录。请检查允许的电子邮件"
+"或域限制。"
+
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:949
+msgid "No appropriate username found."
+msgstr "未找到合适的用户名。"
+
+#. translators: %1$s is the santitized version of the username from the IDP.
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:959
+#, php-format
+msgid "Username %1$s could not be sanitized."
+msgstr "用户名 %1$s 无法清理。"
+
+#. translators: %1$s is the configured User Claim nickname key.
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:981
+#, php-format
+msgid "No nickname found in user claim using key: %1$s."
+msgstr "使用密钥在用户声明中未找到昵称：%1$s。"
+
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:1113
+msgid "User claim incomplete."
+msgstr "用户声明不完整。"
+
+#. translators: %s is the claim key that is missing from the user claim.
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:1117
+#, php-format
+msgid "Unable to find key: %s in user_claim"
+msgstr "在 user_claim 中找不到密钥：%s"
+
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:1120
+msgid "Verify OpenID Scope includes a scope with the attributes you need"
+msgstr "请验证 OpenID 范围包含您所需属性的范围"
+
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:1220
+msgid "Bad user claim result."
+msgstr "用户声明结果无效。"
+
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:1286
+msgid "Can not authorize."
+msgstr "无法授权。"
+
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:1315
+msgid "Failed user creation."
+msgstr "用户创建失败。"
+
+#: includes/icc-gg-sign-in-openid-connect-jwt-validator.php:127
+msgid "Failed to fetch JWKS from identity provider."
+msgstr "无法从身份提供程序获取 JWKS。"
+
+#. translators: %d is the HTTP response code
+#: includes/icc-gg-sign-in-openid-connect-jwt-validator.php:138
+#, php-format
+msgid "JWKS endpoint returned HTTP %d"
+msgstr "JWKS 端点返回 HTTP %d"
+
+#: includes/icc-gg-sign-in-openid-connect-jwt-validator.php:152
+msgid "Invalid JWKS format received from identity provider."
+msgstr "从身份提供程序收到的 JWKS 格式无效。"
+
+#: includes/icc-gg-sign-in-openid-connect-jwt-validator.php:176
+msgid "Token missing subject claim."
+msgstr "令牌缺少主体声明。"
+
+#: includes/icc-gg-sign-in-openid-connect-jwt-validator.php:242
+msgid "Token issuer does not match expected issuer."
+msgstr "令牌签发者与预期签发者不匹配。"
+
+#: includes/icc-gg-sign-in-openid-connect-jwt-validator.php:316
+msgid "JWKS URI not configured. JWT signature verification requires JWKS endpoint."
+msgstr "未配置 JWKS URI。JWT 签名验证需要 JWKS 端点。"
+
+#. translators: %s is the error message
+#: includes/icc-gg-sign-in-openid-connect-jwt-validator.php:347
+#, php-format
+msgid "JWT verification failed: %s"
+msgstr "JWT 验证失败：%s"
+
+#: includes/icc-gg-sign-in-openid-connect-login-form.php:132
+msgid "Unknown error."
+msgstr "未知错误。"
+
+#. translators: %1$s is the error code from the IDP.
+#: includes/icc-gg-sign-in-openid-connect-login-form.php:162
+#, php-format
+msgid "ERROR (%1$s)"
+msgstr "错误 (%1$s)"
+
+#: includes/icc-gg-sign-in-openid-connect-login-form.php:200
+msgid ""
+"You may be logged in with a different account on the identity provider. "
+"Please logout from the identity provider first, then try again."
+msgstr ""
+"您可能在身份提供程序上使用其他账户登录。请先退出身"
+"份提供程序，然后重试。"
+
+#: includes/icc-gg-sign-in-openid-connect-login-form.php:204
+msgid "Logout from Identity Provider"
+msgstr "从身份提供程序退出登录"
+
+#: includes/icc-gg-sign-in-openid-connect-login-form.php:225
+msgid "Login with OpenID Connect"
+msgstr "使用 OpenID Connect 登录"
+
+#: includes/icc-gg-sign-in-openid-connect-option-logger.php:228
+msgid "Details"
+msgstr "详细信息"
+
+#: includes/icc-gg-sign-in-openid-connect-option-logger.php:229
+msgid "Data"
+msgstr "数据"
+
+#: includes/icc-gg-sign-in-openid-connect-option-logger.php:236
+msgid "Date"
+msgstr "日期"
+
+#: includes/icc-gg-sign-in-openid-connect-option-logger.php:240
+msgid "Type"
+msgstr "类型"
+
+#: includes/icc-gg-sign-in-openid-connect-option-logger.php:244
+msgid "User"
+msgstr "用户"
+
+#: includes/icc-gg-sign-in-openid-connect-option-logger.php:248
+msgid "URI "
+msgstr "URI "
+
+#: includes/icc-gg-sign-in-openid-connect-option-logger.php:252
+msgid "Response&nbsp;Time&nbsp;(sec)"
+msgstr "响应&nbsp;时间&nbsp;（秒）"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:141
+msgid "ICC.gg Sign-In for OpenID Connect"
+msgstr "ICC.gg Sign-In for OpenID Connect"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:142
+msgid "OpenID Connect"
+msgstr "OpenID Connect"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:166
+msgid "Client Settings"
+msgstr "客户端设置"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:173
+msgid "WordPress User Settings"
+msgstr "WordPress 用户设置"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:180
+msgid "Authorization Settings"
+msgstr "授权设置"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:187
+msgid "Log Settings"
+msgstr "日志设置"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:249
+msgid "Login Type"
+msgstr "登录类型"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:250
+msgid "Select how the client (login form) should provide login options."
+msgstr "选择客户端（登录表单）应如何提供登录选项。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:253
+msgid "OpenID Connect button on login form"
+msgstr "登录表单上的 OpenID Connect 按钮"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:254
+msgid "OpenID Connect button only (no password form)"
+msgstr "仅 OpenID Connect 按钮（无密码表单）"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:255
+msgid "Auto Login - SSO"
+msgstr "自动登录 - SSO"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:261
+msgid "Login Button Text"
+msgstr "登录按钮文本"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:262
+msgid ""
+"Customize the text shown on the OpenID Connect login button. Leave empty to "
+"use the default text."
+msgstr ""
+"自定义 OpenID Connect "
+"登录按钮上显示的文本。留空以使用默认文本。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:263
+msgid "Login with Single Sign-On"
+msgstr "使用单点登录登录"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:268
+msgid "Login Button Logo"
+msgstr "登录按钮徽标"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:269
+msgid ""
+"Optional logo displayed before the text on the OpenID Connect login button. "
+"Upload or select an image from the WordPress media library."
+msgstr ""
+"可选徽标，显示在 OpenID Connect 登录按钮文本之前。从 "
+"WordPress 媒体库上传或选择图像。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:274
+msgid "Client ID"
+msgstr "客户端 ID"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:275
+msgid ""
+"The ID this client will be recognized as when connecting the to Identity "
+"provider server."
+msgstr "此客户端连接身份提供程序服务器时将被识别的 ID。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:282
+msgid "Client Secret Key"
+msgstr "客户端密钥"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:283
+msgid ""
+"Arbitrary secret key the server expects from this client. Can be anything, "
+"but should be very unique."
+msgstr ""
+"服务器期望此客户端提供的任意密钥。可以是任何内容，"
+"但应非常唯一。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:289
+msgid "OpenID Scope"
+msgstr "OpenID 范围"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:290
+msgid "Space separated list of scopes this client should access."
+msgstr "此客户端应访问的以空格分隔的范围列表。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:297
+msgid "Login Endpoint URL"
+msgstr "登录端点 URL"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:298
+msgid "Identify provider authorization endpoint."
+msgstr "身份提供程序授权端点。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:305
+msgid "Userinfo Endpoint URL"
+msgstr "用户信息端点 URL"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:306
+msgid "Identify provider User information endpoint."
+msgstr "身份提供程序用户信息端点。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:313
+msgid "Token Validation Endpoint URL"
+msgstr "令牌验证端点 URL"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:314
+msgid "Identify provider token endpoint."
+msgstr "身份提供程序令牌端点。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:321
+msgid "End Session Endpoint URL"
+msgstr "结束会话端点 URL"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:322
+msgid "Identify provider logout endpoint."
+msgstr "身份提供程序退出登录端点。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:329
+msgid "JWKS URI"
+msgstr "JWKS URI"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:330
+msgid ""
+"Identity provider JWKS (JSON Web Key Set) endpoint for JWT signature "
+"verification. Usually found at /.well-known/jwks.json"
+msgstr ""
+"身份提供程序 JWKS（JSON Web Key Set）端点，用于 JWT "
+"签名验证。通常位于 /.well-known/jwks.json"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:337
+msgid "Issuer"
+msgstr "签发者"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:338
+msgid ""
+"Identity provider issuer URL for JWT validation. If not set, the issuer "
+"will be automatically derived from the Login Endpoint URL. Only configure "
+"this if your IDP uses a different issuer than the base URL of the login "
+"endpoint."
+msgstr ""
+"用于 JWT 验证的身份提供程序签发者 "
+"URL。如果未设置，签发者将从登录端点 URL "
+"自动派生。仅当您的 IdP 使用的签发者与登录端点的基 URL "
+"不同时才进行配置。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:345
+msgid "JWKS Cache TTL (seconds)"
+msgstr "JWKS 缓存 TTL（秒）"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:346
+msgid "Time in seconds to cache JWKS keys. Default: 3600 (1 hour)"
+msgstr "缓存 JWKS 密钥的时间（秒）。默认：3600（1 小时）"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:352
+msgid "ACR values"
+msgstr "ACR 值"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:353
+msgid "Use a specific defined authentication contract from the IDP - optional."
+msgstr "使用 IdP 定义的特定身份验证合约 - 可选。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:359
+msgid "Identity Key"
+msgstr "身份密钥"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:360
+msgid ""
+"Where in the user claim array to find the user's identification data. "
+"Possible standard values: preferred_username, name, or sub. If you're "
+"having trouble, use \"sub\"."
+msgstr ""
+"在用户声明数组中查找用户身份数据的位置。可能的標準"
+"值：preferred_username、name 或 sub。如果遇到问题，请使用 "
+"\"sub\"。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:366
+msgid "HTTP Request Timeout"
+msgstr "HTTP 请求超时"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:367
+msgid "Set the timeout for requests made to the IDP. Default value is 5."
+msgstr "设置向 IdP 发出请求的超时时间。默认值为 5。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:373
+msgid "Enforce Privacy"
+msgstr "强制隐私"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:374
+msgid "Require users be logged in to see the site."
+msgstr "要求用户登录后才能查看站点。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:380
+msgid "Alternate Redirect URI"
+msgstr "备用重定向 URI"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:381
+msgid ""
+"Provide an alternative redirect route. Useful if your server is causing "
+"issues with the default admin-ajax method. You must flush rewrite rules "
+"after changing this setting. This can be done by saving the Permalinks "
+"settings page."
+msgstr ""
+"提供备用重定向路由。如果您的服务器在默认 admin-ajax "
+"方法上出现问题，这将很有用。更改此设置后必须刷新重"
+"写规则。可以通过保存固定链接设置页面来完成。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:386
+msgid "Nickname Key"
+msgstr "昵称密钥"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:387
+msgid ""
+"Where in the user claim array to find the user's nickname. Possible "
+"standard values: preferred_username, name, or sub."
+msgstr ""
+"在用户声明数组中查找用户昵称的位置。可能的標準值：p"
+"referred_username、name 或 sub。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:393
+msgid "Email Formatting"
+msgstr "电子邮件格式"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:394
+msgid ""
+"String from which the user's email address is built. Specify \"{email}\" as "
+"long as the user claim contains an email claim."
+msgstr ""
+"用于构建用户电子邮件地址的字符串。只要用户声明包含"
+"电子邮件声明，就指定 \"{email}\"。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:400
+msgid "Display Name Formatting"
+msgstr "显示名称格式"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:401
+msgid "String from which the user's display name is built."
+msgstr "用于构建用户显示名称的字符串。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:407
+msgid "Identify with User Name"
+msgstr "使用用户名标识"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:408
+msgid ""
+"If checked, the user's identity will be determined by the user name instead "
+"of the email address."
+msgstr ""
+"如果勾选，用户身份将由用户名而不是电子邮件地址确定"
+"。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:413
+msgid "State time limit"
+msgstr "状态时间限制"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:414
+msgid "State valid time in seconds. Defaults to 180"
+msgstr "状态有效期（秒）。默认为 180"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:419
+msgid "Enable Refresh Token"
+msgstr "启用刷新令牌"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:420
+msgid ""
+"If checked, support refresh tokens used to obtain access tokens from "
+"supported IDPs."
+msgstr ""
+"如果勾选，支持用于从受支持的 IdP "
+"获取访问令牌的刷新令牌。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:425
+msgid "Disable SSL Verify"
+msgstr "禁用 SSL 验证"
+
+#. translators: %1$s HTML tags for layout/styles (strong tag start with warning class), %2$s closing HTML tag for styles.
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:427
+#, php-format
+msgid ""
+"Do not require SSL verification during authorization. %1$sOnly works in "
+"local development (WP_DEBUG=true, WP_ENVIRONMENT_TYPE=local).%2$s This "
+"setting is automatically disabled in production. If you need this in "
+"production, fix your SSL certificates instead."
+msgstr ""
+"授权期间不要求 SSL "
+"验证。%1$s仅适用于本地开发（WP_DEBUG=true、WP_ENVIRONMENT_TYPE="
+"local）。%2$s此设置在生产环境中会自动禁用。如果您在生"
+"产环境中需要此功能，请修复您的 SSL 证书。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:432
+msgid "Allow Internal IDP"
+msgstr "允许内部 IdP"
+
+#. translators: %1$s HTML tags for layout/styles (strong tag start with warning class), %2$s closing HTML tag for styles.
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:434
+#, php-format
+msgid ""
+"Allow HTTP requests to internal/private network endpoints (localhost, "
+"127.0.0.1, 10.x.x.x, 192.168.x.x, 172.16-31.x.x). %1$sOnly enable this for "
+"local development or corporate internal identity providers. Disabling SSRF "
+"protection can expose your server to security risks.%2$s"
+msgstr ""
+"允许向内部/专用网络端点（localhost、127.0.0.1、10.x.x.x、192."
+"168.x.x、172.16-31.x.x）发出 HTTP "
+"请求。%1$s仅在本地开发或企业内部身份提供程序时启用。"
+"禁用 SSRF 保护可能会使您的服务器面临安全风险。%2$s"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:439
+msgid "Link Existing Users"
+msgstr "关联现有用户"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:440
+msgid ""
+"If a WordPress account already exists with the same identity as a "
+"newly-authenticated user over OpenID Connect, login as that user instead of "
+"generating an error."
+msgstr ""
+"如果已存在与通过 OpenID Connect "
+"新认证用户具有相同身份的 WordPress "
+"账户，请以该用户身份登录，而不是生成错误。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:446
+msgid "Create user if does not exist"
+msgstr "如果不存在则创建用户"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:447
+msgid ""
+"If the user identity is not linked to an existing WordPress user, it is "
+"created. If this setting is not enabled, and if the user authenticates with "
+"an account which is not linked to an existing WordPress user, then the "
+"authentication will fail."
+msgstr ""
+"如果用户身份未关联到现有的 WordPress "
+"用户，则会创建该用户。如果未启用此设置，并且用户使"
+"用未关联到现有 WordPress "
+"用户的账户进行身份验证，则身份验证将失败。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:453
+msgid "Email Domain Restriction"
+msgstr "电子邮件域限制"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:454
+msgid ""
+"Restrict login to specific email domains or full email addresses. Enter "
+"domains (e.g. \"company.com\") or full emails (e.g. \"specificuser@gmail.com\") "
+"separated by spaces. Leave empty to allow all."
+msgstr ""
+"将登录限制为特定的电子邮件域或完整电子邮件地址。输"
+"入以空格分隔的域（例如 "
+"\"company.com\"）或完整电子邮件（例如 "
+"\"specificuser@gmail.com\"）。留空以允许所有。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:461
+msgid "Redirect Back to Origin Page"
+msgstr "重定向回原始页面"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:462
+msgid ""
+"After a successful OpenID Connect authentication, this will redirect the "
+"user back to the page on which they clicked the OpenID Connect login "
+"button. This will cause the login process to proceed in a traditional "
+"WordPress fashion. For example, users logging in through the default "
+"wp-login.php page would end up on the WordPress Dashboard and users logging "
+"in through the WooCommerce \"My Account\" page would end up on their account "
+"page."
+msgstr ""
+"OpenID Connect 身份验证成功后，将用户重定向回他们单击 "
+"OpenID Connect 登录按钮的页面。这将使登录过程以传统的 "
+"WordPress 方式继续进行。例如，通过默认 wp-login.php "
+"页面登录的用户最终会进入 WordPress 仪表盘，而通过 "
+"WooCommerce“我的账户”页面登录的用户最终会进入其账户"
+"页面。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:468
+msgid "Redirect to the login screen when session is expired"
+msgstr "会话过期时重定向到登录屏幕"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:469
+msgid ""
+"When enabled, this will automatically redirect the user back to the "
+"WordPress login page if their access token has expired."
+msgstr ""
+"启用后，如果用户的访问令牌已过期，将自动将用户重定"
+"向回 WordPress 登录页面。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:475
+msgid "Bypass local 2FA on SSO login"
+msgstr "SSO 登录时绕过本地 2FA"
+
+#. translators: %1$s and %2$s wrap a warning message in strong tags.
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:478
+#, php-format
+msgid ""
+"Skip the second-factor prompt from supported 2FA plugins when a user logs "
+"in via OpenID Connect. %1$sOnly enable this when multi-factor "
+"authentication is enforced at the identity provider.%2$s"
+msgstr ""
+"当用户通过 OpenID Connect 登录时，跳过受支持的 2FA "
+"插件的第二因素提示。%1$s仅在身份提供程序强制执行多重"
+"身份验证时才启用此项。%2$s"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:484
+msgid "None (do not bypass)"
+msgstr "无（不绕过）"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:485
+msgid "Admin and Site Enhancements (ASE)"
+msgstr "Admin and Site Enhancements (ASE)"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:486
+msgid "WP 2FA - Two-factor authentication (Melapress)"
+msgstr "WP 2FA - Two-factor authentication (Melapress)"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:492
+msgid "Enable Logging"
+msgstr "启用日志记录"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:493
+msgid "Very simple log messages for debugging purposes."
+msgstr "用于调试的非常简单的日志消息。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:499
+msgid "Log Limit"
+msgstr "日志限制"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:500
+msgid ""
+"Number of items to keep in the log. These logs are stored as an option in "
+"the database, so space is limited."
+msgstr ""
+"日志中保留的项目数。这些日志作为选项存储在数据库中"
+"，因此空间有限。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:593
+msgid "Choose Login Button Logo"
+msgstr "选择登录按钮徽标"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:594
+msgid "Use this image"
+msgstr "使用此图像"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:620
+msgid "Notes"
+msgstr "备注"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:623
+msgid "Redirect URI"
+msgstr "重定向 URI"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:627
+msgid "Login Button Shortcode"
+msgstr "登录按钮短代码"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:631
+msgid "Authentication URL Shortcode"
+msgstr "身份验证 URL 短代码"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:636
+msgid "Logs"
+msgstr "日志"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:645
+msgid "ICC.gg Sign-In for OpenID Connect - OpenID Connect SSO Plugin for WordPress"
+msgstr "ICC.gg Sign-In for OpenID Connect - WordPress 的 OpenID Connect SSO 插件"
+
+#. translators: %s: New version number.
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:663
+#, php-format
+msgid "Update available: v%s"
+msgstr "有可用更新：v%s"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:721
+msgid "Choose Logo"
+msgstr "选择徽标"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:724
+msgid "Remove Logo"
+msgstr "移除徽标"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:791
+msgid "Example"
+msgstr "示例"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:804
+msgid "Enter your OpenID Connect identity provider settings."
+msgstr "输入您的 OpenID Connect 身份提供程序设置。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:813
+msgid "Modify the interaction between OpenID Connect and WordPress users."
+msgstr "修改 OpenID Connect 与 WordPress 用户之间的交互。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:822
+msgid "Control the authorization mechanics of the site."
+msgstr "控制站点的授权机制。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:831
+msgid ""
+"Log information about login attempts through ICC.gg Sign-In for OpenID "
+"Connect."
+msgstr "记录通过 ICC.gg Sign-In for OpenID Connect 的登录尝试信息。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:846
+msgid "Please enter a discovery URL."
+msgstr "请输入发现 URL。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:855
+msgid "Invalid discovery URL format."
+msgstr "发现 URL 格式无效。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:866
+msgid "Discovery URL must use HTTPS in production environments."
+msgstr "在生产环境中，发现 URL 必须使用 HTTPS。"
+
+#. translators: %s: error message
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:886
+#, php-format
+msgid "Failed to fetch discovery document: %s"
+msgstr "获取发现文档失败：%s"
+
+#. translators: %d: HTTP status code
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:898
+#, php-format
+msgid "Discovery document request returned HTTP %d."
+msgstr "发现文档请求返回 HTTP %d。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:911
+msgid "Discovery document is not valid JSON."
+msgstr "发现文档不是有效的 JSON。"
+
+#. translators: %s: comma-separated list of missing fields
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:930
+#, php-format
+msgid "Discovery document is missing required fields: %s"
+msgstr "发现文档缺少必填字段：%s"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:995
+msgid "Security check failed. Please try again."
+msgstr "安全检查失败。请重试。"
+
+#. translators: 1: discovery document URL, 2: comma-separated list of populated settings fields.
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:1026
+#, php-format
+msgid "Configuration loaded from discovery URL: %1$s. Populated fields: %2$s"
+msgstr "已从发现 URL 加载配置：%1$s。已填充的字段：%2$s"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:1041
+#, php-format
+msgid ""
+"Configuration loaded successfully! %d field was populated. Review the "
+"settings below and click \"Save Changes\" to apply."
+msgid_plural ""
+"Configuration loaded successfully! %d fields were populated. Review the "
+"settings below and click \"Save Changes\" to apply."
+msgstr[0] ""
+"配置加载成功！已填充 %d "
+"个字段。请查看下面的设置，然后单击“保存更改”以应"
+"用。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:1067
+msgid "Quick Setup: Import from Discovery Document"
+msgstr "快速设置：从发现文档导入"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:1071
+msgid ""
+"Auto-populate endpoint settings from your identity provider's OpenID "
+"Connect discovery document. After loading, review the populated fields "
+"below and click \"Save Changes\" to apply."
+msgstr ""
+"从身份提供程序的 OpenID Connect "
+"发现文档自动填充端点设置。加载后，请查看下面已填充"
+"的字段，然后单击“保存更改”以应用。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:1079
+msgid "Discovery URL"
+msgstr "发现 URL"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:1091
+msgid "Enter your identity provider's OpenID Connect discovery endpoint URL."
+msgstr "输入身份提供程序的 OpenID Connect 发现端点 URL。"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:1093
+msgid "Examples:"
+msgstr "示例："
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:1104
+msgid "Load Configuration"
+msgstr "加载配置"

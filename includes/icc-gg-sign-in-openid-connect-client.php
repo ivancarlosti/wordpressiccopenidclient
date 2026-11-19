@@ -245,12 +245,13 @@ class ICC_GG_Sign_In_OpenID_Connect_Client {
 		// Look for an existing error of some kind.
 		if ( isset( $request['error'] ) ) {
 			$error_code = sanitize_text_field( $request['error'] );
-			$error_message = 'An unknown error occurred.';
+			$error_message = __( 'An unknown error occurred.', 'icc-gg-sign-in-openid-connect' );
 
 			// Use the IDP's error description if available for better diagnostics.
 			if ( ! empty( $request['error_description'] ) ) {
 				$error_message = sprintf(
-					'IDP error %s: %s',
+					/* translators: 1: error code returned by the identity provider, 2: error description returned by the identity provider. */
+					__( 'IDP error %1$s: %2$s', 'icc-gg-sign-in-openid-connect' ),
 					$error_code,
 					sanitize_text_field( $request['error_description'] )
 				);
@@ -261,7 +262,7 @@ class ICC_GG_Sign_In_OpenID_Connect_Client {
 
 		// Make sure we have a legitimate authentication code and valid state.
 		if ( ! isset( $request['code'] ) ) {
-			return new WP_Error( 'no-code', 'No authentication code present in the request.', $request );
+			return new WP_Error( 'no-code', __( 'No authentication code present in the request.', 'icc-gg-sign-in-openid-connect' ), $request );
 		}
 
 		// Check the client request state.
@@ -533,7 +534,7 @@ class ICC_GG_Sign_In_OpenID_Connect_Client {
 		if ( ! isset( $token_response['id_token'] ) ||
 			 ! isset( $token_response['token_type'] ) || strcasecmp( $token_response['token_type'], 'Bearer' )
 		) {
-			return new WP_Error( 'invalid-token-response', 'Invalid token response', $token_response );
+			return new WP_Error( 'invalid-token-response', __( 'Invalid token response.', 'icc-gg-sign-in-openid-connect' ), $token_response );
 		}
 
 		return true;
@@ -700,7 +701,8 @@ class ICC_GG_Sign_In_OpenID_Connect_Client {
 			if ( rtrim( $id_token_claim['iss'], '/' ) !== rtrim( $expected_issuer, '/' ) ) {
 				$this->logger->log(
 					sprintf(
-						'Issuer mismatch - Expected: "%s", Received: "%s". Configure the correct issuer in Settings > ICC.gg Sign-In for OpenID Connect > Issuer field, or via the OIDC_ISSUER constant.',
+						/* translators: 1: expected issuer URL, 2: issuer URL received in the token. */
+						__( 'Issuer mismatch - Expected: "%1$s", Received: "%2$s". Configure the correct issuer in Settings > ICC.gg Sign-In for OpenID Connect > Issuer field, or via the OIDC_ISSUER constant.', 'icc-gg-sign-in-openid-connect' ),
 						$expected_issuer,
 						$id_token_claim['iss']
 					),

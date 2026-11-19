@@ -1,0 +1,6 @@
+/* RTL overrides for the OpenID Connect login button. */
+
+.oidc-login-button-logo {
+	margin-right: 0 !important;
+	margin-left: 6px !important;
+}

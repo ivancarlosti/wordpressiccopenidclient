@@ -1,0 +1,25 @@
+/* Right-to-left overrides for the OpenID Connect settings page. */
+
+#logger-table .col-data,
+#logger-table .col-details {
+	text-align: right;
+}
+
+/* Log payloads are JSON: keep them left-to-right so keys and values stay readable. */
+#logger-table .col-data pre {
+	direction: ltr;
+	text-align: left;
+	unicode-bidi: embed;
+}
+
+/* Mirror the accent border of the discovery document form. */
+.oidc-discovery-content {
+	border-left: 0;
+	border-right: 4px solid #72aee6;
+}
+
+/* URLs are always written left-to-right, even inside a right-to-left page. */
+.oidc-discovery-url-input {
+	direction: ltr;
+	text-align: left;
+}

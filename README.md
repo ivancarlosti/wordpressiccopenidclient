@@ -29,6 +29,7 @@ A WordPress plugin that provides SSO (Single Sign-On) authentication against an 
 - **End Session Support** — Redirect to IDP logout endpoint on WordPress logout
 - **Discovery Document Import** — Auto-populate settings from `.well-known/openid-configuration`
 - **Shortcodes** — `[icc_gg_sign_in_openid_connect_login_button]` and `[icc_gg_sign_in_openid_connect_auth_url]`
+- **Bundled Translations & RTL** — English, Portuguese (Brazil), Spanish (Mexico), French, Simplified Chinese, Hindi and Arabic catalogs ship with the plugin, with right-to-left rendering for Arabic
 
 ## Requirements
 
@@ -52,6 +53,35 @@ The plugin updates itself from [GitHub Releases](https://github.com/ivancarlosti
 4. Use the `icc-gg-sign-in-openid-connect.zip` asset when updating by hand — its root folder is the plugin folder, so it replaces the current copy. The other archives attached to a release (`wordpressiccopenidclient-<version>.zip`, the generated source archive) unpack several top level entries and fail with *"The package contains more than one folder."*
 
 When GitHub cannot be reached the last known answer is kept, retries are throttled for one hour, and the updater never breaks the Plugins screen. See [`docs/updates.md`](docs/updates.md) for the full flow.
+
+## Translations
+
+The plugin loads its own catalogs from `languages/` — no language pack is needed. Set **Settings → General → Site Language** (or a user's profile language) and the settings page, the login button and the admin notices follow:
+
+| Locale | Language | Direction |
+|---|---|---|
+| `en_US` | English (fallback) | LTR |
+| `pt_BR` | Portuguese (Brazil) | LTR |
+| `es_MX` | Spanish (Mexico) | LTR |
+| `fr_FR` | French | LTR |
+| `zh_CN` | Simplified Chinese | LTR |
+| `hi_IN` | Hindi | LTR |
+| `ar` | Arabic (`ar_SA`, `ar_EG` and other variants) | **RTL** |
+
+Every English variant (`en_GB`, `en_CA`, …) falls back to `en_US`, and every Arabic variant uses the
+Arabic catalog. For right-to-left locales the plugin sets `dir="rtl"`, adds the `rtl` admin/login
+body class and loads `css/styles-admin-rtl.css` for the settings page plus `css/styles-login-rtl.css`
+on the login screen.
+
+**Translating or updating a catalog:** the `.po` files are plain gettext, so `msgmerge`/`msgfmt` or
+any PO editor (Poedit, Weblate) works. Rebuild and validate the compiled `.mo` files with:
+
+```bash
+sh tests/build-translations.sh              # compiles and checks every catalog
+sh tests/build-translations.sh --check-pot  # also verifies the .pot matches the source strings
+```
+
+See [`docs/i18n.md`](docs/i18n.md) for the loading logic, the locale mapping and the translator rules.
 
 ## Quick Setup
 

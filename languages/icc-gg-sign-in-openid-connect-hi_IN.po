@@ -1,0 +1,1263 @@
+# Copyright (C) 2026 ICC.gg
+# This file is distributed under the same license as the ICC.gg Sign-In for OpenID Connect package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ICC.gg Sign-In for OpenID Connect 3.1.5\n"
+"Report-Msgid-Bugs-To: https://github.com/ICC-gg/wordpressiccopenidclient/issues\n"
+"POT-Creation-Date: 2026-11-19 12:00+0000\n"
+"PO-Revision-Date: 2026-11-19 12:00+0000\n"
+"Last-Translator: ICC.gg <support@icc.gg>\n"
+"Language-Team: ICC.gg <support@icc.gg>\n"
+"Language: hi_IN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: icc-gg-sign-in-openid-connect\n"
+
+#. translators: 1: plugin name, 2: required PHP version, 3: current PHP version.
+#: icc-gg-sign-in-openid-connect.php:107
+#, php-format
+msgid ""
+"%1$s requires PHP %2$s or later. This site runs PHP %3$s, so the plugin has "
+"been deactivated."
+msgstr ""
+"%1$s के लिए PHP %2$s या उससे नया "
+"संस्करण आवश्यक है। यह साइट PHP "
+"%3$s चला रही है, इसलिए प्लगइन को "
+"निष्क्रिय कर दिया गया है।"
+
+#: icc-gg-sign-in-openid-connect.php:463
+msgid "Private site"
+msgstr "निजी साइट"
+
+#: icc-gg-sign-in-openid-connect.php:493
+msgid "ICC.gg Sign-In for OpenID Connect - Security Configuration Required"
+msgstr ""
+"ICC.gg Sign-In for OpenID Connect - सुरक्षा "
+"कॉन्फ़िगरेशन आवश्यक"
+
+#. translators: %s is a link to the settings page
+#: icc-gg-sign-in-openid-connect.php:500
+#, php-format
+msgid ""
+"Your OpenID Connect authentication is using an insecure fallback method. "
+"You must configure the <strong>JWKS endpoint</strong> in <a "
+"href=\"%s\">plugin settings</a> as soon as possible."
+msgstr ""
+"आपका OpenID Connect प्रमाणीकरण एक "
+"असुरक्षित फ़ॉलबैक विधि का "
+"उपयोग कर रहा है। कृपया जल्द "
+"से जल्द <a href=\"%s\">प्लगइन "
+"सेटिंग्स</a> में <strong>JWKS "
+"एंडपॉइंट</strong> कॉन्फ़िगर "
+"करें।"
+
+#: icc-gg-sign-in-openid-connect.php:507
+msgid ""
+"The current insecure fallback will be removed in version 3.12.0. After that "
+"update, authentication will fail until the JWKS endpoint is configured."
+msgstr ""
+"वर्तमान असुरक्षित फ़ॉलबैक "
+"को संस्करण 3.12.0 में हटा दिया "
+"जाएगा। उस अपडेट के बाद, JWKS "
+"एंडपॉइंट कॉन्फ़िगर होने तक "
+"प्रमाणीकरण विफल रहेगा।"
+
+#: icc-gg-sign-in-openid-connect.php:510
+msgid "Common JWKS endpoints:"
+msgstr "सामान्य JWKS एंडपॉइंट:"
+
+#: includes/functions.php:46
+msgid "Settings"
+msgstr "सेटिंग्स"
+
+#: includes/functions.php:73 includes/icc-gg-sign-in-openid-connect-settings-page.php:653
+msgid "Check for updates"
+msgstr "अपडेट जांचें"
+
+#: includes/functions.php:80 includes/functions.php:167 includes/icc-gg-sign-in-openid-connect-settings-page.php:677
+msgid "Release notes"
+msgstr "रिलीज़ नोट्स"
+
+#: includes/functions.php:97
+msgid "Sorry, you are not allowed to check for plugin updates on this site."
+msgstr ""
+"क्षमा करें, आपको इस साइट पर "
+"प्लगइन अपडेट जांचने की "
+"अनुमति नहीं है।"
+
+#: includes/functions.php:103
+msgid "The update checker is not available."
+msgstr "अपडेट चेकर उपलब्ध नहीं है।"
+
+#. translators: 1: New version number, 2: Installed version number.
+#: includes/functions.php:148
+#, php-format
+msgid ""
+"<strong>ICC.gg Sign-In for OpenID Connect %1$s is available.</strong> You "
+"are running version %2$s."
+msgstr ""
+"<strong>ICC.gg Sign-In for OpenID Connect %1$s उपलब्ध "
+"है।</strong> आप संस्करण %2$s चला रहे "
+"हैं।"
+
+#: includes/functions.php:159 includes/icc-gg-sign-in-openid-connect-settings-page.php:671
+msgid "Update now"
+msgstr "अभी अपडेट करें"
+
+#. translators: %s: Installed version number.
+#: includes/functions.php:186
+#, php-format
+msgid "ICC.gg Sign-In for OpenID Connect is up to date (version %s)."
+msgstr ""
+"ICC.gg Sign-In for OpenID Connect अद्यतित है "
+"(संस्करण %s)।"
+
+#: includes/functions.php:197
+msgid "The update check could not reach GitHub. Please try again in a few minutes."
+msgstr ""
+"अपडेट जांच GitHub तक नहीं पहुंच "
+"सकी। कृपया कुछ मिनटों में "
+"पुनः प्रयास करें।"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:248
+msgid "An unknown error occurred."
+msgstr "एक अज्ञात त्रुटि हुई।"
+
+#. translators: 1: error code returned by the identity provider, 2: error description returned by the identity provider.
+#: includes/icc-gg-sign-in-openid-connect-client.php:254
+#, php-format
+msgid "IDP error %1$s: %2$s"
+msgstr "IdP त्रुटि %1$s: %2$s"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:265
+msgid "No authentication code present in the request."
+msgstr ""
+"अनुरोध में कोई प्रमाणीकरण "
+"कोड नहीं है।"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:271
+msgid "Missing state."
+msgstr "स्थिति अनुपस्थित है।"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:275
+msgid "Invalid state."
+msgstr "अमान्य स्थिति।"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:290
+msgid "Missing authentication code."
+msgstr ""
+"प्रमाणीकरण कोड अनुपस्थित "
+"है।"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:335
+msgid "Request for authentication token failed."
+msgstr ""
+"प्रमाणीकरण टोकन का अनुरोध "
+"विफल रहा।"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:368
+msgid "Refresh token failed."
+msgstr "रिफ़्रेश टोकन विफल रहा।"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:383
+msgid "Missing token body."
+msgstr "टोकन बॉडी अनुपस्थित है।"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:391
+msgid "Invalid token."
+msgstr "अमान्य टोकन।"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:452
+msgid "Request for userinfo failed."
+msgstr ""
+"उपयोगकर्ता जानकारी का "
+"अनुरोध विफल रहा।"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:516
+msgid "Missing authentication state."
+msgstr ""
+"प्रमाणीकरण स्थिति "
+"अनुपस्थित है।"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:537
+msgid "Invalid token response."
+msgstr "अमान्य टोकन प्रतिक्रिया।"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:553
+msgid "No identity token."
+msgstr "कोई पहचान टोकन नहीं।"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:593
+msgid "Missing identity token."
+msgstr "पहचान टोकन अनुपस्थित है।"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:652
+msgid "Bad ID token claim."
+msgstr "अमान्य ID टोकन दावा।"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:657
+msgid "No subject identity."
+msgstr "कोई विषय पहचान नहीं।"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:662 includes/icc-gg-sign-in-openid-connect-jwt-validator.php:184
+msgid "Token missing expiration claim."
+msgstr ""
+"टोकन में समाप्ति दावा "
+"अनुपस्थित है।"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:665
+msgid "Token has expired."
+msgstr "टोकन समाप्त हो गया है।"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:670 includes/icc-gg-sign-in-openid-connect-jwt-validator.php:192
+msgid "Token missing issued at claim."
+msgstr ""
+"टोकन में जारी करने का दावा (iat) "
+"अनुपस्थित है।"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:675 includes/icc-gg-sign-in-openid-connect-jwt-validator.php:200
+msgid "Token missing audience claim."
+msgstr ""
+"टोकन में ऑडियंस दावा (aud) "
+"अनुपस्थित है।"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:688 includes/icc-gg-sign-in-openid-connect-jwt-validator.php:217
+msgid "Token audience does not match client."
+msgstr ""
+"टोकन ऑडियंस क्लाइंट से मेल "
+"नहीं खाती।"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:698 includes/icc-gg-sign-in-openid-connect-jwt-validator.php:226
+msgid "Token missing issuer claim."
+msgstr ""
+"टोकन में जारीकर्ता दावा (iss) "
+"अनुपस्थित है।"
+
+#. translators: 1: expected issuer URL, 2: issuer URL received in the token.
+#: includes/icc-gg-sign-in-openid-connect-client.php:705 includes/icc-gg-sign-in-openid-connect-jwt-validator.php:234
+#, php-format
+msgid ""
+"Issuer mismatch - Expected: \"%1$s\", Received: \"%2$s\". Configure the correct "
+"issuer in Settings > ICC.gg Sign-In for OpenID Connect > Issuer field, or "
+"via the OIDC_ISSUER constant."
+msgstr ""
+"जारीकर्ता बेमेल - अपेक्षित: "
+"\"%1$s\", प्राप्त: \"%2$s\"। सेटिंग्स > ICC.gg "
+"Sign-In for OpenID Connect > Issuer फ़ील्ड में, या "
+"OIDC_ISSUER कॉन्स्टेंट के माध्यम से "
+"सही जारीकर्ता कॉन्फ़िगर "
+"करें।"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:714
+msgid ""
+"Token issuer does not match expected issuer. Configure the correct issuer "
+"in Settings > ICC.gg Sign-In for OpenID Connect > Issuer field, or via the "
+"OIDC_ISSUER constant."
+msgstr ""
+"टोकन जारीकर्ता अपेक्षित "
+"जारीकर्ता से मेल नहीं खाता। "
+"सेटिंग्स > ICC.gg Sign-In for OpenID Connect > Issuer "
+"फ़ील्ड में, या OIDC_ISSUER "
+"कॉन्स्टेंट के माध्यम से सही "
+"जारीकर्ता कॉन्फ़िगर करें।"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:724
+msgid "No matching acr values."
+msgstr "कोई मेल खाता acr मान नहीं।"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:744
+msgid "Bad user claim."
+msgstr "अमान्य उपयोगकर्ता दावा।"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:764
+msgid "Invalid user claim."
+msgstr "अमान्य उपयोगकर्ता दावा।"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:769
+msgid "Error from the IDP."
+msgstr "IdP से त्रुटि।"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:778
+msgid "Incorrect user claim."
+msgstr "गलत उपयोगकर्ता दावा।"
+
+#: includes/icc-gg-sign-in-openid-connect-client.php:785
+msgid "Unauthorized access."
+msgstr "अनधिकृत पहुँच।"
+
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:599
+msgid "User identity is not linked to an existing WordPress user."
+msgstr ""
+"उपयोगकर्ता की पहचान किसी "
+"मौजूदा WordPress उपयोगकर्ता से "
+"लिंक नहीं है।"
+
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:660
+msgid "Invalid user."
+msgstr "अमान्य उपयोगकर्ता।"
+
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:692
+msgid "Unable to determine email address from user claim for domain validation."
+msgstr ""
+"डोमेन सत्यापन के लिए "
+"उपयोगकर्ता दावे से ईमेल पता "
+"निर्धारित नहीं किया जा सका।"
+
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:706
+msgid "Unable to extract domain from email address."
+msgstr ""
+"ईमेल पते से डोमेन निकाला "
+"नहीं जा सका।"
+
+#. translators: %s is the email address or domain that was rejected
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:748
+#, php-format
+msgid ""
+"Email \"%s\" is not allowed for login. Check the allowed email or domain "
+"restrictions."
+msgstr ""
+"ईमेल \"%s\" को लॉगिन के लिए "
+"अनुमति नहीं है। अनुमत ईमेल "
+"या डोमेन प्रतिबंध जांचें।"
+
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:949
+msgid "No appropriate username found."
+msgstr ""
+"कोई उपयुक्त उपयोगकर्ता नाम "
+"नहीं मिला।"
+
+#. translators: %1$s is the santitized version of the username from the IDP.
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:959
+#, php-format
+msgid "Username %1$s could not be sanitized."
+msgstr ""
+"उपयोगकर्ता नाम %1$s को "
+"सैनिटाइज़ नहीं किया जा सका।"
+
+#. translators: %1$s is the configured User Claim nickname key.
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:981
+#, php-format
+msgid "No nickname found in user claim using key: %1$s."
+msgstr ""
+"कुंजी का उपयोग करके "
+"उपयोगकर्ता दावे में कोई "
+"उपनाम नहीं मिला: %1$s।"
+
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:1113
+msgid "User claim incomplete."
+msgstr "उपयोगकर्ता दावा अपूर्ण है।"
+
+#. translators: %s is the claim key that is missing from the user claim.
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:1117
+#, php-format
+msgid "Unable to find key: %s in user_claim"
+msgstr "user_claim में कुंजी नहीं मिली: %s"
+
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:1120
+msgid "Verify OpenID Scope includes a scope with the attributes you need"
+msgstr ""
+"सत्यापित करें कि OpenID स्कोप "
+"में आपके आवश्यक विशेषताओं "
+"वाला स्कोप शामिल है"
+
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:1220
+msgid "Bad user claim result."
+msgstr ""
+"अमान्य उपयोगकर्ता दावा "
+"परिणाम।"
+
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:1286
+msgid "Can not authorize."
+msgstr "अधिकृत नहीं किया जा सकता।"
+
+#: includes/icc-gg-sign-in-openid-connect-client-wrapper.php:1315
+msgid "Failed user creation."
+msgstr ""
+"उपयोगकर्ता निर्माण विफल "
+"रहा।"
+
+#: includes/icc-gg-sign-in-openid-connect-jwt-validator.php:127
+msgid "Failed to fetch JWKS from identity provider."
+msgstr ""
+"पहचान प्रदाता से JWKS प्राप्त "
+"करने में विफल।"
+
+#. translators: %d is the HTTP response code
+#: includes/icc-gg-sign-in-openid-connect-jwt-validator.php:138
+#, php-format
+msgid "JWKS endpoint returned HTTP %d"
+msgstr "JWKS एंडपॉइंट ने HTTP %d लौटाया"
+
+#: includes/icc-gg-sign-in-openid-connect-jwt-validator.php:152
+msgid "Invalid JWKS format received from identity provider."
+msgstr ""
+"पहचान प्रदाता से अमान्य JWKS "
+"प्रारूप प्राप्त हुआ।"
+
+#: includes/icc-gg-sign-in-openid-connect-jwt-validator.php:176
+msgid "Token missing subject claim."
+msgstr ""
+"टोकन में विषय दावा (sub) "
+"अनुपस्थित है।"
+
+#: includes/icc-gg-sign-in-openid-connect-jwt-validator.php:242
+msgid "Token issuer does not match expected issuer."
+msgstr ""
+"टोकन जारीकर्ता अपेक्षित "
+"जारीकर्ता से मेल नहीं खाता।"
+
+#: includes/icc-gg-sign-in-openid-connect-jwt-validator.php:316
+msgid "JWKS URI not configured. JWT signature verification requires JWKS endpoint."
+msgstr ""
+"JWKS URI कॉन्फ़िगर नहीं है। JWT "
+"हस्ताक्षर सत्यापन के लिए JWKS "
+"एंडपॉइंट आवश्यक है।"
+
+#. translators: %s is the error message
+#: includes/icc-gg-sign-in-openid-connect-jwt-validator.php:347
+#, php-format
+msgid "JWT verification failed: %s"
+msgstr "JWT सत्यापन विफल: %s"
+
+#: includes/icc-gg-sign-in-openid-connect-login-form.php:132
+msgid "Unknown error."
+msgstr "अज्ञात त्रुटि।"
+
+#. translators: %1$s is the error code from the IDP.
+#: includes/icc-gg-sign-in-openid-connect-login-form.php:162
+#, php-format
+msgid "ERROR (%1$s)"
+msgstr "त्रुटि (%1$s)"
+
+#: includes/icc-gg-sign-in-openid-connect-login-form.php:200
+msgid ""
+"You may be logged in with a different account on the identity provider. "
+"Please logout from the identity provider first, then try again."
+msgstr ""
+"हो सकता है कि आप पहचान "
+"प्रदाता पर किसी भिन्न खाते "
+"से लॉग इन हों। कृपया पहले "
+"पहचान प्रदाता से लॉग आउट "
+"करें, फिर पुनः प्रयास करें।"
+
+#: includes/icc-gg-sign-in-openid-connect-login-form.php:204
+msgid "Logout from Identity Provider"
+msgstr ""
+"पहचान प्रदाता से लॉग आउट "
+"करें"
+
+#: includes/icc-gg-sign-in-openid-connect-login-form.php:225
+msgid "Login with OpenID Connect"
+msgstr "OpenID Connect से लॉगिन करें"
+
+#: includes/icc-gg-sign-in-openid-connect-option-logger.php:228
+msgid "Details"
+msgstr "विवरण"
+
+#: includes/icc-gg-sign-in-openid-connect-option-logger.php:229
+msgid "Data"
+msgstr "डेटा"
+
+#: includes/icc-gg-sign-in-openid-connect-option-logger.php:236
+msgid "Date"
+msgstr "तारीख"
+
+#: includes/icc-gg-sign-in-openid-connect-option-logger.php:240
+msgid "Type"
+msgstr "प्रकार"
+
+#: includes/icc-gg-sign-in-openid-connect-option-logger.php:244
+msgid "User"
+msgstr "उपयोगकर्ता"
+
+#: includes/icc-gg-sign-in-openid-connect-option-logger.php:248
+msgid "URI "
+msgstr "URI "
+
+#: includes/icc-gg-sign-in-openid-connect-option-logger.php:252
+msgid "Response&nbsp;Time&nbsp;(sec)"
+msgstr "प्रतिक्रिया&nbsp;समय&nbsp;(सेकंड)"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:141
+msgid "ICC.gg Sign-In for OpenID Connect"
+msgstr "ICC.gg Sign-In for OpenID Connect"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:142
+msgid "OpenID Connect"
+msgstr "OpenID Connect"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:166
+msgid "Client Settings"
+msgstr "क्लाइंट सेटिंग्स"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:173
+msgid "WordPress User Settings"
+msgstr "WordPress उपयोगकर्ता सेटिंग्स"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:180
+msgid "Authorization Settings"
+msgstr "प्राधिकरण सेटिंग्स"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:187
+msgid "Log Settings"
+msgstr "लॉग सेटिंग्स"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:249
+msgid "Login Type"
+msgstr "लॉगिन प्रकार"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:250
+msgid "Select how the client (login form) should provide login options."
+msgstr ""
+"चुनें कि क्लाइंट (लॉगिन "
+"फ़ॉर्म) को लॉगिन विकल्प कैसे "
+"प्रदान करने चाहिए।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:253
+msgid "OpenID Connect button on login form"
+msgstr "लॉगिन फ़ॉर्म पर OpenID Connect बटन"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:254
+msgid "OpenID Connect button only (no password form)"
+msgstr ""
+"केवल OpenID Connect बटन (पासवर्ड "
+"फ़ॉर्म के बिना)"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:255
+msgid "Auto Login - SSO"
+msgstr "स्वचालित लॉगिन - SSO"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:261
+msgid "Login Button Text"
+msgstr "लॉगिन बटन टेक्स्ट"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:262
+msgid ""
+"Customize the text shown on the OpenID Connect login button. Leave empty to "
+"use the default text."
+msgstr ""
+"OpenID Connect लॉगिन बटन पर दिखाई "
+"देने वाला टेक्स्ट अनुकूलित "
+"करें। डिफ़ॉल्ट टेक्स्ट "
+"उपयोग करने के लिए खाली "
+"छोड़ें।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:263
+msgid "Login with Single Sign-On"
+msgstr "सिंगल साइन-ऑन से लॉगिन करें"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:268
+msgid "Login Button Logo"
+msgstr "लॉगिन बटन लोगो"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:269
+msgid ""
+"Optional logo displayed before the text on the OpenID Connect login button. "
+"Upload or select an image from the WordPress media library."
+msgstr ""
+"OpenID Connect लॉगिन बटन पर टेक्स्ट "
+"से पहले दिखाया जाने वाला "
+"वैकल्पिक लोगो। WordPress मीडिया "
+"लाइब्रेरी से छवि अपलोड या "
+"चुनें।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:274
+msgid "Client ID"
+msgstr "क्लाइंट ID"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:275
+msgid ""
+"The ID this client will be recognized as when connecting the to Identity "
+"provider server."
+msgstr ""
+"वह ID जिससे यह क्लाइंट पहचान "
+"प्रदाता सर्वर से कनेक्ट "
+"करते समय पहचाना जाएगा।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:282
+msgid "Client Secret Key"
+msgstr "क्लाइंट गुप्त कुंजी"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:283
+msgid ""
+"Arbitrary secret key the server expects from this client. Can be anything, "
+"but should be very unique."
+msgstr ""
+"मनमानी गुप्त कुंजी जो सर्वर "
+"इस क्लाइंट से अपेक्षा करता "
+"है। कुछ भी हो सकती है, लेकिन "
+"बहुत अद्वितीय होनी चाहिए।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:289
+msgid "OpenID Scope"
+msgstr "OpenID स्कोप"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:290
+msgid "Space separated list of scopes this client should access."
+msgstr ""
+"इस क्लाइंट को एक्सेस करने के "
+"लिए स्पेस से अलग किए गए स्कोप "
+"की सूची।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:297
+msgid "Login Endpoint URL"
+msgstr "लॉगिन एंडपॉइंट URL"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:298
+msgid "Identify provider authorization endpoint."
+msgstr ""
+"पहचान प्रदाता प्राधिकरण "
+"एंडपॉइंट।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:305
+msgid "Userinfo Endpoint URL"
+msgstr ""
+"उपयोगकर्ता जानकारी "
+"एंडपॉइंट URL"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:306
+msgid "Identify provider User information endpoint."
+msgstr ""
+"पहचान प्रदाता उपयोगकर्ता "
+"जानकारी एंडपॉइंट।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:313
+msgid "Token Validation Endpoint URL"
+msgstr "टोकन सत्यापन एंडपॉइंट URL"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:314
+msgid "Identify provider token endpoint."
+msgstr ""
+"पहचान प्रदाता टोकन "
+"एंडपॉइंट।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:321
+msgid "End Session Endpoint URL"
+msgstr "सत्र समाप्ति एंडपॉइंट URL"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:322
+msgid "Identify provider logout endpoint."
+msgstr ""
+"पहचान प्रदाता लॉगआउट "
+"एंडपॉइंट।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:329
+msgid "JWKS URI"
+msgstr "JWKS URI"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:330
+msgid ""
+"Identity provider JWKS (JSON Web Key Set) endpoint for JWT signature "
+"verification. Usually found at /.well-known/jwks.json"
+msgstr ""
+"JWT हस्ताक्षर सत्यापन के लिए "
+"पहचान प्रदाता JWKS (JSON Web Key Set) "
+"एंडपॉइंट। सामान्यतः "
+"/.well-known/jwks.json पर मिलता है"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:337
+msgid "Issuer"
+msgstr "जारीकर्ता"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:338
+msgid ""
+"Identity provider issuer URL for JWT validation. If not set, the issuer "
+"will be automatically derived from the Login Endpoint URL. Only configure "
+"this if your IDP uses a different issuer than the base URL of the login "
+"endpoint."
+msgstr ""
+"JWT सत्यापन के लिए पहचान "
+"प्रदाता जारीकर्ता URL। यदि "
+"सेट नहीं है, तो जारीकर्ता "
+"लॉगिन एंडपॉइंट URL से "
+"स्वचालित रूप से प्राप्त "
+"होगा। इसे केवल तब कॉन्फ़िगर "
+"करें जब आपका IdP लॉगिन "
+"एंडपॉइंट के आधार URL से भिन्न "
+"जारीकर्ता उपयोग करता हो।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:345
+msgid "JWKS Cache TTL (seconds)"
+msgstr "JWKS कैश TTL (सेकंड)"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:346
+msgid "Time in seconds to cache JWKS keys. Default: 3600 (1 hour)"
+msgstr ""
+"JWKS कुंजियों को कैश करने का "
+"समय सेकंड में। डिफ़ॉल्ट: 3600 (1 "
+"घंटा)"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:352
+msgid "ACR values"
+msgstr "ACR मान"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:353
+msgid "Use a specific defined authentication contract from the IDP - optional."
+msgstr ""
+"IdP द्वारा परिभाषित विशिष्ट "
+"प्रमाणीकरण अनुबंध का उपयोग "
+"करें - वैकल्पिक।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:359
+msgid "Identity Key"
+msgstr "पहचान कुंजी"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:360
+msgid ""
+"Where in the user claim array to find the user's identification data. "
+"Possible standard values: preferred_username, name, or sub. If you're "
+"having trouble, use \"sub\"."
+msgstr ""
+"उपयोगकर्ता दावा सरणी में "
+"उपयोगकर्ता की पहचान जानकारी "
+"कहाँ खोजें। संभावित मानक "
+"मान: preferred_username, name, या sub। यदि "
+"समस्या हो, तो \"sub\" का उपयोग "
+"करें।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:366
+msgid "HTTP Request Timeout"
+msgstr "HTTP अनुरोध टाइमआउट"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:367
+msgid "Set the timeout for requests made to the IDP. Default value is 5."
+msgstr ""
+"IdP को किए गए अनुरोधों के लिए "
+"टाइमआउट सेट करें। डिफ़ॉल्ट "
+"मान 5 है।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:373
+msgid "Enforce Privacy"
+msgstr "गोपनीयता लागू करें"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:374
+msgid "Require users be logged in to see the site."
+msgstr ""
+"साइट देखने के लिए "
+"उपयोगकर्ताओं का लॉग इन होना "
+"आवश्यक है।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:380
+msgid "Alternate Redirect URI"
+msgstr "वैकल्पिक रीडायरेक्ट URI"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:381
+msgid ""
+"Provide an alternative redirect route. Useful if your server is causing "
+"issues with the default admin-ajax method. You must flush rewrite rules "
+"after changing this setting. This can be done by saving the Permalinks "
+"settings page."
+msgstr ""
+"वैकल्पिक रीडायरेक्ट रूट "
+"प्रदान करें। उपयोगी है यदि "
+"आपका सर्वर डिफ़ॉल्ट admin-ajax "
+"विधि में समस्या पैदा कर रहा "
+"है। यह सेटिंग बदलने के बाद "
+"आपको रीराइट नियम फ्लश करने "
+"होंगे। यह परमालिंक सेटिंग्स "
+"पृष्ठ सहेजकर किया जा सकता "
+"है।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:386
+msgid "Nickname Key"
+msgstr "उपनाम कुंजी"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:387
+msgid ""
+"Where in the user claim array to find the user's nickname. Possible "
+"standard values: preferred_username, name, or sub."
+msgstr ""
+"उपयोगकर्ता दावा सरणी में "
+"उपयोगकर्ता का उपनाम कहाँ "
+"खोजें। संभावित मानक मान: "
+"preferred_username, name, या sub।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:393
+msgid "Email Formatting"
+msgstr "ईमेल प्रारूपण"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:394
+msgid ""
+"String from which the user's email address is built. Specify \"{email}\" as "
+"long as the user claim contains an email claim."
+msgstr ""
+"वह स्ट्रिंग जिससे "
+"उपयोगकर्ता का ईमेल पता "
+"बनाया जाता है। जब तक "
+"उपयोगकर्ता दावे में ईमेल "
+"दावा है, \"{email}\" निर्दिष्ट करें।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:400
+msgid "Display Name Formatting"
+msgstr "प्रदर्शित नाम प्रारूपण"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:401
+msgid "String from which the user's display name is built."
+msgstr ""
+"वह स्ट्रिंग जिससे "
+"उपयोगकर्ता का प्रदर्शित नाम "
+"बनाया जाता है।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:407
+msgid "Identify with User Name"
+msgstr "उपयोगकर्ता नाम से पहचानें"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:408
+msgid ""
+"If checked, the user's identity will be determined by the user name instead "
+"of the email address."
+msgstr ""
+"यदि चेक किया गया है, तो "
+"उपयोगकर्ता की पहचान ईमेल "
+"पते के बजाय उपयोगकर्ता नाम "
+"से निर्धारित होगी।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:413
+msgid "State time limit"
+msgstr "स्थिति समय सीमा"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:414
+msgid "State valid time in seconds. Defaults to 180"
+msgstr ""
+"स्थिति की वैधता अवधि सेकंड "
+"में। डिफ़ॉल्ट 180"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:419
+msgid "Enable Refresh Token"
+msgstr "रिफ़्रेश टोकन सक्षम करें"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:420
+msgid ""
+"If checked, support refresh tokens used to obtain access tokens from "
+"supported IDPs."
+msgstr ""
+"यदि चेक किया गया है, तो "
+"समर्थित IdP से एक्सेस टोकन "
+"प्राप्त करने के लिए उपयोग "
+"किए जाने वाले रिफ़्रेश टोकन "
+"का समर्थन करें।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:425
+msgid "Disable SSL Verify"
+msgstr "SSL सत्यापन अक्षम करें"
+
+#. translators: %1$s HTML tags for layout/styles (strong tag start with warning class), %2$s closing HTML tag for styles.
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:427
+#, php-format
+msgid ""
+"Do not require SSL verification during authorization. %1$sOnly works in "
+"local development (WP_DEBUG=true, WP_ENVIRONMENT_TYPE=local).%2$s This "
+"setting is automatically disabled in production. If you need this in "
+"production, fix your SSL certificates instead."
+msgstr ""
+"प्राधिकरण के दौरान SSL "
+"सत्यापन की आवश्यकता न रखें। "
+"%1$sकेवल स्थानीय विकास में काम "
+"करता है (WP_DEBUG=true, WP_ENVIRONMENT_TYPE=local)।%2$s "
+"यह सेटिंग उत्पादन में "
+"स्वचालित रूप से अक्षम हो "
+"जाती है। यदि आपको उत्पादन "
+"में इसकी आवश्यकता है, तो इसके "
+"बजाय अपने SSL प्रमाणपत्र ठीक "
+"करें।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:432
+msgid "Allow Internal IDP"
+msgstr "आंतरिक IdP की अनुमति दें"
+
+#. translators: %1$s HTML tags for layout/styles (strong tag start with warning class), %2$s closing HTML tag for styles.
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:434
+#, php-format
+msgid ""
+"Allow HTTP requests to internal/private network endpoints (localhost, "
+"127.0.0.1, 10.x.x.x, 192.168.x.x, 172.16-31.x.x). %1$sOnly enable this for "
+"local development or corporate internal identity providers. Disabling SSRF "
+"protection can expose your server to security risks.%2$s"
+msgstr ""
+"आंतरिक/निजी नेटवर्क "
+"एंडपॉइंट (localhost, 127.0.0.1, 10.x.x.x, 192.168.x.x, "
+"172.16-31.x.x) के लिए HTTP अनुरोधों की "
+"अनुमति दें। %1$sइसे केवल "
+"स्थानीय विकास या कॉर्पोरेट "
+"आंतरिक पहचान प्रदाताओं के "
+"लिए सक्षम करें। SSRF सुरक्षा "
+"अक्षम करने से आपका सर्वर "
+"सुरक्षा जोखिमों के प्रति "
+"उजागर हो सकता है।%2$s"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:439
+msgid "Link Existing Users"
+msgstr ""
+"मौजूदा उपयोगकर्ताओं को लिंक "
+"करें"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:440
+msgid ""
+"If a WordPress account already exists with the same identity as a "
+"newly-authenticated user over OpenID Connect, login as that user instead of "
+"generating an error."
+msgstr ""
+"यदि OpenID Connect के माध्यम से नए "
+"प्रमाणित उपयोगकर्ता की समान "
+"पहचान वाला WordPress खाता पहले से "
+"मौजूद है, तो त्रुटि उत्पन्न "
+"करने के बजाय उस उपयोगकर्ता "
+"के रूप में लॉग इन करें।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:446
+msgid "Create user if does not exist"
+msgstr ""
+"यदि मौजूद न हो तो उपयोगकर्ता "
+"बनाएं"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:447
+msgid ""
+"If the user identity is not linked to an existing WordPress user, it is "
+"created. If this setting is not enabled, and if the user authenticates with "
+"an account which is not linked to an existing WordPress user, then the "
+"authentication will fail."
+msgstr ""
+"यदि उपयोगकर्ता की पहचान "
+"किसी मौजूदा WordPress उपयोगकर्ता "
+"से लिंक नहीं है, तो उसे बनाया "
+"जाता है। यदि यह सेटिंग सक्षम "
+"नहीं है, और उपयोगकर्ता ऐसे "
+"खाते से प्रमाणित करता है जो "
+"मौजूदा WordPress उपयोगकर्ता से "
+"लिंक नहीं है, तो प्रमाणीकरण "
+"विफल हो जाएगा।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:453
+msgid "Email Domain Restriction"
+msgstr "ईमेल डोमेन प्रतिबंध"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:454
+msgid ""
+"Restrict login to specific email domains or full email addresses. Enter "
+"domains (e.g. \"company.com\") or full emails (e.g. \"specificuser@gmail.com\") "
+"separated by spaces. Leave empty to allow all."
+msgstr ""
+"लॉगिन को विशिष्ट ईमेल डोमेन "
+"या पूर्ण ईमेल पतों तक सीमित "
+"करें। स्पेस से अलग किए गए "
+"डोमेन (जैसे \"company.com\") या पूर्ण "
+"ईमेल (जैसे \"specificuser@gmail.com\") दर्ज "
+"करें। सभी की अनुमति देने के "
+"लिए खाली छोड़ें।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:461
+msgid "Redirect Back to Origin Page"
+msgstr ""
+"मूल पृष्ठ पर वापस "
+"रीडायरेक्ट करें"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:462
+msgid ""
+"After a successful OpenID Connect authentication, this will redirect the "
+"user back to the page on which they clicked the OpenID Connect login "
+"button. This will cause the login process to proceed in a traditional "
+"WordPress fashion. For example, users logging in through the default "
+"wp-login.php page would end up on the WordPress Dashboard and users logging "
+"in through the WooCommerce \"My Account\" page would end up on their account "
+"page."
+msgstr ""
+"सफल OpenID Connect प्रमाणीकरण के बाद, "
+"उपयोगकर्ता को उस पृष्ठ पर "
+"वापस रीडायरेक्ट किया जाएगा "
+"जहाँ उन्होंने OpenID Connect लॉगिन "
+"बटन पर क्लिक किया था। इससे "
+"लॉगिन प्रक्रिया पारंपरिक "
+"WordPress तरीके से आगे बढ़ेगी। "
+"उदाहरण के लिए, डिफ़ॉल्ट wp-login.php "
+"पृष्ठ के माध्यम से लॉग इन "
+"करने वाले उपयोगकर्ता WordPress "
+"डैशबोर्ड पर पहुँचेंगे, और "
+"WooCommerce \"मेरा खाता\" पृष्ठ के "
+"माध्यम से लॉग इन करने वाले "
+"उपयोगकर्ता अपने खाता पृष्ठ "
+"पर पहुँचेंगे।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:468
+msgid "Redirect to the login screen when session is expired"
+msgstr ""
+"सत्र समाप्त होने पर लॉगिन "
+"स्क्रीन पर रीडायरेक्ट करें"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:469
+msgid ""
+"When enabled, this will automatically redirect the user back to the "
+"WordPress login page if their access token has expired."
+msgstr ""
+"सक्षम होने पर, यदि "
+"उपयोगकर्ता का एक्सेस टोकन "
+"समाप्त हो गया है, तो "
+"उपयोगकर्ता को स्वचालित रूप "
+"से WordPress लॉगिन पृष्ठ पर वापस "
+"रीडायरेक्ट कर दिया जाएगा।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:475
+msgid "Bypass local 2FA on SSO login"
+msgstr ""
+"SSO लॉगिन पर स्थानीय 2FA को "
+"बायपास करें"
+
+#. translators: %1$s and %2$s wrap a warning message in strong tags.
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:478
+#, php-format
+msgid ""
+"Skip the second-factor prompt from supported 2FA plugins when a user logs "
+"in via OpenID Connect. %1$sOnly enable this when multi-factor "
+"authentication is enforced at the identity provider.%2$s"
+msgstr ""
+"जब कोई उपयोगकर्ता OpenID Connect के "
+"माध्यम से लॉग इन करता है, तो "
+"समर्थित 2FA प्लगइन्स के दूसरे "
+"कारक संकेत को छोड़ें। %1$sइसे "
+"केवल तब सक्षम करें जब पहचान "
+"प्रदाता पर बहु-कारक "
+"प्रमाणीकरण लागू हो।%2$s"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:484
+msgid "None (do not bypass)"
+msgstr "कोई नहीं (बायपास न करें)"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:485
+msgid "Admin and Site Enhancements (ASE)"
+msgstr "Admin and Site Enhancements (ASE)"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:486
+msgid "WP 2FA - Two-factor authentication (Melapress)"
+msgstr "WP 2FA - Two-factor authentication (Melapress)"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:492
+msgid "Enable Logging"
+msgstr "लॉगिंग सक्षम करें"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:493
+msgid "Very simple log messages for debugging purposes."
+msgstr ""
+"डिबगिंग उद्देश्यों के लिए "
+"बहुत सरल लॉग संदेश।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:499
+msgid "Log Limit"
+msgstr "लॉग सीमा"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:500
+msgid ""
+"Number of items to keep in the log. These logs are stored as an option in "
+"the database, so space is limited."
+msgstr ""
+"लॉग में रखे जाने वाले आइटम की "
+"संख्या। ये लॉग डेटाबेस में "
+"एक विकल्प के रूप में "
+"संग्रहीत होते हैं, इसलिए "
+"स्थान सीमित है।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:593
+msgid "Choose Login Button Logo"
+msgstr "लॉगिन बटन लोगो चुनें"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:594
+msgid "Use this image"
+msgstr "इस छवि का उपयोग करें"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:620
+msgid "Notes"
+msgstr "नोट्स"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:623
+msgid "Redirect URI"
+msgstr "रीडायरेक्ट URI"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:627
+msgid "Login Button Shortcode"
+msgstr "लॉगिन बटन शॉर्टकोड"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:631
+msgid "Authentication URL Shortcode"
+msgstr "प्रमाणीकरण URL शॉर्टकोड"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:636
+msgid "Logs"
+msgstr "लॉग"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:645
+msgid "ICC.gg Sign-In for OpenID Connect - OpenID Connect SSO Plugin for WordPress"
+msgstr ""
+"ICC.gg Sign-In for OpenID Connect - WordPress के लिए OpenID "
+"Connect SSO प्लगइन"
+
+#. translators: %s: New version number.
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:663
+#, php-format
+msgid "Update available: v%s"
+msgstr "अपडेट उपलब्ध: v%s"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:721
+msgid "Choose Logo"
+msgstr "लोगो चुनें"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:724
+msgid "Remove Logo"
+msgstr "लोगो हटाएं"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:791
+msgid "Example"
+msgstr "उदाहरण"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:804
+msgid "Enter your OpenID Connect identity provider settings."
+msgstr ""
+"अपने OpenID Connect पहचान प्रदाता की "
+"सेटिंग्स दर्ज करें।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:813
+msgid "Modify the interaction between OpenID Connect and WordPress users."
+msgstr ""
+"OpenID Connect और WordPress उपयोगकर्ताओं के "
+"बीच इंटरैक्शन संशोधित करें।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:822
+msgid "Control the authorization mechanics of the site."
+msgstr ""
+"साइट के प्राधिकरण तंत्र को "
+"नियंत्रित करें।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:831
+msgid ""
+"Log information about login attempts through ICC.gg Sign-In for OpenID "
+"Connect."
+msgstr ""
+"ICC.gg Sign-In for OpenID Connect के माध्यम से "
+"लॉगिन प्रयासों की जानकारी "
+"लॉग करें।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:846
+msgid "Please enter a discovery URL."
+msgstr ""
+"कृपया एक डिस्कवरी URL दर्ज "
+"करें।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:855
+msgid "Invalid discovery URL format."
+msgstr "अमान्य डिस्कवरी URL प्रारूप।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:866
+msgid "Discovery URL must use HTTPS in production environments."
+msgstr ""
+"उत्पादन वातावरण में "
+"डिस्कवरी URL को HTTPS का उपयोग "
+"करना चाहिए।"
+
+#. translators: %s: error message
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:886
+#, php-format
+msgid "Failed to fetch discovery document: %s"
+msgstr ""
+"डिस्कवरी दस्तावेज़ प्राप्त "
+"करने में विफल: %s"
+
+#. translators: %d: HTTP status code
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:898
+#, php-format
+msgid "Discovery document request returned HTTP %d."
+msgstr ""
+"डिस्कवरी दस्तावेज़ अनुरोध "
+"ने HTTP %d लौटाया।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:911
+msgid "Discovery document is not valid JSON."
+msgstr ""
+"डिस्कवरी दस्तावेज़ मान्य JSON "
+"नहीं है।"
+
+#. translators: %s: comma-separated list of missing fields
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:930
+#, php-format
+msgid "Discovery document is missing required fields: %s"
+msgstr ""
+"डिस्कवरी दस्तावेज़ में "
+"आवश्यक फ़ील्ड अनुपस्थित "
+"हैं: %s"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:995
+msgid "Security check failed. Please try again."
+msgstr ""
+"सुरक्षा जांच विफल रही। "
+"कृपया पुनः प्रयास करें।"
+
+#. translators: 1: discovery document URL, 2: comma-separated list of populated settings fields.
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:1026
+#, php-format
+msgid "Configuration loaded from discovery URL: %1$s. Populated fields: %2$s"
+msgstr ""
+"डिस्कवरी URL से कॉन्फ़िगरेशन "
+"लोड किया गया: %1$s। भरे गए "
+"फ़ील्ड: %2$s"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:1041
+#, php-format
+msgid ""
+"Configuration loaded successfully! %d field was populated. Review the "
+"settings below and click \"Save Changes\" to apply."
+msgid_plural ""
+"Configuration loaded successfully! %d fields were populated. Review the "
+"settings below and click \"Save Changes\" to apply."
+msgstr[0] ""
+"कॉन्फ़िगरेशन सफलतापूर्वक "
+"लोड हुआ! %d फ़ील्ड भरा गया। "
+"नीचे दी गई सेटिंग्स की "
+"समीक्षा करें और लागू करने के "
+"लिए \"परिवर्तन सहेजें\" पर "
+"क्लिक करें।"
+msgstr[1] ""
+"कॉन्फ़िगरेशन सफलतापूर्वक "
+"लोड हुआ! %d फ़ील्ड भरे गए। नीचे "
+"दी गई सेटिंग्स की समीक्षा "
+"करें और लागू करने के लिए "
+"\"परिवर्तन सहेजें\" पर क्लिक "
+"करें।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:1067
+msgid "Quick Setup: Import from Discovery Document"
+msgstr ""
+"त्वरित सेटअप: डिस्कवरी "
+"दस्तावेज़ से आयात करें"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:1071
+msgid ""
+"Auto-populate endpoint settings from your identity provider's OpenID "
+"Connect discovery document. After loading, review the populated fields "
+"below and click \"Save Changes\" to apply."
+msgstr ""
+"अपने पहचान प्रदाता के OpenID Connect "
+"डिस्कवरी दस्तावेज़ से "
+"एंडपॉइंट सेटिंग्स स्वचालित "
+"रूप से भरें। लोड होने के बाद, "
+"नीचे भरे गए फ़ील्ड की "
+"समीक्षा करें और लागू करने के "
+"लिए \"परिवर्तन सहेजें\" पर "
+"क्लिक करें।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:1079
+msgid "Discovery URL"
+msgstr "डिस्कवरी URL"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:1091
+msgid "Enter your identity provider's OpenID Connect discovery endpoint URL."
+msgstr ""
+"अपने पहचान प्रदाता का OpenID Connect "
+"डिस्कवरी एंडपॉइंट URL दर्ज "
+"करें।"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:1093
+msgid "Examples:"
+msgstr "उदाहरण:"
+
+#: includes/icc-gg-sign-in-openid-connect-settings-page.php:1104
+msgid "Load Configuration"
+msgstr "कॉन्फ़िगरेशन लोड करें"

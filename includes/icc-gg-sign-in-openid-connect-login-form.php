@@ -288,6 +288,16 @@ class ICC_GG_Sign_In_OpenID_Connect_Login_Form {
 	 * @return void
 	 */
 	public function enqueue_login_scripts() {
+		if ( function_exists( 'icc_gg_sign_in_openid_connect_is_rtl_locale' ) && icc_gg_sign_in_openid_connect_is_rtl_locale() ) {
+			wp_enqueue_style(
+				'icc-gg-sign-in-openid-connect-login-rtl',
+				ICC_GG_SIGN_IN_OPENID_CONNECT_PLUGIN_DIR . 'css/styles-login-rtl.css',
+				array(),
+				ICC_GG_Sign_In_OpenID_Connect::VERSION,
+				'all'
+			);
+		}
+
 		if ( ! $this->should_remove_form ) {
 			return;
 		}

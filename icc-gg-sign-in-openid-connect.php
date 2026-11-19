@@ -25,6 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Author:            ivancarlosti
  * Author URI:        https://ivancarlos.com.br
  * Text Domain:       icc-gg-sign-in-openid-connect
+ * Domain Path:       /languages
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  */
@@ -145,6 +146,129 @@ if ( version_compare( PHP_VERSION, ICC_GG_SIGN_IN_OPENID_CONNECT_MIN_PHP, '<' ) 
  * it to build the native WordPress upgrade URL.
  */
 define( 'ICC_GG_SIGN_IN_OPENID_CONNECT_BASENAME', plugin_basename( __FILE__ ) );
+
+/**
+ * Plugin directory URL, with a trailing slash.
+ *
+ * Used to enqueue the bundled stylesheets, including the RTL overrides.
+ */
+define( 'ICC_GG_SIGN_IN_OPENID_CONNECT_PLUGIN_DIR', plugin_dir_url( __FILE__ ) );
+
+/**
+ * Loads the bundled translations.
+ *
+ * WordPress only auto-loads language packs installed under
+ * `wp-content/languages/plugins`. The plugin ships its own catalogs, so they
+ * must be loaded explicitly.
+ *
+ * @return void
+ */
+function icc_gg_sign_in_openid_connect_load_textdomain() {
+	load_plugin_textdomain(
+		'icc-gg-sign-in-openid-connect',
+		false,
+		dirname( ICC_GG_SIGN_IN_OPENID_CONNECT_BASENAME ) . '/languages'
+	);
+}
+add_action( 'plugins_loaded', 'icc_gg_sign_in_openid_connect_load_textdomain', 5 );
+
+/**
+ * Maps the locales supported by the bundled catalogs to WordPress locales.
+ *
+ * WordPress reports locales with underscores (`pt_BR`), while the documented
+ * codes use hyphens (`pt-BR`). Other English variants (`en_GB`, `en_CA`, `en`)
+ * fall back to the `en_US` catalog, and Arabic variants are mapped to `ar` so
+ * the RTL catalog is used for `ar_SA`, `ar_AE` and similar locales.
+ *
+ * @param string $locale Locale requested by WordPress.
+ * @param string $domain Text domain being loaded.
+ * @return string
+ */
+function icc_gg_sign_in_openid_connect_plugin_locale( $locale, $domain ) {
+	if ( 'icc-gg-sign-in-openid-connect' !== $domain ) {
+		return $locale;
+	}
+
+	$normalized = str_replace( '-', '_', (string) $locale );
+
+	$supported = array( 'en_US', 'pt_BR', 'es_MX', 'fr_FR', 'zh_CN', 'hi_IN' );
+
+	if ( in_array( $normalized, $supported, true ) ) {
+		return $normalized;
+	}
+
+	if ( preg_match( '/^en([_-]|$)/i', $normalized ) ) {
+		return 'en_US';
+	}
+
+	if ( preg_match( '/^ar([_-]|$)/i', $normalized ) ) {
+		return 'ar';
+	}
+
+	return $locale;
+}
+add_filter( 'plugin_locale', 'icc_gg_sign_in_openid_connect_plugin_locale', 10, 2 );
+
+/**
+ * Tells whether the current locale is written right-to-left.
+ *
+ * @return bool
+ */
+function icc_gg_sign_in_openid_connect_is_rtl_locale() {
+	$locale = function_exists( 'determine_locale' ) ? determine_locale() : get_locale();
+
+	return (bool) preg_match( '/^(ar|fa|he|ur|ckb|dv|ps|sd|ug|yi)([_-]|$)/i', (string) $locale );
+}
+
+/**
+ * Adds `dir="rtl"` when the active locale is right-to-left.
+ *
+ * WordPress core does this for locales it ships, but `ar_SA` and other Arabic
+ * variants may not be recognised. The filter is defensive: it never overrides
+ * a direction that core already set.
+ *
+ * @param string $output  Language attributes.
+ * @param string $doctype Document type.
+ * @return string
+ */
+function icc_gg_sign_in_openid_connect_language_attributes( $output, $doctype ) {
+	if ( icc_gg_sign_in_openid_connect_is_rtl_locale() && false === stripos( $output, 'dir=' ) ) {
+		$output .= ' dir="rtl"';
+	}
+
+	return $output;
+}
+add_filter( 'language_attributes', 'icc_gg_sign_in_openid_connect_language_attributes', 10, 2 );
+
+/**
+ * Adds the `rtl` body class in the admin for right-to-left locales.
+ *
+ * @param string $classes Space-separated list of body classes.
+ * @return string
+ */
+function icc_gg_sign_in_openid_connect_admin_body_class( $classes ) {
+	if ( icc_gg_sign_in_openid_connect_is_rtl_locale() && false === strpos( $classes, 'rtl' ) ) {
+		$classes .= ' rtl';
+	}
+
+	return $classes;
+}
+add_filter( 'admin_body_class', 'icc_gg_sign_in_openid_connect_admin_body_class' );
+
+/**
+ * Adds the `rtl` body class on the login screen for right-to-left locales.
+ *
+ * @param array<string> $classes List of login body classes.
+ * @return array<string>
+ */
+function icc_gg_sign_in_openid_connect_login_body_class( $classes ) {
+	if ( icc_gg_sign_in_openid_connect_is_rtl_locale() && ! in_array( 'rtl', $classes, true ) ) {
+		$classes[] = 'rtl';
+	}
+
+	return $classes;
+}
+add_filter( 'login_body_class', 'icc_gg_sign_in_openid_connect_login_body_class' );
 
 /**
  * ICC_GG_Sign_In_OpenID_Connect class.
